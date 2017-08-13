@@ -1,1 +1,1 @@
-"au BufRead,BufNewFile *.dpr setl ft=pascal
+au BufRead,BufNewFile *.dpr setl ft=pascal
