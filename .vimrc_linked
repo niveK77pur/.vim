@@ -71,7 +71,6 @@ set linebreak       "Line wrapping at a character
 set showcmd
 set wildmenu
 set listchars=eol:¶,tab:>-,space:∙,trail:˛,extends:>,precedes:§
-" the above line may or may not cause trouble
 " status line set up {{{
 " see :h stl
 set laststatus=2        " show statusline: always
@@ -83,7 +82,7 @@ set stl+=\ %Y           " FileType in the buffer
 set stl+=\ %03l/%L      " current line and total lines
 set stl+=,%02c          " column number
 set stl+=%V             " Virtual column number (not displayed if equal to %c)
-set stl+=\ %P           " Percentage through the file
+set stl+=\ %P
 " }}}
 "}}}
 
@@ -188,8 +187,8 @@ augroup compile_source
         au FileType pascal nnoremap <buffer> <LocalLeader>r :!fpc -ovimPasEXE % ; echo -e "\e[44m Running program ...\e(B\e[m"; ./vimPasEXE <CR>
         au FileType tex    nnoremap <buffer> <LocalLeader>r :!pdflatex %; evince %:s?\.tex?\.pdf? <CR>
         au FileType markdown nnoremap <buffer> <LocalLeader>r :!retext --preview %<CR>
-        "au FileType cpp    nnoremap <buffer> <LocalLeader>r :!g++ -o vim-a.out % ; draw_center_text.sh "Running program"; ./*.out<CR>
-        au FileType cpp    nnoremap <buffer> <LocalLeader>r :!g++ -o a.out % ; draw_center_text.sh "Running program"; ./*.out<CR>
+        au FileType cpp    nnoremap <buffer> <LocalLeader>r :!g++ -o vim-a.out % ; draw_center_text.sh "Running program"; ./*.out<CR>
+        "au FileType cpp    nnoremap <buffer> <LocalLeader>r :!g++ -o a.out % ; draw_center_text.sh "Running program"; ./*.out<CR>
         au FileType sh     nnoremap <buffer> <LocalLeader>r :!./%<CR>
 augroup END
 "}}}
@@ -200,14 +199,15 @@ augroup clean_compiled_source
         au BufEnter *.pas let pas_opened = 1
         
         au VimLeave * call CleanCompiledSource()
-        " This doesn't work correctly. If you uncomment the autocommand for cpp a few lines above and comment the line after that, then
-        " this autocommand will come into play. See README for more information.
+        "au VimLeave * if exists("pas_opened") | !rm vimPasEXE | endif
+        "au VimLeave * if exists("cpp_opened") | !rm vim-a.out | endif
 augroup END
 
 function! CleanCompiledSource() 
-        if exists("pas_opened") !=# 0
+        if exists("pas_opened") == 0
                 !rm vimPasEXE
-        else if exists("cpp_opened") !=# 0
+        endif
+        if exists("cpp_opened") == 0
                 !rm vim-a.out
         endif
 endfunction
