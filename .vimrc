@@ -14,12 +14,13 @@ set nocompatible        " be iMproved, required
 filetype off            " required
 set runtimepath+=$HOME/.vim/bundle/Vundle.vim
 call vundle#begin()
-  " let Vundle manage Vundle
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'junegunn/goyo.vim'
+        " let Vundle manage Vundle
+        Plugin 'VundleVim/Vundle.vim'
+        Plugin 'scrooloose/nerdtree'
+        Plugin 'jiangmiao/auto-pairs'
+        Plugin 'vim-syntastic/syntastic'
+        Plugin 'junegunn/goyo.vim'
+        Plugin 'tpope/vim-surround'
 call vundle#end()
 " }}}
 
@@ -70,7 +71,11 @@ set relativenumber  "Relative numbering
 set linebreak       "Line wrapping at a character
 set showcmd
 set wildmenu
-set listchars=eol:¶,tab:>-,space:∙,trail:˛,extends:>,precedes:§
+try
+        set listchars=eol:¶,tab:>-,space:∙,trail:˛,extends:>,precedes:§
+catch /^Vim\%((\a\+)\)\=:E474/
+endtry
+ 
 " status line set up {{{
 " see :h stl
 set laststatus=2        " show statusline: always
@@ -107,8 +112,8 @@ setlocal cm=blowfish2  "encryption method unknown to gvim portable (for now)
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " use <option>! to toggle (if boolean)
 " Mappings {{{
-let mapleader='ö'       "mapleader for <Leader>
-let maplocalleader='ü'
+let mapleader='é'       "mapleader for <Leader>
+let maplocalleader='è'
 
 "Toggle NERDTree {{{
 nnoremap <leader>nn :NERDTreeToggle <CR>
@@ -120,6 +125,7 @@ nnoremap <leader>nb :NERDTreeFocus <CR> :BookmarkToRoot
 nnoremap <leader>ve :vsplit $MYVIMRC<CR>
 "vimrc: source (immediately take effect of changes)
 nnoremap <leader>vs :w<CR>:source $MYVIMRC<CR>
+nnoremap <Leader>vm :source $MYVIMRC<CR>
 "}}}
 
 "Toggle highlighting stuff"{{{
@@ -148,6 +154,12 @@ inoremap jk <Left><esc>
 " see tabs, spaces and what have you
 nnoremap <Leader>l :set list! list? <CR>
 inoremap <Leader>l <ESC>:set list! list? <CR>a
+
+" save and reload files
+inoremap <Leader>s <c-o>:w<CR>
+nnoremap <Leader>s :w<CR>
+inoremap <Leader>e <c-o>:e<CR>
+nnoremap <Leader>e :e<CR>
 
 noremap <F6> :echo "\\°O°/" <CR>
 
