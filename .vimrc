@@ -247,7 +247,8 @@ augroup END
 augroup script_templates
         "insert templete on :new *.filetype
         autocmd!
-        au BufNewFile *.pas 0r $HOME/Desktop/Info/skeleton.pas
+        au BufNewFile *.pas 0r $HOME/.vim/skeletons/Pascal/
+        au BufNewFile *.py  0r $HOME/.vim/skeletons/Python/
 augroup END
 "}}}
 
@@ -259,7 +260,7 @@ augroup END
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 " Find the book at http://learnvimscriptthehardway.stevelosh.com/
 " This section is meant to do the exercices in the book
-source $HOME/.vim/Vimscript_Exercises/List_of_exercises.vim
+"source $HOME/.vim/Vimscript_Exercises/List_of_exercises.vim
 " open 'Ex_list.vim' where the exercises are sourced
-nnoremap <Leader>e :vsplit $HOME/.vim/Vimscript_Exercises/List_of_exercises.vim <CR>
-nnoremap <Leader>m :w <CR> :source % <CR>
+"nnoremap <Leader>e :vsplit $HOME/.vim/Vimscript_Exercises/List_of_exercises.vim <CR>
+"nnoremap <Leader>m :w <CR> :source % <CR>

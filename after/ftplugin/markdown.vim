@@ -1,4 +1,5 @@
 setl tabstop=2
+setl textwidth=80
 
 " bold text
 nnoremap <LocalLeader>b bi__<ESC>ea__<ESC>
@@ -17,7 +18,7 @@ onoremap ah :<c-u>execute "normal! ?.*==\\+$\r:nohlsearch\rg_vk0"<CR>
 onoremap iH :<c-u>execute "normal! ?.*--\\+$\r:nohlsearch\rkvg_"<CR>
 onoremap aH :<c-u>execute "normal! ?.*--\\+$\r:nohlsearch\rkv2g_"<CR>
 
-" Change behaviour of ENTER in insert mode when listing stuff
+" Change behaviour of <ENTER> in insert mode when listing stuff
 "function! MD_listing_enter()
 "    <ESC>^yl
 "    for i in [-,+,*]

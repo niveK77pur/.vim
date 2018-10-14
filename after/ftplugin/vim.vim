@@ -1,27 +1,30 @@
-" escape caracters
-iabb <e   <ESC>
-iabb <b   <buffer>
-iabb <l   <Leader>
-iabb ll   <LocalLeader>
-iabb cr   <CR>
-iabb bs   <BS>
-iabb tab  <Tab>
+". escape caracters
+iabb <buffer> <e   <ESC>
+iabb <buffer> <b   <buffer>
+iabb <buffer> <l   <Leader>
+iabb <buffer> ll   <LocalLeader>
+iabb <buffer> cr   <CR>
+iabb <buffer> bs   <BS>
+iabb <buffer> tab  <Tab>
 
 " motion
-iabb left  <Left>
-iabb right <Right>
-iabb up    <Up>
-iabb down  <Down>
+iabb <buffer> left  <Left>
+iabb <buffer> right <Right>
+iabb <buffer> up    <Up>
+iabb <buffer> down  <Down>
 
 " autocommad-events 
-iabb FT   FileType
-iabb BNF  BufNewFile
-iabb BR   BufRead
+iabb <buffer> FT   FileType
+iabb <buffer> BNF  BufNewFile
+iabb <buffer> BR   BufRead
 
 " mapping
-iabb inap inoremap
-iabb nnap nnoremap
-iabb onap onoremap
+iabb <buffer> inap inoremap
+iabb <buffer> nnap nnoremap
+iabb <buffer> onap onoremap
 
 " open and closing arguments
-iabb augr augroup<CR>augroup END<Up>
+iabb <buffer> augr augroup<CR>augroup END<Up>
+
+" insert jump mark
+inoremap <buffer> <LocalLeader>jj [>VIM<]
