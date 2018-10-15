@@ -236,6 +236,7 @@ augroup ft_commenting
         au FileType vim    nnoremap <buffer> <LocalLeader>c I"<ESC>
         au FileType tex    nnoremap <buffer> <LocalLeader>c I%<ESC>
         au FileType cpp    nnoremap <buffer> <LocalLeader>c I//<ESC>
+        au FileType ruby   nnoremap <buffer> <LocalLeader>c I#<ESC> 
 augroup END
 "}}}
 
@@ -259,8 +260,9 @@ augroup END
 augroup script_templates
         "insert templete on :new *.filetype
         autocmd!
-        au BufNewFile *.pas 0r $HOME/.vim/skeletons/Pascal/
-        au BufNewFile *.py  0r $HOME/.vim/skeletons/Python/
+        au BufNewFile *.pas 0r $HOME/.vim/skeletons/Pascal/template_consoleApp.pas
+        au BufNewFile *.py  0r $HOME/.vim/skeletons/Python/HashBang.py
+        au BufNewFile *.sh  0r $HOME/.vim/skeletons/Bash/HashBang.sh
 augroup END
 "}}}
 
