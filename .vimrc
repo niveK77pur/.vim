@@ -36,6 +36,10 @@ call vundle#end()
 "~~~~~~~~~~~~~~~~
 "     Files      {{{
 "~~~~~~~~~~~~~~~~
+"add lilypond filetype plugin
+filetype off
+set runtimepath+=/usr/local/share/lilypond/current/vim/
+
 syntax on
 filetype plugin indent on
 set autowrite
