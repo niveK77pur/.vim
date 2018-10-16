@@ -22,12 +22,12 @@ inoremap <LocalLeader>ou <ESC>yiwi<<ESC>ea <C-O>p'>
 inoremap <LocalLeader>od <ESC>yiwi<<ESC>ea <C-O>p,>
 
 "polyphony templates
-nnoremap <LocalLeader>p\ :.r! sed -n '12p'     ~/.vim/templates/lilypond.ly <CR>
-inoremap <LocalLeader>p\ <ESC>:.r! sed -n '12p'     ~/.vim/templates/lilypond.ly <CR>
-nnoremap <LocalLeader>p/ :.r! sed -n '13,17p'  ~/.vim/templates/lilypond.ly <CR> 5kdd
-inoremap <LocalLeader>p/ <ESC>:.r! sed -n '13,17p'  ~/.vim/templates/lilypond.ly <CR> 5kdd
-nnoremap <LocalLeader>pt :.r! sed -n '3,9p'    ~/.vim/templates/lilypond.ly <CR> 7kdd
-inoremap <LocalLeader>pt <ESC>:.r! sed -n '3,9p'    ~/.vim/templates/lilypond.ly <CR> 7kdd
+nnoremap <LocalLeader>p\ :.r! sed -n '12p'          ~/.vim/skeletons/Lilypond/lilypond.ly <CR>
+inoremap <LocalLeader>p\ <ESC>:.r! sed -n '12p'     ~/.vim/skeletons/Lilypond/lilypond.ly <CR>
+nnoremap <LocalLeader>p/ :.r! sed -n '13,17p'       ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 5kdd
+inoremap <LocalLeader>p/ <ESC>:.r! sed -n '13,17p'  ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 5kdd
+nnoremap <LocalLeader>pt :.r! sed -n '3,9p'         ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 7kdd
+inoremap <LocalLeader>pt <ESC>:.r! sed -n '3,9p'    ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 7kdd
 
 "make octave
 nnoremap <LocalLeader>mo :s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1'>#g<CR>

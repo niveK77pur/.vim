@@ -38,7 +38,7 @@ call vundle#end()
 "~~~~~~~~~~~~~~~~
 "add lilypond filetype plugin
 filetype off
-set runtimepath+=/usr/local/share/lilypond/current/vim/
+set runtimepath+=/usr/share/lilypond/2.18.2/vim/
 
 syntax on
 filetype plugin indent on
@@ -164,6 +164,10 @@ inoremap <Leader>s <c-o>:w<CR>
 nnoremap <Leader>s :w<CR>
 inoremap <Leader>e <c-o>:e<CR>
 nnoremap <Leader>e :e<CR>
+ 
+" jump to next [>VIM<] tag
+inoremap <Leader><space> <ESC>/\[>VIM<\]<CR>v//e<CR>s
+nnoremap <Leader><space> /\[>VIM<\]<CR>v//e<CR>s
 
 noremap <F6> :echo "\\°O°/" <CR>
 
