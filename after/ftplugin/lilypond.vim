@@ -35,6 +35,12 @@ vnoremap <LocalLeader>mo v`>a<CR><ESC>`<i<CR><ESC>:s#\s\([abcdefg]\%([ie]\?s\?\)
 nnoremap <LocalLeader>mO :s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1,>#g<CR>
 vnoremap <LocalLeader>mO v`>a<CR><ESC>`<i<CR><ESC>:s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1,>#g<CR><UP>JJ
 
+"remove next/previous pitch ' or ,
+nnoremap <LocalLeader>rp /[',]<CR>x
+inoremap <LocalLeader>rp <ESC>/[',]<CR>x
+nnoremap <LocalLeader>rP ?[',]<CR>x
+inoremap <LocalLeader>rP <ESC>?[',]<CR>x
+
 "toggle articulations
 function! HideArticulations()
         %s#\\\([<>!]\|m\?[pf]\|sfz\?\)#%{\\\1%}#g

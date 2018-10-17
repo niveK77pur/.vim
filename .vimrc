@@ -164,6 +164,9 @@ inoremap <Leader>s <c-o>:w<CR>
 nnoremap <Leader>s :w<CR>
 inoremap <Leader>e <c-o>:e<CR>
 nnoremap <Leader>e :e<CR>
+" source vim files
+inoremap <Leader>S <ESC>:source %<CR>
+nnoremap <Leader>S :source %<CR>
  
 " jump to next [>VIM<] tag
 inoremap <Leader><space> <ESC>/\[>VIM<\]<CR>v//e<CR>s
