@@ -160,13 +160,13 @@ nnoremap <Leader>l :set list! list? <CR>
 inoremap <Leader>l <ESC>:set list! list? <CR>a
 
 " save and reload files
-inoremap <Leader>s <c-o>:w<CR>
-nnoremap <Leader>s :w<CR>
+inoremap <Leader>s <c-o>:wa<CR>
+nnoremap <Leader>s :wa<CR>
 inoremap <Leader>e <c-o>:e<CR>
 nnoremap <Leader>e :e<CR>
 " source vim files
-inoremap <Leader>S <ESC>:source %<CR>
-nnoremap <Leader>S :source %<CR>
+inoremap <Leader>S <ESC>:wa<CR>:source %<CR>
+nnoremap <Leader>S :wa<CR>:source %<CR>
  
 " jump to next [>VIM<] tag
 inoremap <Leader><space> <ESC>/\[>VIM<\]<CR>v//e<CR>s
@@ -241,13 +241,10 @@ endfunction
 " filetype commenting {{{
 augroup ft_commenting
         au!
-        au FileType python nnoremap <buffer> <LocalLeader>c I#<ESC> 
-        au FileType bash   nnoremap <buffer> <LocalLeader>c I#<ESC> 
-        au FileType pascal nnoremap <buffer> <LocalLeader>c I//<ESC> 
-        au FileType vim    nnoremap <buffer> <LocalLeader>c I"<ESC>
-        au FileType tex    nnoremap <buffer> <LocalLeader>c I%<ESC>
-        au FileType cpp    nnoremap <buffer> <LocalLeader>c I//<ESC>
-        au FileType ruby   nnoremap <buffer> <LocalLeader>c I#<ESC> 
+        au FileType python,bash,ruby  nnoremap <buffer> <LocalLeader>c I#<ESC> 
+        au FileType pascal,cpp        nnoremap <buffer> <LocalLeader>c I//<ESC> 
+        au FileType vim               nnoremap <buffer> <LocalLeader>c I"<ESC>
+        au FileType tex,lilypond      nnoremap <buffer> <LocalLeader>c I%<ESC>
 augroup END
 "}}}
 

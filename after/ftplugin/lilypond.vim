@@ -1,10 +1,12 @@
-set norelativenumber
-set number
-set nowrap
-set scrollbind
+setlocal norelativenumber
+setlocal number
+setlocal nowrap
+setlocal scrollbind
 
 iabbrev fe \fermata
 iabbrev ar \arpeggio
+iabbrev pa \parenthesize
+iabbrev ot \ottava
 
 function! MakeOctave(pitch)
         execute ":s#\([abcdefg]\%([ie]\?s\?\)\)#<\1 \1" . a:pitch . ">#g<CR>"
@@ -16,6 +18,11 @@ endfunction
 
 "no wrap
 nnoremap <LocalLeader><F5> :set wrap!<CR>
+"toggle scrollbind
+nnoremap <LocalLeader>sb :set scrollbind!<CR>
+
+"reload file (withouth messing up scrollbind)
+nnoremap <LocalLeader>e :setl noscrollbind<CR>:e<CR>:setl scrollbind<CR>
 
 "insert octave up/down
 inoremap <LocalLeader>ou <ESC>yiwi<<ESC>ea <C-O>p'>
