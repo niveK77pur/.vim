@@ -5,6 +5,6 @@ iabb <buffer> none  None
 iabb <buffer> true  True
 iabb <buffer> false False
 
-inoremap <LocalLeader>s self.
-inoremap <LocalLeader>=S <ESC>:s#\(\w\+\)#self.\1 = \1#<CR>
+inoremap <buffer> <LocalLeader>s self.
+inoremap <buffer> <LocalLeader>=S <ESC>:s#\(\w\+\)#self.\1 = \1#<CR>
 

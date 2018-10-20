@@ -3,10 +3,10 @@ setlocal number
 setlocal nowrap
 setlocal scrollbind
 
-iabbrev fe \fermata
-iabbrev ar \arpeggio
-iabbrev pa \parenthesize
-iabbrev ot \ottava
+iabbrev <buffer> fe \fermata
+iabbrev <buffer> ar \arpeggio
+iabbrev <buffer> pa \parenthesize
+iabbrev <buffer> ot \ottava
 
 function! MakeOctave(pitch)
         execute ":s#\([abcdefg]\%([ie]\?s\?\)\)#<\1 \1" . a:pitch . ">#g<CR>"
@@ -17,36 +17,36 @@ function! OctaveUp()
 endfunction
 
 "no wrap
-nnoremap <LocalLeader><F5> :set wrap!<CR>
+nnoremap <buffer> <LocalLeader><F5> :set wrap!<CR>
 "toggle scrollbind
-nnoremap <LocalLeader>sb :set scrollbind!<CR>
+nnoremap <buffer> <LocalLeader>sb :set scrollbind!<CR>
 
 "reload file (withouth messing up scrollbind)
-nnoremap <LocalLeader>e :setl noscrollbind<CR>:e<CR>:setl scrollbind<CR>
+nnoremap <buffer> <LocalLeader>e :setl noscrollbind<CR>:e<CR>:setl scrollbind<CR>
 
 "insert octave up/down
-inoremap <LocalLeader>ou <ESC>yiwi<<ESC>ea <C-O>p'>
-inoremap <LocalLeader>od <ESC>yiwi<<ESC>ea <C-O>p,>
+inoremap <buffer> <LocalLeader>ou <ESC>yiwi<<ESC>ea <C-O>p'>
+inoremap <buffer> <LocalLeader>od <ESC>yiwi<<ESC>ea <C-O>p,>
 
 "polyphony templates
-nnoremap <LocalLeader>p\ :.r! sed -n '12p'          ~/.vim/skeletons/Lilypond/lilypond.ly <CR>
-inoremap <LocalLeader>p\ <ESC>:.r! sed -n '12p'     ~/.vim/skeletons/Lilypond/lilypond.ly <CR>
-nnoremap <LocalLeader>p/ :.r! sed -n '13,17p'       ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 5kdd
-inoremap <LocalLeader>p/ <ESC>:.r! sed -n '13,17p'  ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 5kdd
-nnoremap <LocalLeader>pt :.r! sed -n '3,9p'         ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 7kdd
-inoremap <LocalLeader>pt <ESC>:.r! sed -n '3,9p'    ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 7kdd
+nnoremap <buffer> <LocalLeader>p\ :.r! sed -n '12p'          ~/.vim/skeletons/Lilypond/lilypond.ly <CR>
+inoremap <buffer> <LocalLeader>p\ <ESC>:.r! sed -n '12p'     ~/.vim/skeletons/Lilypond/lilypond.ly <CR>
+nnoremap <buffer> <LocalLeader>p/ :.r! sed -n '13,17p'       ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 5kdd
+inoremap <buffer> <LocalLeader>p/ <ESC>:.r! sed -n '13,17p'  ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 5kdd
+nnoremap <buffer> <LocalLeader>pt :.r! sed -n '3,9p'         ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 7kdd
+inoremap <buffer> <LocalLeader>pt <ESC>:.r! sed -n '3,9p'    ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 7kdd
 
 "make octave
-nnoremap <LocalLeader>mo :s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1'>#g<CR>
-vnoremap <LocalLeader>mo v`>a<CR><ESC>`<i<CR><ESC>:s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1'>#g<CR><UP>JJ
-nnoremap <LocalLeader>mO :s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1,>#g<CR>
-vnoremap <LocalLeader>mO v`>a<CR><ESC>`<i<CR><ESC>:s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1,>#g<CR><UP>JJ
+nnoremap <buffer> <LocalLeader>mo :s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1'>#g<CR>
+vnoremap <buffer> <LocalLeader>mo v`>a<CR><ESC>`<i<CR><ESC>:s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1'>#g<CR><UP>JJ
+nnoremap <buffer> <LocalLeader>mO :s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1,>#g<CR>
+vnoremap <buffer> <LocalLeader>mO v`>a<CR><ESC>`<i<CR><ESC>:s#\s\([abcdefg]\%([ie]\?s\?\)\)\([',]*\)# <\1\2 \1,>#g<CR><UP>JJ
 
 "remove next/previous pitch ' or ,
-nnoremap <LocalLeader>rp /[',]<CR>x
-inoremap <LocalLeader>rp <ESC>/[',]<CR>x
-nnoremap <LocalLeader>rP ?[',]<CR>x
-inoremap <LocalLeader>rP <ESC>?[',]<CR>x
+nnoremap <buffer> <LocalLeader>rp /[',]<CR>x
+inoremap <buffer> <LocalLeader>rp <ESC>/[',]<CR>x
+nnoremap <buffer> <LocalLeader>rP ?[',]<CR>x
+inoremap <buffer> <LocalLeader>rP <ESC>?[',]<CR>x
 
 "toggle articulations
 function! HideArticulations()
