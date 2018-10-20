@@ -271,6 +271,7 @@ augroup script_templates
         au BufNewFile *.pas 0r $HOME/.vim/skeletons/Pascal/template_consoleApp.pas
         au BufNewFile *.py  0r $HOME/.vim/skeletons/Python/HashBang.py
         au BufNewFile *.sh  0r $HOME/.vim/skeletons/Bash/HashBang.sh
+        au BufNewFile *.yml 0r $HOME/.vim/skeletons/Yaml/new.yml
 augroup END
 "}}}
 
