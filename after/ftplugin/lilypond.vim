@@ -7,6 +7,7 @@ iabbrev <buffer> fe \fermata
 iabbrev <buffer> ar \arpeggio
 iabbrev <buffer> pa \parenthesize
 iabbrev <buffer> ot \ottava
+iabbrev <buffer> ss s1 \|
 
 function! MakeOctave(pitch)
         execute ":s#\([abcdefg]\%([ie]\?s\?\)\)#<\1 \1" . a:pitch . ">#g<CR>"

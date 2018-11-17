@@ -1,4 +1,1 @@
-set noexpandtab
-
-iabbrev ... \ldots\ 
-
+plaintex.vim

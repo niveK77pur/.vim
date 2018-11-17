@@ -21,6 +21,7 @@ call vundle#begin()
         Plugin 'vim-syntastic/syntastic'
         Plugin 'junegunn/goyo.vim'
         Plugin 'tpope/vim-surround'
+        Plugin 'suan/vim-instant-markdown'
 call vundle#end()
 " }}}
 
@@ -43,6 +44,12 @@ set runtimepath+=/usr/share/lilypond/2.18.2/vim/
 syntax on
 filetype plugin indent on
 set autowrite
+"}}}
+"
+"~~~~~~~~~~~~~~~~~~~~~~
+"     Spell check      {{{
+"~~~~~~~~~~~~~~~~~~~~~~
+set spellfile+=~/.vim/spell/en.uft-8.add
 "}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -172,6 +179,9 @@ nnoremap <Leader>S :wa<CR>:source %<CR>
 inoremap <Leader><space> <ESC>/\[>VIM<\]<CR>v//e<CR>s
 nnoremap <Leader><space> /\[>VIM<\]<CR>v//e<CR>s
 
+" insert a [>VIM<] to jump to
+inoremap <Leader>j [>VIM<]
+
 noremap <F6> :echo "\\°O°/" <CR>
 
 "}}}
@@ -241,10 +251,10 @@ endfunction
 " filetype commenting {{{
 augroup ft_commenting
         au!
-        au FileType python,bash,ruby  nnoremap <buffer> <LocalLeader>c I#<ESC> 
-        au FileType pascal,cpp        nnoremap <buffer> <LocalLeader>c I//<ESC> 
-        au FileType vim               nnoremap <buffer> <LocalLeader>c I"<ESC>
-        au FileType tex,lilypond      nnoremap <buffer> <LocalLeader>c I%<ESC>
+        au FileType python,bash,ruby,yaml  nnoremap <buffer> <LocalLeader>c I#<ESC> 
+        au FileType pascal,cpp             nnoremap <buffer> <LocalLeader>c I//<ESC> 
+        au FileType vim                    nnoremap <buffer> <LocalLeader>c I"<ESC>
+        au FileType tex,lilypond           nnoremap <buffer> <LocalLeader>c I%<ESC>
 augroup END
 "}}}
 
