@@ -21,7 +21,8 @@ call vundle#begin()
         Plugin 'vim-syntastic/syntastic'
         Plugin 'junegunn/goyo.vim'
         Plugin 'tpope/vim-surround'
-        Plugin 'suan/vim-instant-markdown'
+        "Plugin 'suan/vim-instant-markdown'
+        Plugin 'thinca/vim-localrc'
 call vundle#end()
 " }}}
 
@@ -136,7 +137,7 @@ nnoremap <leader>nb :NERDTreeFocus <CR> :BookmarkToRoot
 nnoremap <leader>ve :vsplit $MYVIMRC<CR>
 "vimrc: source (immediately take effect of changes)
 nnoremap <leader>vs :w<CR>:source $MYVIMRC<CR>
-nnoremap <Leader>vm :source $MYVIMRC<CR>
+"nnoremap <Leader>vm :source $MYVIMRC<CR>
 "}}}
 
 "Toggle highlighting stuff"{{{
