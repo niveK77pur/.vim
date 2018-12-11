@@ -10,6 +10,10 @@ vnoremap <buffer> <LocalLeader>b v`<i__<ESC>`>ea__<ESC>
 nnoremap <buffer> <LocalLeader>i bi_<ESC>ea_<ESC>
 vnoremap <buffer> <LocalLeader>i v`<i_<ESC>`>ea_<ESC>
 
+" highlight double spaces at the end of a line
+" (this creates a new line in the rendered version)
+nnoremap <buffer> <LocalLeader>n /<space><space>$<CR>
+
 
 " Change Title (underlined)
 "onoremap: operator pending, see :help map-modes

@@ -192,6 +192,7 @@ noremap <F6> :echo "\\°O°/" <CR>
 "~~~~~~~~~~~~~~~~~~~~~~~~
 " Command-line mode
 cabbrev Wq wq
+cabbrev WQ wq
 cabbrev W w
 cabbrev Q q
 " Insert mode
@@ -255,7 +256,7 @@ augroup ft_commenting
         au FileType python,bash,ruby,yaml  nnoremap <buffer> <LocalLeader>c I#<ESC> 
         au FileType pascal,cpp             nnoremap <buffer> <LocalLeader>c I//<ESC> 
         au FileType vim                    nnoremap <buffer> <LocalLeader>c I"<ESC>
-        au FileType tex,lilypond           nnoremap <buffer> <LocalLeader>c I%<ESC>
+        au FileType tex,plaintex,lilypond  nnoremap <buffer> <LocalLeader>c I%<ESC>
 augroup END
 "}}}
 
@@ -285,6 +286,9 @@ augroup script_templates
         au BufNewFile *.yml 0r $HOME/.vim/skeletons/Yaml/new.yml
 augroup END
 "}}}
+
+" use TEX instead of PLAINTEX by default (:h ft-tex-plugin)
+let g:tex_flavor = "latex"
 
 " }}}
 
