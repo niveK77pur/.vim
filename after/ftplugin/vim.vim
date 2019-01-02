@@ -28,3 +28,9 @@ iabb <buffer> augr augroup<CR>augroup END<Up>
 
 " insert jump mark
 inoremap <buffer> <LocalLeader>jj [>VIM<]
+
+" make a fold out of block in .vim files
+nnoremap <LocalLeader>f {jA {{{<ESC>}O"}}}<ESC>zc
+
+" make a command buffer local by putting <buffer>
+nnoremap <LocalLeader>b ^ea <buffer> <ESC>

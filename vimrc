@@ -183,6 +183,9 @@ nnoremap <Leader><space> /\[>VIM<\]<CR>v//e<CR>s
 " insert a [>VIM<] to jump to
 inoremap <Leader>j [>VIM<]
 
+" toggle Syntastic 
+nnoremap <F4> :SyntasticToggleMode<CR>
+
 noremap <F6> :echo "\\°O°/" <CR>
 
 "}}}
@@ -276,6 +279,17 @@ augroup print_me
 augroup END
 " }}}
 
+" Create a new lilypond project {{{
+function! NewLilypond()
+        let lv = system("lilypond --version | head -n 1 | awk '{ print $3 }'")
+        silent !cp $HOME/.vim/skeletons/Lilypond/newfile/* .
+        for f in systemlist("ls $HOME/.vim/skeletons/Lilypond/newfile/")
+                execute 'silent !sed "1s/\(.\+\s\).*/\1\"hello\"/"' f '>' f
+        endfor
+        unlet lv
+endfunction
+" }}}
+
 " templates "{{{
 augroup script_templates
         "insert templete on :new *.filetype
@@ -284,6 +298,7 @@ augroup script_templates
         au BufNewFile *.py  0r $HOME/.vim/skeletons/Python/HashBang.py
         au BufNewFile *.sh  0r $HOME/.vim/skeletons/Bash/HashBang.sh
         au BufNewFile *.yml 0r $HOME/.vim/skeletons/Yaml/new.yml
+        "au BufNewFile *.ly  call NewLilypond()
 augroup END
 "}}}
 
