@@ -23,6 +23,7 @@ call vundle#begin()
         Plugin 'tpope/vim-surround'
         "Plugin 'suan/vim-instant-markdown'
         Plugin 'thinca/vim-localrc'
+        Plugin 'terryma/vim-multiple-cursors'
 call vundle#end()
 " }}}
 
@@ -236,7 +237,7 @@ augroup clean_compiled_source
         au BufEnter *.cpp let cpp_opened = 1
         au BufEnter *.pas let pas_opened = 1
         
-        au VimLeave * call CleanCompiledSource()
+        "au VimLeave * call CleanCompiledSource()
         "au VimLeave * if exists("pas_opened") | !rm vimPasEXE | endif
         "au VimLeave * if exists("cpp_opened") | !rm vim-a.out | endif
 augroup END

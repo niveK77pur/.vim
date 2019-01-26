@@ -16,3 +16,9 @@ global = {
 % Use this to merge heads
 % \mergeDifferentlyHeadedOn
 % \mergeDifferentlyDottedOn
+%
+% Feathered beams for in-/decreasing tempo
+% \override Beam.grow-direction = #LEFT or #RIGHT or #'()
+% \featherDurations #(ly:make-moment f/l) { music expr }
+% NOTE: f/l represents the ratio between the durations of the
+%       first and last notes in the group

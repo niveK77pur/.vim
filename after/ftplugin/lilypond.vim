@@ -7,7 +7,51 @@ iabbrev <buffer> fe \fermata
 iabbrev <buffer> ar \arpeggio
 iabbrev <buffer> pa \parenthesize
 iabbrev <buffer> ot \ottava
+iabbrev <buffer> re \relative
+
 iabbrev <buffer> ss s1 \|
+iabbrev <buffer> ,, ~
+
+iabbrev chl \change Staff = "left"
+iabbrev chr \change Staff = "right"
+
+iabbrev featherl <c-r>=Feather('l')<CR><c-o>?+<CR><DEL>
+iabbrev featherr <c-r>=Feather('r')<CR><c-o>?+<CR><DEL>
+iabbrev feather0 \override Beam.grow-direction = #'()
+
+iabbrev ct \clef "treble"
+iabbrev cb \clef "bass"
+
+" function for inserting feathered notes {{{
+function! Feather(side)
+        if a:side == 'l'
+            let dir="LEFT"
+        elseif a:side == 'r'
+            let dir="RIGHT"
+        endif
+        let beam ="\\override Beam.grow-direction = #" . dir
+        let dur  ="\\featherDurations #(ly:make-moment+)"
+        " The + a place holder \ottava be replaced with the duration ratio
+        return " " . beam . ' ' . dur . "\r\t{ [>VIM<] } "
+endfunction
+"}}}
+
+" miscellaneous {{{
+"no wrap
+nnoremap <buffer> <LocalLeader><F5> :set wrap!<CR>
+"toggle scrollbind
+nnoremap <buffer> <LocalLeader>bt :set scrollbind!<CR>
+"reset scroll binding
+nnoremap <buffer> <LocalLeader>br :windo setl noscrollbind<CR>:windo normal gg<CR>:windo setl scrollbind<CR>
+"use a <C-V><SPACE> instead. Prevents extra space when creating slurs
+inoremap <buffer> <LocalLeader><SPACE> <c-v><space>
+"}}}
+
+" abbreviations for inserting polyphonies {{{
+iabbrev p\  <ESC>:.r! sed -n '12p'     ~/.vim/skeletons/Lilypond/lilypond.ly <CR>
+iabbrev p\\ <ESC>:.r! sed -n '13,17p'  ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 5kdd
+iabbrev pt  <ESC>:.r! sed -n '3,9p'    ~/.vim/skeletons/Lilypond/lilypond.ly <CR> 7kdd
+"}}}
 
 " make octaves {{{
 function! MakeOctave(pitch)
@@ -18,21 +62,10 @@ function! OctaveUp()
 endfunction
 "}}}
 
-"no wrap
-nnoremap <buffer> <LocalLeader><F5> :set wrap!<CR>
-"toggle scrollbind
-nnoremap <buffer> <LocalLeader>bt :set scrollbind!<CR>
-
-"reset scroll binding
-nnoremap <buffer> <LocalLeader>br :windo setl noscrollbind<CR>:windo normal gg<CR>:windo setl scrollbind<CR>
-
 "put a | at the end of a line {{{
 inoremap <buffer> <LocalLeader>b <c-o>A \|<ESC>
-nnoremap <buffer> <LocalLeader>b A \|<ESC>
+nnoremap <buffer> <LocalLeader>bb A \|<ESC>
 "}}}
-
-"use a <C-V><SPACE> instead. Prevents extra space when creating slurs
-inoremap <buffer> <LocalLeader><SPACE> <c-v><space>
 
 "insert octave up/down {{{
 inoremap <buffer> <LocalLeader>ou <ESC>yiwi<<ESC>ea <C-O>p'>
