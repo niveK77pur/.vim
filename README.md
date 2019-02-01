@@ -3,7 +3,7 @@
 My personal vim configuration files. I created this repository so that I have
 acces to MY vim from anywhere there is internet :) But also in case something
 goes wrong and I lose all my configurations (which actually happend to me ... I
-actidentially deleted my whole vimrc and I was so glad I had a backup)
+accidentially deleted my whole vimrc and I was so glad I had a backup).
 
 The configuration for vim needs to be put inside a `.vim` folder located inside
 your home directory. This is essentially the place where you put all you custom
