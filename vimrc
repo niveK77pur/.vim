@@ -203,10 +203,67 @@ cabbrev Q q
 "for local abbreviations see
 " :h :abbreviate-local
 
+"~~~~~~~~~~~~~~~~~~~
+"     commands      
+"~~~~~~~~~~~~~~~~~~~
+
+" set the b:comment_character variable below in the 
+" below variables used in respective functions
+" you can also specify a buffer local variable with b:
+let g:padding_amt = 5
+let g:header_symbol = '~'
+command! -nargs=1 -buffer MakeHeader  call MakeHeader(<args>)
+command! -nargs=1 -buffer MakeSection call MakeSection(<args>)
+
+"~~~~~~~~~~~~~~~~~~~~
+"     functions     
+"~~~~~~~~~~~~~~~~~~~~
+
+function! VerifyPaddingSymbol() "{{{
+        " function to be used for the below header making functions
+        " checks if a buffer local version exists
+        let pad_sym = [g:padding_amt, g:header_symbol]
+        if exists("b:padding_amt")
+                let pad_sym[0] = b:padding_amt
+        endif
+        if exists("b:header_symbol")
+                let pad_sym[1] = b:header_symbol
+        endif
+        return pad_sym
+endfunction
+"}}}
+
+function! MakeHeader(text) "{{{
+        let length  = strlen(a:text)
+        let pad_sym = VerifyPaddingSymbol()
+        let space   = ""
+        let banner  = b:comment_character
+        for i in range(pad_sym[0])
+                let space .= " "
+        endfor
+        for i in range(length+2*pad_sym[0])
+                let banner .= pad_sym[1]
+        endfor
+	set paste
+        execute "normal o".banner."\r".b:comment_character.space.a:text."\r".banner."\r\e"
+	set nopaste
+endfunction
+"}}}
+
+function! MakeSection(text) "{{{
+        let pad_sym = VerifyPaddingSymbol()
+        let banner = ""
+        for i in range(pad_sym[0]-2)
+                let banner .= pad_sym[1]
+        endfor
+        execute "normal o".b:comment_character." ".banner." ".a:text." ".banner
+endfunction
+"}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~
 "     autocommands      
 "~~~~~~~~~~~~~~~~~~~~~~~
+
 " Vimscript file settings ---------------------- {{{
 augroup filetype_vim
         autocmd!
@@ -231,6 +288,7 @@ augroup compile_source
         au FileType sh     nnoremap <buffer> <LocalLeader>r :!./%<CR>
 augroup END
 "}}}
+
 " clean up "{{{
 augroup clean_compiled_source
         au!
@@ -254,6 +312,19 @@ endfunction
 
 " FileType-Specific Settings"{{{
 " also see the '.vim/ftplugin' and the '.vim/after/ftplugin' directories
+
+" comment character for filetypes "{{{
+augroup comment_char
+        autocmd!
+        au FileType python,bash,sh,ruby,yaml  let b:comment_character = '#'
+        au FileType pascal,cpp                let b:comment_character = '//'
+        au FileType vim                       let b:comment_character = '"'
+        au FileType tex,plaintex,lilypond     let b:comment_character = '%'
+        au FileType text,md                   let b:comment_character = ''
+augroup END
+"}}}
+
+
 " filetype commenting {{{
 augroup ft_commenting
         au!
@@ -312,9 +383,12 @@ let g:tex_flavor = "latex"
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "     Learn Vimscript the Hard Way      
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-" Find the book at http://learnvimscriptthehardway.stevelosh.com/
+
+" Find the book at http://learnvimscriptthehardway.stevelosh.com/ "{{{
 " This section is meant to do the exercices in the book
 "source $HOME/.vim/Vimscript_Exercises/List_of_exercises.vim
 " open 'Ex_list.vim' where the exercises are sourced
 "nnoremap <Leader>e :vsplit $HOME/.vim/Vimscript_Exercises/List_of_exercises.vim <CR>
 "nnoremap <Leader>m :w <CR> :source % <CR>
+"}}}
+

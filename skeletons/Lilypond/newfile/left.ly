@@ -2,5 +2,6 @@
 \include "global.ly"
 
 left = \relative c {
+  \global
 %}
 }

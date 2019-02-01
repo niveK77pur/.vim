@@ -4,8 +4,6 @@
 global = {
   \key c \major
   \time 4/4
-  % allow text in the dynamics block to be centered vertically
-  \override TextScript.extra-offset = #'(0 . 1)
 }
 
 % Some other usefull commands
