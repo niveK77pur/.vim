@@ -1,9 +1,12 @@
 setlocal define=def
 
+let b:template_file = "$HOME/.vim/skeletons/Python/templates.py"
+
 iabb <buffer> slef  self
 iabb <buffer> none  None
 iabb <buffer> true  True
 iabb <buffer> false False
+iabb <buffer> classi <c-o>:call FromTemplate("ClassInit")<CR>
 
 inoremap <LocalLeader>s self.
 inoremap <LocalLeader>S self.__
