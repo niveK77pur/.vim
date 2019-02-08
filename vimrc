@@ -265,6 +265,7 @@ function! FromTemplate(tag_name)
         let line=line(".")
         echom b:template_file a:tag_name b:comment_character
         echom ".-1r! bash $HOME/.vim/scripts/FromTemplate.sh" b:template_file a:tag_name "\\" . b:comment_character
+        exec  ".-1r! bash $HOME/.vim/scripts/FromTemplate.sh" b:template_file a:tag_name "\\" . b:comment_character
         call cursor(line, 0)
 endfunction
 "}}}
