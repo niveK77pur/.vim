@@ -61,8 +61,8 @@ command! -nargs=+ -range -buffer Switch :call SwitchNotes(<f-args>)
 
 " make octaves {{{
 function! MakeOctave(pitch)
-        let match_pattern = "\\<\\([abcdefg]\\%([ie]s\\)*\\)\\([',]*\\)\\|\\ze<.\\{-}>\\zs"
-        execute "s#" . match_pattern . "#<\\1\\2 \\1" . a:pitch . ">#g" | s#<\s*[',]>##ge
+        let match_pattern = "\\(\\s\\+\\)\\([abcdefg]\\%([ie]s\\)*\\)\\([',]*\\)\\|\\ze<.\\{-}>\\zs"
+        execute "s#" . match_pattern . "#\\1<\\2\\3 \\2" . a:pitch . ">#g" | s#<\s*[',]>##ge
 endfunction
 "}}}
 
@@ -107,10 +107,10 @@ function! SwitchNotes(...)
                         " ignore accidentals if first letter is lower
                         " case.  The accidental will be kept.
                         " i.e. SwitchNotes(a,b) : ais --> bis
-                        let acc = "\\1"
+                        let acc = "\\2"
                 endif
 
-                execute 's#\<' . a:000[i] . '\(\w*\)#' . tolower(a:000[i+1]) . acc . '#gi'
+                execute 's#\<\(<\?\)' . a:000[i] . '\(\a*\)#\1' . tolower(a:000[i+1]) . acc . '#gi'
         endfor
 endfunction
 "}}}

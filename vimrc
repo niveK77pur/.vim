@@ -33,12 +33,11 @@ call vundle#end()
 " }}}
 
 
+"~~~~~~~~~~~~~~~~~~~~~~~~
+"     Basic Settings
+"~~~~~~~~~~~~~~~~~~~~~~~~
 
-" Basic Settings {{{1
-
-"~~~~~~~~~~~~~~~~
-"     Files      {{{
-"~~~~~~~~~~~~~~~~
+" ~~~ Files ~~~ "{{{
 "add lilypond filetype plugin
 filetype off
 set runtimepath+=/usr/share/lilypond/2.18.2/vim/
@@ -47,16 +46,12 @@ syntax on
 filetype plugin indent on
 set autowrite
 "}}}
-"
-"~~~~~~~~~~~~~~~~~~~~~~
-"     Spell check      {{{
-"~~~~~~~~~~~~~~~~~~~~~~
+
+" ~~~ Spell Check ~~~ {{{
 set spellfile+=~/.vim/spell/en.uft-8.add
 "}}}
 
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"     Colorschemes for vim      {{{
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" ~~~ Cholorschemes for vim ~~~ {{{
 "" Available colorschemes can be found in /usr/share/vim/vim74/colors/
 "colorscheme pablo
 colorscheme ron "default
@@ -65,9 +60,7 @@ colorscheme ron "default
 "colorscheme koehler
 "}}}
 
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"     Options for indentation      {{{
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" ~~~ Options for indentation ~~~ {{{
 set autoindent
 "set tabstop=4
 set shiftwidth=0
@@ -75,9 +68,7 @@ set softtabstop=-1
 set expandtab
 "}}}
 
-"~~~~~~~~~~~~~~~~~~~~
-"     Interface      {{{
-"~~~~~~~~~~~~~~~~~~~~
+" ~~~ Interface ~~~ {{{
 set mouse=a         "Enable mouse support
 set relativenumber  "Relative numbering
 "set numberwidth=3
@@ -104,21 +95,19 @@ set stl+=\ %P
 " }}}
 "}}}
 
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"     Settings for auto-completion      {{{
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" ~~~ Settings for auto-completion ~~~ {{{
 set ignorecase  " \c -- like ignore case is on, \C -- force matching case
 set noinfercase
 "}}}
 
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"     Encryption settings      {{{
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" ~~~ Encryption settings ~~~ {{{
 "use [:setlocal cm?] to show encryption for the current file
-setlocal cm=blowfish2  "encryption method unknown to gvim portable (for now)
+if has('crypt-blowfish2')
+        set cryptmethod=blowfish2  "encryption method unknown to gvim portable (for now)
+elseif has('crypt-blowfish')
+        set cryptmethod=blowfish
+endif
 "}}}
-
-"}}}1
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "     Custom shortcuts keys      
@@ -212,8 +201,8 @@ cabbrev Q q
 " you can also specify a buffer local variable with b:
 let g:padding_amt = 5
 let g:header_symbol = '~'
-command! -nargs=1 -buffer MakeHeader  call MakeHeader(<args>)
-command! -nargs=1 -buffer MakeSection call MakeSection(<args>)
+command! -nargs=1 MakeHeader  call MakeHeader(<args>)
+command! -nargs=1 MakeSection call MakeSection(<args>)
 
 "~~~~~~~~~~~~~~~~~~~~
 "     functions     
@@ -233,11 +222,21 @@ function! VerifyPaddingSymbol() "{{{
 endfunction
 "}}}
 
+function! GetCommentCharacter() "{{{
+        if exists("b:comment_character")
+                return b:comment_character
+        else
+                return ""
+        endif
+endfunction
+"}}}
+
 function! MakeHeader(text) "{{{
         let length  = strlen(a:text)
         let pad_sym = VerifyPaddingSymbol()
         let space   = ""
-        let banner  = b:comment_character
+        let s:comment_character = GetCommentCharacter()
+        let banner  = s:comment_character
         for i in range(pad_sym[0])
                 let space .= " "
         endfor
@@ -245,18 +244,19 @@ function! MakeHeader(text) "{{{
                 let banner .= pad_sym[1]
         endfor
 	set paste
-        execute "normal o".banner."\r".b:comment_character.space.a:text."\r".banner."\r\e"
+        execute "normal o".banner."\r".s:comment_character.space.a:text."\r".banner."\r\e"
 	set nopaste
 endfunction
 "}}}
 
 function! MakeSection(text) "{{{
         let pad_sym = VerifyPaddingSymbol()
+        let s:comment_character = GetCommentCharacter()
         let banner = ""
         for i in range(pad_sym[0]-2)
                 let banner .= pad_sym[1]
         endfor
-        execute "normal o".b:comment_character." ".banner." ".a:text." ".banner
+        execute "normal o".s:comment_character." ".banner." ".a:text." ".banner
 endfunction
 "}}}
 
@@ -323,7 +323,7 @@ endfunction
 " FileType-Specific Settings"{{{
 " also see the '.vim/ftplugin' and the '.vim/after/ftplugin' directories
 
-" comment character for filetypes "{{{
+" comment character for filetypes (b:comment_character) "{{{
 augroup comment_char
         autocmd!
         au FileType python,bash,sh,ruby,yaml  let b:comment_character = '#'
@@ -333,7 +333,6 @@ augroup comment_char
         au FileType text,md                   let b:comment_character = ''
 augroup END
 "}}}
-
 
 " filetype commenting {{{
 augroup ft_commenting
