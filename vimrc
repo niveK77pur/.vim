@@ -203,6 +203,7 @@ let g:padding_amt = 5
 let g:header_symbol = '~'
 command! -nargs=1 MakeHeader  call MakeHeader(<args>)
 command! -nargs=1 MakeSection call MakeSection(<args>)
+command! -nargs=+ MakeTextAbbrevs call MakeTextAbbrevs(<f-args>)
 
 "~~~~~~~~~~~~~~~~~~~~
 "     functions     
@@ -267,6 +268,19 @@ function! FromTemplate(tag_name)
         echom ".-1r! bash $HOME/.vim/scripts/FromTemplate.sh" b:template_file a:tag_name "\\" . b:comment_character
         exec  ".-1r! bash $HOME/.vim/scripts/FromTemplate.sh" b:template_file a:tag_name "\\" . b:comment_character
         call cursor(line, 0)
+endfunction
+"}}}
+
+function! MakeTextAbbrevs(abbrev, ...) "{{{
+        let s:abbrev = tolower(a:abbrev)
+        let s:text   = tolower(join(a:000))
+        let s:ABBREV = toupper(a:abbrev)
+        let s:TEXT   = substitute(s:text, '\<.', '\u&', 'g')
+        let s:Abbrev = substitute(s:abbrev, '\<.', '\u&', '')
+        let s:Text   = substitute(s:text, '\<.', '\u&', '')
+        exe "iabbrev" s:ABBREV s:TEXT
+        exe "iabbrev" s:abbrev s:text
+        exe "iabbrev" s:Abbrev s:Text
 endfunction
 "}}}
 
@@ -360,18 +374,18 @@ augroup print_me
 augroup END
 " }}}
 
-" Create a new lilypond project {{{
-function! NewLilypond()
-        let lv = system("lilypond --version | head -n 1 | awk '{ print $3 }'")
-        silent !cp $HOME/.vim/skeletons/Lilypond/newfile/* .
-        for f in systemlist("ls $HOME/.vim/skeletons/Lilypond/newfile/")
-                execute 'silent !sed "1s/\(.\+\s\).*/\1\"hello\"/"' f '>' f
-        endfor
-        unlet lv
-endfunction
-" }}}
+"" Create a new lilypond project {{{
+"function! NewLilypond()
+"        let lv = system("lilypond --version | head -n 1 | awk '{ print $3 }'")
+"        silent !cp $HOME/.vim/skeletons/Lilypond/newfile/* .
+"        for f in systemlist("ls $HOME/.vim/skeletons/Lilypond/newfile/")
+"                execute 'silent !sed "1s/\(.\+\s\).*/\1\"hello\"/"' f '>' f
+"        endfor
+"        unlet lv
+"endfunction
+"" }}}
 
-" templates "{{{
+" templates/new files "{{{
 augroup script_templates
         "insert templete on :new *.filetype
         autocmd!
@@ -379,6 +393,7 @@ augroup script_templates
         au BufNewFile *.py  0r $HOME/.vim/skeletons/Python/HashBang.py
         au BufNewFile *.sh  0r $HOME/.vim/skeletons/Bash/HashBang.sh
         au BufNewFile *.yml 0r $HOME/.vim/skeletons/Yaml/new.yml
+        au BufNewFile *.tex 0r $HOME/.vim/skeletons/Latex/new.tex
         "au BufNewFile *.ly  call NewLilypond()
 augroup END
 "}}}
