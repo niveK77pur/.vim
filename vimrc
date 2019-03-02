@@ -1,4 +1,4 @@
-"" Check what other interesting things there are to add here
+"" Check out what other interesting things there are to add here
 "" http://stackoverflow.com/questions/164847/what-is-in-your-vimrc
 
 "~~~~~~~~~~~~~~~~~~
@@ -163,8 +163,8 @@ nnoremap <Leader>s :wa<CR>
 inoremap <Leader>e <c-o>:e<CR>
 nnoremap <Leader>e :e<CR>
 " source vim files
-inoremap <Leader>S <ESC>:wa<CR>:source %<CR>
-nnoremap <Leader>S :wa<CR>:source %<CR>
+autocmd FileType vim inoremap <buffer> <Leader>S <ESC>:wa<CR>:source %<CR>
+autocmd FileType vim nnoremap <buffer> <Leader>S :wa<CR>:source %<CR>
  
 " jump to next [>VIM<] tag
 inoremap <Leader><space> <ESC>/\[>VIM<\]<CR>v//e<CR>s
