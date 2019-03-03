@@ -11,10 +11,9 @@
 
 " Vundle {{{
 if !isdirectory($HOME . "/.vim/bundle/Vundle.vim")
-        echom "Setting up ~/.vim/bundle/ directory, Vundle and plugins."
+        echom "Setting up ~/.vim/bundle/ directory and Vundle."
         call mkdir($HOME . "/.vim/bundle", "p")
         !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-        VundleInstall
 endif
 set nocompatible        " be iMproved, required
 filetype off            " required
@@ -207,8 +206,8 @@ cabbrev Q q
 " you can also specify a buffer local variable with b:
 let g:padding_amt = 5
 let g:header_symbol = '~'
-command! -nargs=1 MakeHeader  call MakeHeader(<args>)
-command! -nargs=1 MakeSection call MakeSection(<args>)
+command! -nargs=+ MakeHeader  call MakeHeader(<f-args>)
+command! -nargs=+ MakeSection call MakeSection(<f-args>)
 command! -nargs=+ MakeTextAbbrevs call MakeTextAbbrevs(<f-args>)
 
 "~~~~~~~~~~~~~~~~~~~~
@@ -238,8 +237,9 @@ function! GetCommentCharacter() "{{{
 endfunction
 "}}}
 
-function! MakeHeader(text) "{{{
-        let length  = strlen(a:text)
+function! MakeHeader(...) "{{{
+        let s:text = join(a:000, ' ')
+        let length  = strlen(s:text)
         let pad_sym = VerifyPaddingSymbol()
         let space   = ""
         let s:comment_character = GetCommentCharacter()
@@ -251,19 +251,19 @@ function! MakeHeader(text) "{{{
                 let banner .= pad_sym[1]
         endfor
 	set paste
-        execute "normal o".banner."\r".s:comment_character.space.a:text."\r".banner."\r\e"
+        execute "normal o".banner."\r".s:comment_character.space.s:text."\r".banner."\r\e"
 	set nopaste
 endfunction
 "}}}
 
-function! MakeSection(text) "{{{
+function! MakeSection(...) "{{{
         let pad_sym = VerifyPaddingSymbol()
         let s:comment_character = GetCommentCharacter()
         let banner = ""
         for i in range(pad_sym[0]-2)
                 let banner .= pad_sym[1]
         endfor
-        execute "normal o".s:comment_character." ".banner." ".a:text." ".banner
+        execute "normal o".s:comment_character." ".banner." ".join(a:000, ' ')." ".banner
 endfunction
 "}}}
 
