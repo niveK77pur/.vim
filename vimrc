@@ -11,9 +11,10 @@
 
 " Vundle {{{
 if !isdirectory($HOME . "/.vim/bundle/Vundle.vim")
-        echom "Setting up ~/.vim/bundle/ directory and Vundle."
-        !mkdir -p $HOME/.vim/bundle
+        echom "Setting up ~/.vim/bundle/ directory, Vundle and plugins."
+        mkdir($HOME . "/.vim/bundle", "p")
         !git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+        VundleInstall
 endif
 set nocompatible        " be iMproved, required
 filetype off            " required
