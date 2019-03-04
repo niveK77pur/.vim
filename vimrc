@@ -155,6 +155,9 @@ noremap <F3> :set relativenumber! number! relativenumber? <CR><ESC>
 "Toggle line wrapping
 noremap <F5> :set wrap! wrap? <CR>
 
+"Toggle 'paste' option
+noremap <Leader>p :set paste! paste? <CR>
+
 " exit insert mode more comfortably
 inoremap jk <Left><esc> 
 
@@ -167,6 +170,7 @@ inoremap <Leader>s <c-o>:wa<CR>
 nnoremap <Leader>s :wa<CR>
 inoremap <Leader>e <c-o>:e<CR>
 nnoremap <Leader>e :e<CR>
+
 " source vim files
 autocmd FileType vim inoremap <buffer> <Leader>S <ESC>:wa<CR>:source %<CR>
 autocmd FileType vim nnoremap <buffer> <Leader>S :wa<CR>:source %<CR>

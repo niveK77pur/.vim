@@ -17,6 +17,7 @@ iabbrev <buffer> pa \parenthesize
 iabbrev <buffer> ot \ottava
 iabbrev <buffer> re \relative
 
+iabbrev 1v \oneVoice
 iabbrev v1 \voiceOne
 iabbrev v2 \voiceTwo
 iabbrev v3 \voiceThree
