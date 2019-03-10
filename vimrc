@@ -29,6 +29,7 @@ call vundle#begin()
         "Plugin 'suan/vim-instant-markdown'
         Plugin 'thinca/vim-localrc'
         Plugin 'terryma/vim-multiple-cursors'
+        Plugin 'toyamarinyon/vim-swift'
 call vundle#end()
 " }}}
 
@@ -192,27 +193,37 @@ noremap <F6> :echo "\\°O°/" <CR>
 "~~~~~~~~~~~~~~~~~~~~~~~~
 "     abbreviations     
 "~~~~~~~~~~~~~~~~~~~~~~~~
-" Command-line mode
+
+" Command-line mode "{{{
 cabbrev Wq wq
 cabbrev WQ wq
 cabbrev W w
 cabbrev Q q
-" Insert mode
+"}}}
+
+" Insert mode "{{{
 "for local abbreviations see
 " :h :abbreviate-local
+"}}}
 
 "~~~~~~~~~~~~~~~~~~~
 "     commands      
 "~~~~~~~~~~~~~~~~~~~
 
-" set the b:comment_character variable below in the 
+"{{{
+" set the b:comment_character variable below in the
 " below variables used in respective functions
 " you can also specify a buffer local variable with b:
+" padding_amt - number of spaces to insert before the actual text (see above
+" 'commands' header which uses 5 spaces)
 let g:padding_amt = 5
 let g:header_symbol = '~'
-command! -nargs=+ MakeHeader  call MakeHeader(<f-args>)
-command! -nargs=+ MakeSection call MakeSection(<f-args>)
+command! -nargs=+ MakeHeader            call MakeHeader(<f-args>)
+command! -nargs=+ MakeCenteredHeader    call MakeCenteredHeader(<f-args>)
+command! -nargs=+ MakeSection           call MakeSection(<f-args>)
+
 command! -nargs=+ MakeTextAbbrevs call MakeTextAbbrevs(<f-args>)
+"}}}
 
 "~~~~~~~~~~~~~~~~~~~~
 "     functions     
@@ -245,17 +256,17 @@ function! MakeHeader(...) "{{{
         let s:text = join(a:000, ' ')
         let length  = strlen(s:text)
         let pad_sym = VerifyPaddingSymbol()
-        let space   = ""
         let s:comment_character = GetCommentCharacter()
-        let banner  = s:comment_character
+        let space   = ""
         for i in range(pad_sym[0])
                 let space .= " "
         endfor
+        let banner  = s:comment_character
         for i in range(length+2*pad_sym[0])
                 let banner .= pad_sym[1]
         endfor
 	set paste
-        execute "normal o".banner."\r".s:comment_character.space.s:text."\r".banner."\r\e"
+        execute "normal o\r".banner."\r".s:comment_character.space.s:text."\r".banner."\r\e"
 	set nopaste
 endfunction
 "}}}
@@ -268,6 +279,26 @@ function! MakeSection(...) "{{{
                 let banner .= pad_sym[1]
         endfor
         execute "normal o".s:comment_character." ".banner." ".join(a:000, ' ')." ".banner
+endfunction
+"}}}
+
+function! MakeCenteredHeader(...) "{{{
+        let s:text = join(a:000, ' ')
+        let pad_sym = VerifyPaddingSymbol()
+        let s:comment_character = GetCommentCharacter()
+        let s:space = s:comment_character
+        if len(s:text) < &textwidth
+                for i in range(&textwidth/2 - len(s:text)/2 - len(s:space))
+                        let s:space .= ' '
+                endfor
+        endif
+        let s:banner = s:comment_character
+        for i in range(&textwidth - len(s:banner))
+                let s:banner .= pad_sym[1]
+        endfor
+        set paste
+        execute "normal o\r".s:banner."\r".s:space.s:text."\r".s:banner."\r\e"
+        set nopaste
 endfunction
 "}}}
 
@@ -320,6 +351,7 @@ augroup compile_source
         au FileType cpp    nnoremap <buffer> <LocalLeader>r :!g++ -o vim-a.out % ; draw_center_text.sh "Running program"; ./*.out<CR>
         "au FileType cpp    nnoremap <buffer> <LocalLeader>r :!g++ -o a.out % ; draw_center_text.sh "Running program"; ./*.out<CR>
         au FileType sh     nnoremap <buffer> <LocalLeader>r :!./%<CR>
+        au FileType swift  nnoremap <buffer> <LocalLeader>r :!swift % <CR>
 augroup END
 "}}}
 
@@ -351,7 +383,7 @@ endfunction
 augroup comment_char
         autocmd!
         au FileType python,bash,sh,ruby,yaml  let b:comment_character = '#'
-        au FileType pascal,cpp                let b:comment_character = '//'
+        au FileType pascal,cpp,swift          let b:comment_character = '//'
         au FileType vim                       let b:comment_character = '"'
         au FileType tex,plaintex,lilypond     let b:comment_character = '%'
         au FileType text,md                   let b:comment_character = ''
@@ -362,7 +394,7 @@ augroup END
 augroup ft_commenting
         au!
         au FileType python,bash,ruby,yaml  nnoremap <buffer> <LocalLeader>c I#<ESC> 
-        au FileType pascal,cpp             nnoremap <buffer> <LocalLeader>c I//<ESC> 
+        au FileType pascal,cpp,swift       nnoremap <buffer> <LocalLeader>c I//<ESC> 
         au FileType vim                    nnoremap <buffer> <LocalLeader>c I"<ESC>
         au FileType tex,plaintex,lilypond  nnoremap <buffer> <LocalLeader>c I%<ESC>
 augroup END
