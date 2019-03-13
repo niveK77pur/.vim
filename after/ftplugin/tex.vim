@@ -23,15 +23,15 @@ inoremap <buffer> <LocalLeader>r <c-o><c-r>
 "}}}
 
 "text manipulation {{{
-inoremap <buffer> <c-i> \textit{}<LEFT>
-inoremap <buffer> <c-b> \textbf{}<LEFT>
-inoremap <buffer> <c-u> \underline{}<LEFT>
-inoremap <buffer> <c-t> \texttt{}<LEFT>
+inoremap <buffer> <LocalLeader><c-i> \textit{}<LEFT>
+inoremap <buffer> <LocalLeader><c-b> \textbf{}<LEFT>
+inoremap <buffer> <LocalLeader><c-u> \underline{}<LEFT>
+inoremap <buffer> <LocalLeader><c-t> \texttt{}<LEFT>
 
-vnoremap <c-i> s\textit{}<ESC>P
-vnoremap <c-b> s\textbf{}<ESC>P
-vnoremap <c-u> s\underline{}<ESC>P
-vnoremap <c-t> s\texttt{}<ESC>P
+vnoremap <buffer> <LocalLeader><c-i> s\textit{}<ESC>P
+vnoremap <buffer> <LocalLeader><c-b> s\textbf{}<ESC>P
+vnoremap <buffer> <LocalLeader><c-u> s\underline{}<ESC>P
+vnoremap <buffer> <LocalLeader><c-t> s\texttt{}<ESC>P
 "}}}
 
 "insert three new lines and edit on the second one {{{

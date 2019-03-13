@@ -46,7 +46,9 @@ call vundle#end()
 " ~~~ Files ~~~ "{{{
 "add lilypond filetype plugin
 filetype off
-set runtimepath+=/usr/share/lilypond/2.18.2/vim/
+if isdirectory("/usr/share/lilypond/")
+        set runtimepath+=/usr/share/lilypond/2.18.2/vim/
+endif
 
 syntax on
 filetype plugin indent on
