@@ -1,4 +1,5 @@
 set textwidth=70
+set tabstop=4
 
 "inoremap jk jk
 inoremap <buffer> <LocalLeader>w <c-o>:w<CR>

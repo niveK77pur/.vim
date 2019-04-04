@@ -126,8 +126,9 @@ let mapleader='é'       "mapleader for <Leader>
 let maplocalleader='è'
 
 "Toggle NERDTree {{{
-nnoremap <leader>nn :NERDTreeToggle <CR>
-nnoremap <leader>nb :NERDTreeFocus <CR> :BookmarkToRoot 
+nnoremap <leader>nn :NERDTreeToggle<CR>
+nnoremap <leader>nb :NERDTreeFocus<CR> :BookmarkToRoot 
+nnoremap <Leader>N  :NERDTreeFocus<CR>
 " }}}
 
 " Quickly edit vimrc file"{{{
@@ -289,13 +290,18 @@ function! MakeCenteredHeader(...) "{{{
         let pad_sym = VerifyPaddingSymbol()
         let s:comment_character = GetCommentCharacter()
         let s:space = s:comment_character
-        if len(s:text) < &textwidth
-                for i in range(&textwidth/2 - len(s:text)/2 - len(s:space))
+        if &textwidth
+                let s:width = &textwidth
+        else
+                let s:width = 80
+        endif
+        if len(s:text) < s:width
+                for i in range(s:width/2 - len(s:text)/2 - len(s:space))
                         let s:space .= ' '
                 endfor
         endif
         let s:banner = s:comment_character
-        for i in range(&textwidth - len(s:banner))
+        for i in range(s:width - len(s:banner))
                 let s:banner .= pad_sym[1]
         endfor
         set paste
@@ -353,7 +359,7 @@ augroup compile_source
         au FileType cpp    nnoremap <buffer> <LocalLeader>r :!g++ -o vim-a.out % ; draw_center_text.sh "Running program"; ./*.out<CR>
         "au FileType cpp    nnoremap <buffer> <LocalLeader>r :!g++ -o a.out % ; draw_center_text.sh "Running program"; ./*.out<CR>
         au FileType sh     nnoremap <buffer> <LocalLeader>r :!./%<CR>
-        au FileType swift  nnoremap <buffer> <LocalLeader>r :!swift % <CR>
+        au FileType swift  nnoremap <buffer> <LocalLeader>r :call RunMessage() \| !swift % <CR>
 augroup END
 "}}}
 

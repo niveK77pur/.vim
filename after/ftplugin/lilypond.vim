@@ -4,6 +4,7 @@ setlocal nowrap
 setlocal scrollbind
 
 let b:template_file = "$HOME/.vim/skeletons/Lilypond/templates.ly"
+let b:bar_rest = 's1'
 
 "~~~~~~~~~~~~~~~~~~~~~~~
 "     Abbreviations
@@ -23,11 +24,13 @@ iabbrev v2 \voiceTwo
 iabbrev v3 \voiceThree
 iabbrev v4 \voiceFour
 
-iabbrev <buffer> ss s1 \|
-iabbrev <buffer> ,, ~
+iabbrev <buffer> ss <c-r>=BarRest()<CR>
 
 iabbrev chl \change Staff = "left"
 iabbrev chr \change Staff = "right"
+
+iabbrev hn \hideNotes
+iabbrev HN \unHideNotes
 
 iabbrev featherl <c-r>=Feather('l')<CR><c-o>?+<CR><DEL>
 iabbrev featherr <c-r>=Feather('r')<CR><c-o>?+<CR><DEL>
@@ -113,6 +116,11 @@ function! SwitchNotes(...)
 
                 execute 's#\<\(<\?\)' . a:000[i] . '\(\a*\)#\1' . tolower(a:000[i+1]) . acc . '#gi'
         endfor
+endfunction
+"}}}
+
+function! BarRest() "{{{
+        return b:bar_rest . ' |'
 endfunction
 "}}}
 
