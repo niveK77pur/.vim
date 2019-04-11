@@ -13,8 +13,8 @@ inoremap <LocalLeader>=S <ESC>:call PutSelf()<CR>
 nnoremap <LocalLeader>=S :call PutSelf()<CR>
 vnoremap <LocalLeader>=S v:call PutSelfSelection()<CR>
 
-" transform a 'arg' to 'arg:arg'
-nnoremap <LocalLeader>a :s/\.\(\w\+\)/\1:\1/g<CR>
+" transform a '$arg' to 'arg:arg'
+nnoremap <LocalLeader>a :s/\$\(\w\+\)/\1:\1/g<CR>
 
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
