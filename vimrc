@@ -26,7 +26,7 @@ call vundle#begin()
         Plugin 'vim-syntastic/syntastic'
         Plugin 'junegunn/goyo.vim'
         Plugin 'tpope/vim-surround'
-        "Plugin 'suan/vim-instant-markdown'
+        Plugin 'suan/vim-instant-markdown'
         Plugin 'thinca/vim-localrc'
         Plugin 'terryma/vim-multiple-cursors'
         Plugin 'toyamarinyon/vim-swift'

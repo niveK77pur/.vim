@@ -114,7 +114,7 @@ function! SwitchNotes(...)
                         let acc = "\\2"
                 endif
 
-                execute 's#\<\(<\?\)' . a:000[i] . '\(\a*\)#\1' . tolower(a:000[i+1]) . acc . '#gi'
+                execute 's#[^\\]\<\(<\?\)' . a:000[i] . '\(\a*\)# \1' . tolower(a:000[i+1]) . acc . '#gi'
         endfor
 endfunction
 "}}}
