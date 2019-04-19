@@ -32,11 +32,11 @@ endfunction
 function! PutSelfFuncArgs() "{{{
         let s:lst = []
         try
-            s#\w\+\ze:#\=add(s:lst,submatch(0))#g
+            s#\w\+\ze:#\=submatch(0)|add(s:lst,submatch(0))#g
         catch "E486"
             return
         endtry
-        exe "normal uA \<c-v>{"
+        exe "normal A \<c-v>{"
         for arg in s:lst
             exec "normal oself." . arg . " = " . arg
         endfor
