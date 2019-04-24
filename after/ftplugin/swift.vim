@@ -1,7 +1,7 @@
 setl tabstop=4
-
 setl def=func
 
+let g:NERDCustomDelimiters = {'swift' : { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Mappings
@@ -30,14 +30,21 @@ endfunction
 "}}}
 
 function! PutSelfFuncArgs() "{{{
-        let s:lst = []
+        let s:args = []
+        let s:super = []
         try
-            s#\w\+\ze:#\=submatch(0)|add(s:lst,submatch(0))#g
+            s#-\?\(\w\+\)\ze:#\=submatch(0)[0] == '-' ? add(s:super, submatch(1)) : add(s:args,submatch(1))#g
+            undo
+            s#-\ze\<\w##g
         catch "E486"
+            echom "Could not find match"
             return
         endtry
         exe "normal A \<c-v>{"
-        for arg in s:lst
+        if len(s:super) != 0
+            exe "normal osuper.init(" . join(SubstituteList(s:super,'.\+','&:&',''), ", ") . ")"
+        endif
+        for arg in s:args
             exec "normal oself." . arg . " = " . arg
         endfor
         exe "normal o\<c-v>}\<c-d>"

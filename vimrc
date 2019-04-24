@@ -22,6 +22,7 @@ call vundle#begin()
         " let Vundle manage Vundle
         Plugin 'VundleVim/Vundle.vim'
         Plugin 'scrooloose/nerdtree'
+        Plugin 'scrooloose/nerdcommenter'
         Plugin 'jiangmiao/auto-pairs'
         Plugin 'vim-syntastic/syntastic'
         Plugin 'junegunn/goyo.vim'
@@ -29,7 +30,7 @@ call vundle#begin()
         Plugin 'suan/vim-instant-markdown'
         Plugin 'thinca/vim-localrc'
         Plugin 'terryma/vim-multiple-cursors'
-        Plugin 'toyamarinyon/vim-swift'
+        Plugin 'keith/swift.vim'
 call vundle#end()
 " }}}
 
@@ -84,8 +85,8 @@ set linebreak       "Line wrapping at a character
 set showcmd
 set wildmenu
 try
-        set listchars=eol:¶,tab:>-,space:∙,trail:˛,extends:>,precedes:§
-catch /^Vim\%((\a\+)\)\=:E474/
+    set listchars=eol:¶,tab:>-,space:∙,trail:˛,extends:>,precedes:§
+catch "E474"
 endtry
  
 " status line set up {{{
@@ -115,6 +116,17 @@ if has('crypt-blowfish2')
 elseif has('crypt-blowfish')
         set cryptmethod=blowfish
 endif
+"}}}
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~
+"     Plugin Settings
+"~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+" ~~~ NERDCommenter ~~~ {{{
+let g:NERDCustomDelimiters = {
+    \ 'swift': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' } 
+\ }
 "}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -333,6 +345,15 @@ function! MakeTextAbbrevs(abbrev, ...) "{{{
 endfunction
 "}}}
 
+function! SubstituteList(list, pat, sub, flag) "{{{
+    let s:result = []
+    for item in a:list
+        call add(s:result, substitute(item, a:pat, a:sub, a:flag))
+    endfor
+    return s:result
+endfunction
+"}}}
+
 "~~~~~~~~~~~~~~~~~~~~~~~
 "     autocommands      
 "~~~~~~~~~~~~~~~~~~~~~~~
@@ -352,7 +373,7 @@ augroup compile_source
         au!
         au FileType,BufEnter * nnoremap <Leader>m :make<CR>
         au FileType python nnoremap <buffer> <LocalLeader>r :!python3 % <CR>
-        au FileType bash   nnoremap <buffer> <LocalLeader>r :.% <CR>
+        au FileType bash   nnoremap <buffer> <LocalLeader>r :!bash %<CR>
         au FileType pascal nnoremap <buffer> <LocalLeader>r :!fpc -ovimPasEXE % ; echo -e "\e[44m Running program ...\e(B\e[m"; ./vimPasEXE <CR>
         au FileType tex    nnoremap <buffer> <LocalLeader>r :!pdflatex %; evince %:s?\.tex?\.pdf? <CR>
         au FileType markdown nnoremap <buffer> <LocalLeader>r :!retext --preview %<CR>
@@ -399,13 +420,15 @@ augroup END
 "}}}
 
 " filetype commenting {{{
-augroup ft_commenting
-        au!
-        au FileType python,bash,ruby,yaml  nnoremap <buffer> <LocalLeader>c I#<ESC> 
-        au FileType pascal,cpp,swift       nnoremap <buffer> <LocalLeader>c I//<ESC> 
-        au FileType vim                    nnoremap <buffer> <LocalLeader>c I"<ESC>
-        au FileType tex,plaintex,lilypond  nnoremap <buffer> <LocalLeader>c I%<ESC>
-augroup END
+" switched to NERDCommenter Plugin
+" see ':h NERCommenter'
+"augroup ft_commenting
+"        au!
+"        au FileType python,bash,ruby,yaml  nnoremap <buffer> <LocalLeader>c I#<ESC> 
+"        au FileType pascal,cpp,swift       nnoremap <buffer> <LocalLeader>c I//<ESC> 
+"        au FileType vim                    nnoremap <buffer> <LocalLeader>c I"<ESC>
+"        au FileType tex,plaintex,lilypond  nnoremap <buffer> <LocalLeader>c I%<ESC>
+"augroup END
 "}}}
 
 " colons {{{
