@@ -35,9 +35,9 @@ function! PutSelfFuncArgs() "{{{
         try
             s#-\?\(\w\+\)\ze:#\=submatch(0)[0] == '-' ? add(s:super, submatch(1)) : add(s:args,submatch(1))#g
             undo
-            s#-\ze\<\w##g
+            s#-\ze\<\w##ge
         catch "E486"
-            echom "Could not find match"
+            echom "PutSelfFuncArgs(): Could not find match"
             return
         endtry
         exe "normal A \<c-v>{"
@@ -48,7 +48,7 @@ function! PutSelfFuncArgs() "{{{
             exec "normal oself." . arg . " = " . arg
         endfor
         exe "normal o\<c-v>}\<c-d>"
-        normal ``jjv``<
+        "normal ``jjv``<
 endfunction
 "}}}
 
