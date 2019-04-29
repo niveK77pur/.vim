@@ -95,20 +95,6 @@ endfunction
 "}}}
 
 
-function! VerifyPaddingSymbol() "{{{
-        " function to be used for the below header making functions
-        " checks if a buffer local version exists
-        let pad_sym = [g:padding_amt, g:header_symbol]
-        if exists("b:padding_amt")
-                let pad_sym[0] = b:padding_amt
-        endif
-        if exists("b:header_symbol")
-                let pad_sym[1] = b:header_symbol
-        endif
-        return pad_sym
-endfunction
-"}}}
-
 function! GetCommentCharacter() "{{{
         if exists("b:comment_character")
                 return b:comment_character
@@ -118,55 +104,21 @@ function! GetCommentCharacter() "{{{
 endfunction
 "}}}
 
+function! MakeSection(...) "{{{
+        let s:text = join(a:000, " ") . " "
+        let s:comment_character = GetCommentCharacter()
+        let s:width = &textwidth ? &textwidth : 80
+        let banner = repeat('-', s:width - len(s:comment_character) - len(s:text))
+        execute "normal o".s:comment_character.s:text.banner
+endfunction
+"}}}
+
 function! MakeHeader(...) "{{{
         let s:text = join(a:000, ' ')
-        let length  = strlen(s:text)
-        let pad_sym = VerifyPaddingSymbol()
         let s:comment_character = GetCommentCharacter()
-        let space   = ""
-        for i in range(pad_sym[0])
-                let space .= " "
-        endfor
-        let banner  = s:comment_character
-        for i in range(length+2*pad_sym[0])
-                let banner .= pad_sym[1]
-        endfor
-	set paste
-        execute "normal o\r".banner."\r".s:comment_character.space.s:text."\r".banner."\r\e"
-	set nopaste
-endfunction
-"}}}
-
-function! MakeSection(...) "{{{
-        let pad_sym = VerifyPaddingSymbol()
-        let s:comment_character = GetCommentCharacter()
-        let banner = ""
-        for i in range(pad_sym[0]-2)
-                let banner .= pad_sym[1]
-        endfor
-        execute "normal o".s:comment_character." ".banner." ".join(a:000, ' ')." ".banner
-endfunction
-"}}}
-
-function! MakeCenteredHeader(...) "{{{
-        let s:text = join(a:000, ' ')
-        let pad_sym = VerifyPaddingSymbol()
-        let s:comment_character = GetCommentCharacter()
-        let s:space = s:comment_character
-        if &textwidth
-                let s:width = &textwidth
-        else
-                let s:width = 80
-        endif
-        if len(s:text) < s:width
-                for i in range(s:width/2 - len(s:text)/2 - len(s:space))
-                        let s:space .= ' '
-                endfor
-        endif
-        let s:banner = s:comment_character
-        for i in range(s:width - len(s:banner))
-                let s:banner .= pad_sym[1]
-        endfor
+        let s:width = &textwidth ? &textwidth : 80
+        let s:space = s:comment_character . repeat(' ', s:width/2 - len(s:text)/2 - len(s:comment_character))
+        let s:banner = s:comment_character . repeat('~', s:width - len(s:comment_character))
         set paste
         execute "normal o\r".s:banner."\r".s:space.s:text."\r".s:banner."\r\e"
         set nopaste
@@ -307,7 +259,7 @@ endif
 
 " ~~~ NERDCommenter ~~~ {{{
 let g:NERDCustomDelimiters = {
-    \ 'swift': { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' } 
+    \ 'swift': { 'left': '//', 'leftAlt': '/*', 'right': '', 'rightAlt': '*/' } 
 \ }
 "}}}
 
@@ -409,16 +361,10 @@ cabbrev Q q
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 "{{{
-" set the b:comment_character variable below in the
-" below variables used in respective functions
-" you can also specify a buffer local variable with b:
-" padding_amt - number of spaces to insert before the actual text (see above
-" 'commands' header which uses 5 spaces)
-let g:padding_amt = 5
-let g:header_symbol = '~'
-command! -nargs=+ MakeHeader            call MakeHeader(<f-args>)
-command! -nargs=+ MakeCenteredHeader    call MakeCenteredHeader(<f-args>)
-command! -nargs=+ MakeSection           call MakeSection(<f-args>)
+" set the b:comment_character variable below in the FileTpye-Specific
+" Settings for the following commands
+command! -nargs=+ MakeHeader  call MakeHeader(<f-args>)
+command! -nargs=+ MakeSection call MakeSection(<f-args>)
 
 command! -nargs=+ MakeTextAbbrevs call MakeTextAbbrevs(<f-args>)
 "}}}
