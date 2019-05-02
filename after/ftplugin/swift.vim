@@ -42,7 +42,7 @@ function! PutSelfFuncArgs() "{{{
         endtry
         exe "normal A \<c-v>{"
         if len(s:super) != 0
-            exe "normal osuper.init(" . join(SubstituteList(s:super,'.\+','&:&',''), ", ") . ")"
+            exe "normal osuper.init(" . join(map(s:super, 'substitute(v:val,".*","&:&","")'), ", ") . ")"
         endif
         for arg in s:args
             exec "normal oself." . arg . " = " . arg

@@ -1,3 +1,4 @@
+setlocal tabstop=4
 setlocal textwidth=70
 setlocal noexpandtab
 "spell checking 

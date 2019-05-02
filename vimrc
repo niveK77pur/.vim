@@ -33,12 +33,8 @@ call vundle#begin()
         Plugin 'terryma/vim-multiple-cursors'
         Plugin 'keith/swift.vim'
         Plugin 'morhetz/gruvbox'
+        "Plugin 'FredKSchott/CoVim'     "requires to be compiled with +python
 call vundle#end()
-" }}}
-
-" Pathogen"{{{
-"source ~/.vim/autoload/vim-pathogen/autoload/pathogen.vim
-"execute pathogen#infect()
 " }}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -258,10 +254,16 @@ endif
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " ~~~ NERDCommenter ~~~ {{{
+let g:NERDSpaceDelims = 1
 let g:NERDCustomDelimiters = {
     \ 'swift': { 'left': '//', 'leftAlt': '/*', 'right': '', 'rightAlt': '*/' } 
 \ }
 "}}}
+
+" ~~~ CoVim ~~~ {{{
+let CoVim_default_name = "kevim"
+let CoVim_default_port = "8080"
+" }}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                              Mappings
@@ -335,6 +337,9 @@ nnoremap <F4> :SyntasticToggleMode<CR>
 
 " toggle 'background' between light and dark
 nnoremap <F6> :call ToggleBackground()<CR>
+
+" toggle Goyo
+nnoremap <F10> :Goyo<CR>
 
 noremap <F12> :echo "\\°O°/" <CR>
 
