@@ -103,9 +103,11 @@ endfunction
 function! MakeSection(...) "{{{
         let s:text = join(a:000, " ") . " "
         let s:comment_character = GetCommentCharacter()
-        let s:width = &textwidth ? &textwidth : 80
+        let s:width = &textwidth > 0 ? &textwidth : 80
         let banner = repeat('-', s:width - len(s:comment_character) - len(s:text))
-        execute "normal o".s:comment_character.s:text.banner
+        set paste
+        execute "normal o\r".s:comment_character.s:text.banner
+        set nopaste
 endfunction
 "}}}
 
@@ -261,8 +263,8 @@ let g:NERDCustomDelimiters = {
 "}}}
 
 " ~~~ CoVim ~~~ {{{
-let CoVim_default_name = "kevim"
-let CoVim_default_port = "8080"
+" let CoVim_default_name = "kevim"
+" let CoVim_default_port = "8080"
 " }}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -283,7 +285,7 @@ nnoremap <Leader>N  :NERDTreeFocus<CR>
 
 " Quickly edit vimrc file"{{{
 "vimrc: edit
-nnoremap <leader>ve :vsplit $MYVIMRC<CR>
+nnoremap <leader>ve :tabnew $MYVIMRC<CR>
 "vimrc: source (immediately take effect of changes)
 nnoremap <leader>vs :w<CR>:source $MYVIMRC<CR>
 "}}}
@@ -340,6 +342,9 @@ nnoremap <F6> :call ToggleBackground()<CR>
 
 " toggle Goyo
 nnoremap <F10> :Goyo<CR>
+
+" toggle 'paste'
+nnoremap <F2> :set paste! paste?<CR>
 
 noremap <F12> :echo "\\°O°/" <CR>
 
