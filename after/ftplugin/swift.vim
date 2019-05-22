@@ -4,15 +4,22 @@ setl def=func
 let g:NERDCustomDelimiters = {'swift' : { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                                Abbreviations
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+iabb CSC CustomStringConvertible
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Mappings
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" Shortcuts for self.
+" Shortcuts for self. "{{{
 inoremap <LocalLeader>s self.
 nnoremap <LocalLeader>ss :call PutSelfFuncArgs()<CR>
 inoremap <LocalLeader>=S <ESC>:call PutSelf()<CR>
 nnoremap <LocalLeader>=S :call PutSelf()<CR>
 vnoremap <LocalLeader>=S v:call PutSelfSelection()<CR>
+"}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Functions

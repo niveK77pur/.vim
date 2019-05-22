@@ -35,6 +35,8 @@ vnoremap <buffer> <LocalLeader><c-e> s\emph{}<ESC>P
 vnoremap <buffer> <LocalLeader><c-b> s\textbf{}<ESC>P
 vnoremap <buffer> <LocalLeader><c-u> s\underline{}<ESC>P
 vnoremap <buffer> <LocalLeader><c-t> s\texttt{}<ESC>P
+
+nnoremap <buffer> <LocalLeader><space> gqip
 "}}}
 
 "insert three new lines and edit on the second one {{{

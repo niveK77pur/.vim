@@ -198,6 +198,7 @@ if CheckColorsGruvbox()
         let g:gruvbox_italic=1
         "let g:gruvbox_italicize_comments=1
         colorscheme gruvbox
+        "set bg=dark
         call ToggleBackgroundTime(6,19)
 endif
 "}}}1
@@ -487,11 +488,12 @@ augroup END
 augroup script_templates
         "insert templete on :new *.filetype
         autocmd!
-        au BufNewFile *.pas 0r $HOME/.vim/skeletons/Pascal/template_consoleApp.pas
-        au BufNewFile *.py  0r $HOME/.vim/skeletons/Python/HashBang.py
-        au BufNewFile *.sh  0r $HOME/.vim/skeletons/Bash/HashBang.sh
-        au BufNewFile *.yml 0r $HOME/.vim/skeletons/Yaml/new.yml
-        au BufNewFile *.tex 0r $HOME/.vim/skeletons/Latex/new.tex
+        au BufNewFile *.pas   0r $HOME/.vim/skeletons/Pascal/template_consoleApp.pas
+        au BufNewFile *.py    0r $HOME/.vim/skeletons/Python/HashBang.py
+        au BufNewFile *.sh    0r $HOME/.vim/skeletons/Bash/HashBang.sh
+        au BufNewFile *.yml   0r $HOME/.vim/skeletons/Yaml/new.yml
+        au BufNewFile *.tex   0r $HOME/.vim/skeletons/Latex/new.tex
+        au BufNewFile *.swift 0r $HOME/.vim/skeletons/swift/foundation.swift
         "au BufNewFile *.ly  call NewLilypond()
 augroup END
 "}}}
