@@ -1,3 +1,6 @@
+" have a transparent background to see the underlying PDF
+"colorscheme ron
+
 setlocal norelativenumber
 setlocal number
 setlocal nowrap
@@ -5,6 +8,23 @@ setlocal scrollbind
 
 let b:template_file = "$HOME/.vim/skeletons/Lilypond/templates.ly"
 let b:bar_rest = 's1'
+
+let g:key_signature = "cM"
+let s:accidentals = ["f", "c", "g", "d", "a", "e", "b"]
+let s:signatures = { "{{{
+        \ 'desM': -5, 'besm': -5,
+        \ 'aesM': -4, 'fm':   -4,
+        \ 'eesM': -3, 'cm':   -3,
+        \ 'besM': -2, 'gm':   -2,
+        \ 'fM':   -1, 'dm':   -1,
+        \ 'cM':    0, 'am':    0,
+        \ 'gM':    1, 'em':    1,
+        \ 'dM':    2, 'bm':    2,
+        \ 'aM':    3, 'fism':  3,
+        \ 'eM':    4, 'cism':  4,
+        \ 'bM':    5, 'gism':  5,
+\ }
+"}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~
 "     Abbreviations
@@ -56,6 +76,9 @@ iabbrev pt  <ESC>:call FromTemplate("TempPoly")<CR>
 
 " command for changing a note into another in the current line (i.e. c --> d)
 command! -nargs=+ -range -buffer Switch :call SwitchNotes(<f-args>)
+
+" command for setting key signature
+command! -nargs=1 -bar -buffer KeySignature :let g:key_signature = <q-args>
 
 "}}}
 
@@ -124,6 +147,22 @@ function! BarRest() "{{{
 endfunction
 "}}}
 
+" add accidentals for different key signatures "{{{
+function! AdaptToKey(key)
+        let s:numOfAcc = s:signatures[a:key]
+        if s:numOfAcc > 0
+                for note in s:accidentals[: s:numOfAcc-1]
+                        exec 's#\<' . note . '\>#&is#ge'
+                endfor
+        elseif s:numOfAcc < 0
+                for note in reverse(copy(s:accidentals))[: abs(s:numOfAcc)-1]
+                        exec 's#\<' . note . '\>#&es#ge'
+                endfor
+        endif
+        s#:\([abcdefg]\)\>#\1#ge
+endfunction
+"}}}
+
 "~~~~~~~~~~~~~~~~~~
 "     Mappings
 "~~~~~~~~~~~~~~~~~~
@@ -169,5 +208,9 @@ inoremap <buffer> <LocalLeader>rP <ESC>?[',]<CR>x
 " hide/unhide the rest of the song {{{
 nnoremap <LocalLeader>h O%{}<ESC>
 nnoremap <LocalLeader>H /%{}\?<CR>dd
+"}}}
+
+" adapt to key "{{{
+nnoremap <LocalLeader>k :call AdaptToKey(g:key_signature)<CR>
 "}}}
 
