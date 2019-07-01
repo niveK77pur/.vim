@@ -7,6 +7,8 @@
   %arranger = "Kevin L. Biewesch"
 }
 
+%#(set-global-staff-size 20)
+
 \paper {
   #(set-paper-size "a4")
 }

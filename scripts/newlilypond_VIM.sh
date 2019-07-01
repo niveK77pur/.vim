@@ -44,10 +44,11 @@ cd "$NAME"
 cp "/home/kevin/.vim/skeletons/Lilypond/newfile"/* .
 
 # Put lilypond's version in every file
-for f in *.ly
-do
-        sed -i "s/\(.version \).*/\1\"$VERSION\"/" "$f"
-done
+sed -i "s/\(.version \).*/\1\"$VERSION\"/" *.ly
+#for f in *.ly
+#do
+#        sed -i "s/\(.version \).*/\1\"$VERSION\"/" "$f"
+#done
 
 
 # set the title

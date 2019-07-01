@@ -1,17 +1,27 @@
 " have a transparent background to see the underlying PDF
-"colorscheme ron
+colorscheme ron
+redraw!         " automatically redraw screen
 
 setlocal norelativenumber
 setlocal number
 setlocal nowrap
 setlocal scrollbind
 
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                              Variables
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+" {{{
+
 let b:template_file = "$HOME/.vim/skeletons/Lilypond/templates.ly"
 let b:bar_rest = 's1'
 
-let g:key_signature = "cM"
+" if !exists("g:key_signature")
+"     let g:key_signature = "cM"
+" endif
 let s:accidentals = ["f", "c", "g", "d", "a", "e", "b"]
-let s:signatures = { "{{{
+"{{{ s:signatures
+let s:signatures = {
         \ 'desM': -5, 'besm': -5,
         \ 'aesM': -4, 'fm':   -4,
         \ 'eesM': -3, 'cm':   -3,
@@ -26,9 +36,11 @@ let s:signatures = { "{{{
 \ }
 "}}}
 
-"~~~~~~~~~~~~~~~~~~~~~~~
-"     Abbreviations
-"~~~~~~~~~~~~~~~~~~~~~~~
+" }}}
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                            Abbreviations
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " {{{
 
@@ -68,9 +80,9 @@ iabbrev pt  <ESC>:call FromTemplate("TempPoly")<CR>
 
 "}}}
 
-"~~~~~~~~~~~~~~~~~~
-"     Commands
-"~~~~~~~~~~~~~~~~~~
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                              Commands
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " {{{
 
@@ -78,16 +90,17 @@ iabbrev pt  <ESC>:call FromTemplate("TempPoly")<CR>
 command! -nargs=+ -range -buffer Switch :call SwitchNotes(<f-args>)
 
 " command for setting key signature
-command! -nargs=1 -bar -buffer KeySignature :let g:key_signature = <q-args>
+" command! -nargs=1 -bar -buffer KeySignature :let g:key_signature = <q-args>
 
 "}}}
 
-"~~~~~~~~~~~~~~~~~~~
-"     Functions
-"~~~~~~~~~~~~~~~~~~~
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                              Functions
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " make octaves {{{
 function! MakeOctave(pitch)
+        let match_pattern = "\(\s\+\)\([abcdefg]\%([ie]s\)*\)\([',]*\)\|\ze<.\{-}>\zs"
         let match_pattern = "\\(\\s\\+\\)\\([abcdefg]\\%([ie]s\\)*\\)\\([',]*\\)\\|\\ze<.\\{-}>\\zs"
         execute "s#" . match_pattern . "#\\1<\\2\\3 \\2" . a:pitch . ">#g" | s#<\s*[',]>##ge
 endfunction
@@ -147,25 +160,60 @@ function! BarRest() "{{{
 endfunction
 "}}}
 
-" add accidentals for different key signatures "{{{
-function! AdaptToKey(key)
-        let s:numOfAcc = s:signatures[a:key]
-        if s:numOfAcc > 0
-                for note in s:accidentals[: s:numOfAcc-1]
-                        exec 's#\<' . note . '\>#&is#ge'
-                endfor
-        elseif s:numOfAcc < 0
-                for note in reverse(copy(s:accidentals))[: abs(s:numOfAcc)-1]
-                        exec 's#\<' . note . '\>#&es#ge'
-                endfor
+" extract key signature from 'global.ly' "{{{
+function! GetGlobalKey()
+    for line in readfile(expand("%:p:h") . "/global.ly")
+        if line =~ '\key'
+            return substitute(line, '.*\key \(\w\+\) \\\(minor\|major\).*', '\=submatch(2) ==# "major" ? submatch(1)."M" : submatch(1)."m"', '')
         endif
-        s#:\([abcdefg]\)\>#\1#ge
+    endfor
+    throw "ERROR_NoKeySignature"
 endfunction
 "}}}
 
-"~~~~~~~~~~~~~~~~~~
-"     Mappings
-"~~~~~~~~~~~~~~~~~~
+" add accidentals for different key signatures "{{{
+function! AdaptToKey(ignore)
+        " key signature must be specified with 
+        "               %%Key: <KEY>
+        " at the end of a line. If no such 'statement' was found, then it will
+        " look up the 'global.ly' file.
+        let l:window = winsaveview()
+            try
+                ?%%Key:\s*\w\+[mM]
+                let l:key = substitute(getline('.'), '.*%%Key:\s*\(\w\+[mM]\).*', '\1', 'I')
+            catch "E486"
+                let l:key = GetGlobalKey()
+            endtry
+            echo "Key signature is:" l:key
+        call winrestview(l:window)
+        
+        let s:numOfAcc = s:signatures[l:key]
+        let matchrest = '\([' . "'" . ',]*\)\(\d*\.\?>\?\)'
+        if s:numOfAcc > 0
+            for note in s:accidentals[: s:numOfAcc-1]
+                exec 's#\<\(<\?' . note . '\)' . matchrest . '\>#\1is\2\3#ge'
+            endfor
+        elseif s:numOfAcc < 0
+            for note in reverse(copy(s:accidentals))[: abs(s:numOfAcc)-1]
+                exec 's#\<\(<\?' . note . '\)' . matchrest . '\>#\1es\2\3#ge'
+            endfor
+        endif
+        exec 's#' . a:ignore . '\([abcdefg]\)\>#\1#ge'
+endfunction
+"}}}
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                            Autocommands
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+augroup LiliyPond
+    au!
+    au FocusLost,InsertLeave *.ly :wa
+augroup END
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                              Mappings
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " miscellaneous {{{
 
@@ -182,7 +230,7 @@ nnoremap <buffer> <LocalLeader>br :windo setl noscrollbind<CR>:windo normal gg<C
 "}}}
 
 "put a | at the end of a line {{{
-inoremap <buffer> <LocalLeader>b <c-o>A \|<ESC>
+inoremap <buffer> <LocalLeader>b <c-o>A \|<ESC>:call AdaptToKey(">")<CR>
 nnoremap <buffer> <LocalLeader>bb A \|<ESC>
 "}}}
 
@@ -211,6 +259,6 @@ nnoremap <LocalLeader>H /%{}\?<CR>dd
 "}}}
 
 " adapt to key "{{{
-nnoremap <LocalLeader>k :call AdaptToKey(g:key_signature)<CR>
+nnoremap <LocalLeader>k :call AdaptToKey(">")<CR>
 "}}}
 

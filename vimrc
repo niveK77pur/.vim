@@ -68,8 +68,8 @@ function! ToggleBackgroundTime(start, end) "{{{
                 echoerr "strftime() is not available on this system"
                 return
         endif
-        let s:time = strftime("%H")
-        if s:time > a:start && s:time < a:end
+        let l:time = strftime("%H")
+        if l:time > a:start && l:time < a:end
                 set background=light
         else
                 set background=dark
@@ -80,10 +80,10 @@ endfunction
 function! CheckColorsGruvbox() "{{{
         " Make sure the terminal support at least 16 colors
         " otherwise do not use gruvbox colorscheme
-        let s:colors = system("tput colors")
-        if s:colors == 16
+        let l:colors = system("tput colors")
+        if l:colors == 16
                 let g:gruvbox_termcolors = 16
-        elseif s:colors != 256
+        elseif l:colors != 256
                 return v:false
         endif
         return v:true
@@ -101,24 +101,24 @@ endfunction
 "}}}
 
 function! MakeSection(...) "{{{
-        let s:text = join(a:000, " ") . " "
-        let s:comment_character = GetCommentCharacter()
-        let s:width = &textwidth > 0 ? &textwidth : 80
-        let banner = repeat('-', s:width - len(s:comment_character) - len(s:text))
+        let l:text = join(a:000, " ") . " "
+        let l:comment_character = GetCommentCharacter()
+        let l:width = &textwidth > 0 ? &textwidth : 80
+        let banner = repeat('-', l:width - len(l:comment_character) - len(l:text))
         set paste
-        execute "normal o\r".s:comment_character.s:text.banner
+        execute "normal o\r".l:comment_character.l:text.banner
         set nopaste
 endfunction
 "}}}
 
 function! MakeHeader(...) "{{{
-        let s:text = join(a:000, ' ')
-        let s:comment_character = GetCommentCharacter()
-        let s:width = &textwidth ? &textwidth : 80
-        let s:space = s:comment_character . repeat(' ', s:width/2 - len(s:text)/2 - len(s:comment_character))
-        let s:banner = s:comment_character . repeat('~', s:width - len(s:comment_character))
+        let l:text = join(a:000, ' ')
+        let l:comment_character = GetCommentCharacter()
+        let l:width = &textwidth ? &textwidth : 80
+        let l:space = l:comment_character . repeat(' ', l:width/2 - len(l:text)/2 - len(l:comment_character))
+        let l:banner = l:comment_character . repeat('~', l:width - len(l:comment_character))
         set paste
-        execute "normal o\r".s:banner."\r".s:space.s:text."\r".s:banner."\r\e"
+        execute "normal o\r".l:banner."\r".l:space.l:text."\r".l:banner."\r\e"
         set nopaste
 endfunction
 "}}}
@@ -142,26 +142,27 @@ function! MakeTextAbbrevs(abbrev, ...) "{{{
     "   1. hmw -> hello my world
     "   2. HMW -> Hello My World
     "   3. Hmw -> Hello my world
-    let s:abbrev = tolower(a:abbrev)
-    let s:text   = tolower(join(a:000))
-    let s:ABBREV = toupper(a:abbrev)
-    let s:TEXT   = substitute(s:text, '\<.', '\u&', 'g')
-    let s:Abbrev = substitute(s:abbrev, '\<.', '\u&', '')
-    let s:Text   = substitute(s:text, '\<.', '\u&', '')
-    exe "iabbrev" s:ABBREV s:TEXT
-    exe "iabbrev" s:abbrev s:text
-    exe "iabbrev" s:Abbrev s:Text
+    let l:abbrev = tolower(a:abbrev)
+    let l:text   = tolower(join(a:000))
+    let l:ABBREV = toupper(a:abbrev)
+    let l:TEXT   = substitute(l:text, '\<.', '\u&', 'g')
+    let l:Abbrev = substitute(l:abbrev, '\<.', '\u&', '')
+    let l:Text   = substitute(l:text, '\<.', '\u&', '')
+    exe "iabbrev" l:ABBREV l:TEXT
+    exe "iabbrev" l:abbrev l:text
+    exe "iabbrev" l:Abbrev l:Text
 endfunction
 "}}}
 
 
 function! SubstituteList(list, pat, sub, flag) "{{{
     " same as substitue() but do substitution on every item in a list
-    let s:result = []
+    " maybe use map() instead
+    let l:result = []
     for item in a:list
-        call add(s:result, substitute(item, a:pat, a:sub, a:flag))
+        call add(l:result, substitute(item, a:pat, a:sub, a:flag))
     endfor
-    return s:result
+    return l:result
 endfunction
 "}}}
 
@@ -198,8 +199,8 @@ if CheckColorsGruvbox()
         let g:gruvbox_italic=1
         "let g:gruvbox_italicize_comments=1
         colorscheme gruvbox
-        "set bg=dark
-        call ToggleBackgroundTime(6,19)
+        set bg=dark
+        "call ToggleBackgroundTime(6,19)
 endif
 "}}}1
 
