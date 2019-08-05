@@ -6,6 +6,7 @@ setlocal norelativenumber
 setlocal number
 setlocal nowrap
 setlocal scrollbind
+setlocal tw=0
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                              Variables
@@ -16,9 +17,6 @@ setlocal scrollbind
 let b:template_file = "$HOME/.vim/skeletons/Lilypond/templates.ly"
 let b:bar_rest = 's1'
 
-" if !exists("g:key_signature")
-"     let g:key_signature = "cM"
-" endif
 let s:accidentals = ["f", "c", "g", "d", "a", "e", "b"]
 "{{{ s:signatures
 let s:signatures = {
@@ -35,6 +33,10 @@ let s:signatures = {
         \ 'bM':    5, 'gism':  5,
 \ }
 "}}}
+
+" either of two values: 'number' or 'sign'
+" set by autocommands below
+"let g:pitch_mode = "number"
 
 " }}}
 
@@ -89,20 +91,34 @@ iabbrev pt  <ESC>:call FromTemplate("TempPoly")<CR>
 " command for changing a note into another in the current line (i.e. c --> d)
 command! -nargs=+ -range -buffer Switch :call SwitchNotes(<f-args>)
 
-" command for setting key signature
-" command! -nargs=1 -bar -buffer KeySignature :let g:key_signature = <q-args>
-
 "}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                              Functions
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+" {{{ script local functions
+
+function! s:startLilypond()  
+    if index(argv(), 'right.ly') < 0  ||  index(argv(), 'left.ly') < 0
+        return
+    endif
+    edit right.ly
+    vsplit left.ly
+endfunction
+
+" }}}
+
 " make octaves {{{
 function! MakeOctave(pitch)
-        let match_pattern = "\(\s\+\)\([abcdefg]\%([ie]s\)*\)\([',]*\)\|\ze<.\{-}>\zs"
-        let match_pattern = "\\(\\s\\+\\)\\([abcdefg]\\%([ie]s\\)*\\)\\([',]*\\)\\|\\ze<.\\{-}>\\zs"
-        execute "s#" . match_pattern . "#\\1<\\2\\3 \\2" . a:pitch . ">#g" | s#<\s*[',]>##ge
+    if g:pitch_mode == 'sign'
+        let match_pattern = '\(\s\+\)\([abcdefg]\%([ie]\?s\)*\)\(['',]*\)\|\ze<.\{-}>\zs'
+        execute 's#' . match_pattern . '#\1<\2\3 \2' . a:pitch . '>#g' | s#<\s*[',]>##ge
+    else
+        let match_pattern = '\(\s\+\)\([abcdefg]\%([ie]\?s\)*\)\%(\({\)\(-\?\d\+\)\(}\)\)\?\|\ze<.\{-}>\zs'
+        let offset = a:pitch =~ ',' ? -1 : +1
+        exe 's#' . match_pattern . '#\=submatch(1) . "<" . submatch(2) . submatch(3).submatch(4).submatch(5) . " " . submatch(2) . "{".(submatch(4)+' . offset . ')."}" . ">"#g' | s#<\s*{-\?\d\+}>##ge
+    endif
 endfunction
 "}}}
 
@@ -142,15 +158,15 @@ function! SwitchNotes(...)
                         " don't ignore accidentals if first letter is
                         " upper case.  The accidental will be removed.
                         " i.e. SwitchNotes(A,b) : ais --> b
-                        let acc = ''
+                        let accidental = ''
                 else
                         " ignore accidentals if first letter is lower
                         " case.  The accidental will be kept.
                         " i.e. SwitchNotes(a,b) : ais --> bis
-                        let acc = "\\2"
+                        let accidental = "\\2"
                 endif
 
-                execute 's#[^\\]\<\(<\?\)' . a:000[i] . '\(\a*\)# \1' . tolower(a:000[i+1]) . acc . '#gi'
+                execute 's#[^\\]\<\(<\?\)' . a:000[i] . '\(\a*\)# \1' . tolower(a:000[i+1]) . accidental . '#gi'
         endfor
 endfunction
 "}}}
@@ -160,11 +176,19 @@ function! BarRest() "{{{
 endfunction
 "}}}
 
+" apply key signature accidentals to notes {{{
+
+" extract key signature from a line "{{{
+function! GetKeySignature(line)
+    return substitute(a:line, '.*\key \(\w\+\) \\\(minor\|major\).*', '\=submatch(2) ==# "major" ? submatch(1)."M" : submatch(1)."m"', '')
+endfunction
+"}}}
+
 " extract key signature from 'global.ly' "{{{
 function! GetGlobalKey()
     for line in readfile(expand("%:p:h") . "/global.ly")
         if line =~ '\key'
-            return substitute(line, '.*\key \(\w\+\) \\\(minor\|major\).*', '\=submatch(2) ==# "major" ? submatch(1)."M" : submatch(1)."m"', '')
+            return GetKeySignature(line)
         endif
     endfor
     throw "ERROR_NoKeySignature"
@@ -173,22 +197,14 @@ endfunction
 
 " add accidentals for different key signatures "{{{
 function! AdaptToKey(ignore)
-        " key signature must be specified with 
-        "               %%Key: <KEY>
-        " at the end of a line. If no such 'statement' was found, then it will
-        " look up the 'global.ly' file.
-        let l:window = winsaveview()
-            try
-                ?%%Key:\s*\w\+[mM]
-                let l:key = substitute(getline('.'), '.*%%Key:\s*\(\w\+[mM]\).*', '\1', 'I')
-            catch "E486"
-                let l:key = GetGlobalKey()
-            endtry
-            echo "Key signature is:" l:key
-        call winrestview(l:window)
+        let l:key = GetKeySignature(getline(search('\\key', 'bWn')))
+        if l:key == ''
+            let l:key = GetGlobalKey()
+        endif
+        echo "Key signature is:" l:key
         
         let s:numOfAcc = s:signatures[l:key]
-        let matchrest = '\([' . "'" . ',]*\)\(\d*\.\?>\?\)'
+        let matchrest = '\(['',]*\|{\d\+}\)\(\d*\.\?>\?\d*\.\?\)'
         if s:numOfAcc > 0
             for note in s:accidentals[: s:numOfAcc-1]
                 exec 's#\<\(<\?' . note . '\)' . matchrest . '\>#\1is\2\3#ge'
@@ -202,14 +218,59 @@ function! AdaptToKey(ignore)
 endfunction
 "}}}
 
+" }}}
+
+" transform pitch indications into numbers (i.e. ,,, --> {-3}) {{{
+
+function! AbsolutePitch2Number(pitch)
+    return a:pitch =~ "," ? "{-" . len(a:pitch) . "}" : "{" . len(a:pitch) . "}"
+endfunction
+
+function! AbsolutePitch2Sign(pitch)
+    let l:count = substitute(a:pitch, '{-\?\(\d\+\)}', '\1', '')
+    return a:pitch =~ "-" ? repeat(",", l:count) : repeat("'", l:count)
+endfunction
+
+function! AbsolutePitchTransform2Number() range
+    echom "number"
+    exe a:firstline . "," . a:lastline . 's#[,'']\+#\=AbsolutePitch2Number(submatch(0))#ge'
+endfunction
+
+function! AbsolutePitchTransform2Sign() range
+    echom "sign"
+    exe a:firstline . "," . a:lastline . 's#{-\?\d\+}#\=AbsolutePitch2Sign(submatch(0))#ge'
+endfunction
+
+function! AbsolutePitchTransformTo(type)
+    let window = winsaveview()
+    if a:type == 'number'
+        %call AbsolutePitchTransform2Number()
+    elseif a:type == 'sign'
+        %call AbsolutePitchTransform2Sign()
+    endif
+    call winrestview(window)
+endfunction
+
+" }}}
+
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                            Autocommands
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-augroup LiliyPond
+augroup LiliyPond "{{{
     au!
-    au FocusLost,InsertLeave *.ly :wa
+    au FocusLost *.ly                       :wa | e
+    au BufWritePre *.ly                     :silent call AbsolutePitchTransformTo("sign") | let g:pitch_mode = "sign"
+    au BufRead,BufEnter,BufWritePost *.ly   :silent call AbsolutePitchTransformTo("number") | let g:pitch_mode = "number"
+    au FileChangedShell *.ly                :if input("File changed. Reload? (y/n)  ") == 'y' | edit | endif
 augroup END
+"}}}
+
+augroup LiliPondStart  "{{{
+    au!
+    au VimEnter *.ly :call s:startLilypond() | windo set ft=lilypond | syntax on
+augroup END
+"}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                              Mappings
@@ -230,13 +291,13 @@ nnoremap <buffer> <LocalLeader>br :windo setl noscrollbind<CR>:windo normal gg<C
 "}}}
 
 "put a | at the end of a line {{{
-inoremap <buffer> <LocalLeader>b <c-o>A \|<ESC>:call AdaptToKey(">")<CR>
+inoremap <buffer> <LocalLeader>b <c-o>A \|<ESC>
 nnoremap <buffer> <LocalLeader>bb A \|<ESC>
 "}}}
 
-"insert octave up/down in insert mode {{{
-inoremap <buffer> <LocalLeader>ou <ESC>yiwi<<ESC>ea <C-O>p'>
-inoremap <buffer> <LocalLeader>od <ESC>yiwi<<ESC>ea <C-O>p,>
+"insert octave up/down in insert mode (deprecated) {{{
+" inoremap <buffer> <LocalLeader>ou <ESC>yiwi<<ESC>ea <C-O>p'>
+" inoremap <buffer> <LocalLeader>od <ESC>yiwi<<ESC>ea <C-O>p,>
 "}}}
 
 "make octave {{{

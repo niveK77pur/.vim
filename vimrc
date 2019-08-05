@@ -348,6 +348,9 @@ nnoremap <F10> :Goyo<CR>
 " toggle 'paste'
 nnoremap <F2> :set paste! paste?<CR>
 
+" edit filtype plugin of current file
+nnoremap <Leader>f :exe ":tabnew /home/kevin/.vim/after/ftplugin/" . &filetype . ".vim"<CR>
+
 noremap <F12> :echo "\\°O°/" <CR>
 
 "}}}

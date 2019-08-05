@@ -1,3 +1,5 @@
+set ts=4
+
 ". escape caracters
 iabb <buffer> <e   <ESC>
 iabb <buffer> <b   <buffer>
