@@ -1,4 +1,4 @@
-" have a transparent background to see the underlying PDF
+"et scrollbind | call winrestview(a)have a transparent background to see the underlying PDF
 colorscheme ron
 redraw!         " automatically redraw screen
 
@@ -103,7 +103,7 @@ function! s:startLilypond()
     if index(argv(), 'right.ly') < 0  ||  index(argv(), 'left.ly') < 0
         return
     endif
-    edit right.ly
+    edit! right.ly
     vsplit left.ly
 endfunction
 
@@ -232,12 +232,10 @@ function! AbsolutePitch2Sign(pitch)
 endfunction
 
 function! AbsolutePitchTransform2Number() range
-    echom "number"
     exe a:firstline . "," . a:lastline . 's#[,'']\+#\=AbsolutePitch2Number(submatch(0))#ge'
 endfunction
 
 function! AbsolutePitchTransform2Sign() range
-    echom "sign"
     exe a:firstline . "," . a:lastline . 's#{-\?\d\+}#\=AbsolutePitch2Sign(submatch(0))#ge'
 endfunction
 
@@ -252,6 +250,16 @@ function! AbsolutePitchTransformTo(type)
 endfunction
 
 " }}}
+
+" reset scrollbind if it happens to get messed up "{{{
+function! ResetScrollBind()
+    let l:view = winsaveview()
+    set noscrollbind
+    windo normal gg
+    set scrollbind
+    call winrestview(l:view)
+endfunction
+"}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                            Autocommands
@@ -287,7 +295,7 @@ inoremap <buffer> <LocalLeader><SPACE> <c-v><space>
 "toggle scrollbind
 nnoremap <buffer> <LocalLeader>bt :set scrollbind!<CR>
 "reset scroll binding
-nnoremap <buffer> <LocalLeader>br :windo setl noscrollbind<CR>:windo normal gg<CR>:windo setl scrollbind<CR>
+nnoremap <buffer> <LocalLeader>br :call ResetScrollBind()<CR>
 "}}}
 
 "put a | at the end of a line {{{
