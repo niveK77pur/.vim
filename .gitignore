@@ -1,4 +1,5 @@
 Vimscript_Exercises/
 bundle/
-autoload/
+plugged/
+autoload/plug.vim
 .netrwhist
