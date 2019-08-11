@@ -85,9 +85,9 @@ call plug#begin('~/.vim/plugged/')
     endif
     
     Plug 'suan/vim-instant-markdown', { 'for' : 'markdown' }
-    " if v:version >= 800  " requires vim 8.0+ or neovim
-    "     Plug 'neoclide/coc.nvim'         
-    " endif
+    if v:version >= 800 || has('nvim')  " requires vim 8.0+ or neovim
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    endif
 call plug#end()
 " }}}
 
@@ -210,7 +210,7 @@ endfunction
 
 
 function! SubstituteList(list, pat, sub, flag) "{{{
-    " same as substitue() but do substitution on every item in a list
+    " same as substitute() but do substitution on every item in a list
     " maybe use map() instead
     let l:result = []
     for item in a:list
@@ -273,6 +273,7 @@ set relativenumber  "Relative numbering
 set linebreak       "Line wrapping at a character
 set showcmd
 set wildmenu
+
 try
     set listchars=eol:¶,tab:>-,space:∙,trail:˛,extends:>,precedes:§
 catch "E474"
@@ -291,6 +292,11 @@ set stl+=,%02c          " column number
 set stl+=%V             " Virtual column number (not displayed if equal to %c)
 set stl+=\ %P
 " }}}
+"}}}
+
+" ~~~ Editor ~~~ {{{
+set backspace=2
+set splitright
 "}}}
 
 " ~~~ Settings for auto-completion ~~~ {{{
@@ -449,26 +455,66 @@ augroup filetype_vim
 augroup END
 " }}}
 
-" compiling source code "{{{
-function! RunMessage()
-        !$HOME/bin/draw_center_text.sh "Running program"
+" Compiling source code "{{{
+
+" functions for compiling code {{{
+
+function! RunMessage() "{{{
+    !$HOME/bin/draw_center_text.sh "Running program"
 endfunction
+"}}}
+
+function! s:createTrackedTerm(cmd, where, track) "{{{
+    let l:cmd = substitute(a:cmd, '%', '\=expand("%")', '')
+    if bufexists(winbufnr(eval(a:track)))
+        " return to previous terminal if it still exists
+        call win_gotoid(eval(a:track))
+        call term_start(l:cmd, {"curwin": v:true})
+    else
+        " create new terminal if none exists
+        if a:where ==? 'vertical'
+            exe 'let' a:track '= win_findbuf(term_start(l:cmd, {"vertical":1}))[0]'
+        elseif a:where ==? 'tab'
+            exe 'tab let' a:track '= win_findbuf(term_start(l:cmd))[0]'
+        endif
+    endif
+endfunction
+"}}}
+
+function! RunTermCommand(cmd, where='vertical', track='g:compile_term') "{{{
+    " cmd   : String of command to be executed in terminal
+    " where : Where to place the terminal. Either of these values:
+    "           'vertical'  : Terminal is in a vertically split window
+    "           'tab'       : Terminal is in a new tab
+    "           'shell'     : Run command in the shell (i.e. with :!)
+    " track : Variable that tracks the terminal window. This way the 
+    "   terminal is reused when you run the command again
+    if has('terminal') && a:where !=? 'shell'
+        call s:createTrackedTerm(a:cmd, a:where, a:track)
+    else "no terminal support  OR  a:where ==? 'shell'
+        exe ':!' a:cmd
+    endif
+endfunction
+"}}}
+
+" }}}
+let g:compile_term = -1 "window id
 augroup compile_source
         au!
         au FileType,BufEnter * nnoremap <Leader>m :make<CR>
-        au FileType python nnoremap <buffer> <LocalLeader>r :!python3 % <CR>
-        au FileType bash   nnoremap <buffer> <LocalLeader>r :!bash %<CR>
-        au FileType pascal nnoremap <buffer> <LocalLeader>r :!fpc -ovimPasEXE % ; echo -e "\e[44m Running program ...\e(B\e[m"; ./vimPasEXE <CR>
-        au FileType tex    nnoremap <buffer> <LocalLeader>r :!pdflatex %; evince %:s?\.tex?\.pdf? <CR>
-        au FileType markdown nnoremap <buffer> <LocalLeader>r :!retext --preview %<CR>
-        au FileType cpp    nnoremap <buffer> <LocalLeader>r :!g++ -o vim-a.out % ; draw_center_text.sh "Running program"; ./*.out<CR>
-        "au FileType cpp    nnoremap <buffer> <LocalLeader>r :!g++ -o a.out % ; draw_center_text.sh "Running program"; ./*.out<CR>
-        au FileType sh     nnoremap <buffer> <LocalLeader>r :!./%<CR>
-        au FileType swift  nnoremap <buffer> <LocalLeader>r :call RunMessage() \| !swift % <CR>
+        au FileType python   nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('python3 %')<CR>
+        au FileType bash     nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('bash %')<CR>
+        au FileType pascal   nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('fpc -ovimPasEXE % ; echo -e "\e[44m Running program ...\e(B\e[m"; ./vimPasEXE')<CR>
+        au FileType tex      nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('pdflatex %; evince %:s?\.tex?\.pdf?', 'shell')<CR>
+        au FileType markdown nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('retext --preview %', 'shell')<CR>
+        au FileType cpp      nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('g++ -o vim-a.out % ; draw_center_text.sh "Running program"; ./*.out')<CR>
+        au FileType cpp      nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('g++ -o a.out % ; draw_center_text.sh "Running program"; ./*.out')<CR>
+        au FileType sh       nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('./%')<CR>
+        au FileType swift    nnoremap <buffer> <LocalLeader>r :update \| call RunMessage() \| call RunTermCommand('swift %')<CR>
 augroup END
 "}}}
 
-" clean up "{{{
+" Clean up "{{{
 augroup clean_compiled_source
         au!
         au BufEnter *.cpp let cpp_opened = 1

@@ -1,4 +1,4 @@
-"et scrollbind | call winrestview(a)have a transparent background to see the underlying PDF
+" have a transparent background to see the underlying PDF
 colorscheme ron
 redraw!         " automatically redraw screen
 
@@ -7,6 +7,10 @@ setlocal number
 setlocal nowrap
 setlocal scrollbind
 setlocal tw=0
+
+if exists(':CocDisable')
+    CocDisable
+endif
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                              Variables
@@ -99,13 +103,15 @@ command! -nargs=+ -range -buffer Switch :call SwitchNotes(<f-args>)
 
 " {{{ script local functions
 
-function! s:startLilypond()  
-    if index(argv(), 'right.ly') < 0  ||  index(argv(), 'left.ly') < 0
-        return
-    endif
-    edit! right.ly
-    vsplit left.ly
-endfunction
+if !exists('*s:startLilypond')
+    function! s:startLilypond()  
+        if index(argv(), 'right.ly') < 0  ||  index(argv(), 'left.ly') < 0
+            return
+        endif
+        edit! right.ly
+        vsplit left.ly
+    endfunction
+endif
 
 " }}}
 
