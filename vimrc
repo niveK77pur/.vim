@@ -84,7 +84,10 @@ call plug#begin('~/.vim/plugged/')
         Plug 'FredKSchott/CoVim', { 'on' : 'CoVim' }
     endif
     
-    Plug 'suan/vim-instant-markdown', { 'for' : 'markdown' }
+    " Plug 'suan/vim-instant-markdown', { 'for' : 'markdown' }
+    " ... never got it working + switching to 'typora' for Markdown files
+    " TODO remove all packages installed for this plugin
+    
     if v:version >= 800 || has('nvim')  " requires vim 8.0+ or neovim
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
     endif
@@ -329,6 +332,11 @@ let CoVim_default_name = "kevin"
 let CoVim_default_port = "8080"
 " }}}
 
+" ~~~ COC ~~~ {{{
+nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
+nnoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
+" }}}
+
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                              Mappings
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -396,9 +404,6 @@ nnoremap <Leader><space> /\[>VIM<\]<CR>v//e<CR>s
 " insert a [>VIM<] to jump to
 inoremap <Leader>j [>VIM<]
 
-" toggle Syntastic 
-nnoremap <F4> :SyntasticToggleMode<CR>
-
 " toggle 'background' between light and dark
 nnoremap <F6> :call ToggleBackground()<CR>
 
@@ -410,6 +415,11 @@ nnoremap <F2> :set paste! paste?<CR>
 
 " edit filtype plugin of current file
 nnoremap <Leader>f :exe ":tabnew /home/kevin/.vim/after/ftplugin/" . &filetype . ".vim"<CR>
+
+" terminal mappings {{{
+tnoremap <Leader>t <C-W>:tabprevious<CR>
+tnoremap <Leader>w <C-W>p
+" }}}
 
 noremap <F12> :echo "\\°O°/" <CR>
 
@@ -474,6 +484,8 @@ function! s:createTrackedTerm(cmd, where, track) "{{{
         " create new terminal if none exists
         if a:where ==? 'vertical'
             exe 'let' a:track '= win_findbuf(term_start(l:cmd, {"vertical":1}))[0]'
+        elseif a:where ==? 'horizontal'
+            exe 'let' a:track '= win_findbuf(term_start(l:cmd))[0]'
         elseif a:where ==? 'tab'
             exe 'tab let' a:track '= win_findbuf(term_start(l:cmd))[0]'
         endif
@@ -481,12 +493,8 @@ function! s:createTrackedTerm(cmd, where, track) "{{{
 endfunction
 "}}}
 
-function! RunTermCommand(cmd, where='vertical', track='g:compile_term') "{{{
+function! RunTermCommand(cmd, where=eval('g:where_term'), track='g:compile_term') "{{{
     " cmd   : String of command to be executed in terminal
-    " where : Where to place the terminal. Either of these values:
-    "           'vertical'  : Terminal is in a vertically split window
-    "           'tab'       : Terminal is in a new tab
-    "           'shell'     : Run command in the shell (i.e. with :!)
     " track : Variable that tracks the terminal window. This way the 
     "   terminal is reused when you run the command again
     if has('terminal') && a:where !=? 'shell'
@@ -499,10 +507,16 @@ endfunction
 
 " }}}
 let g:compile_term = -1 "window id
+let g:where_term = 'vertical'
+    " Where to place the terminal. Either of these values:
+    "     'vertical'   : Terminal is in a vertically split window
+    "     'horizontal' : Terminal is in a horizontally split window
+    "     'tab'        : Terminal is in a new tab
+    "     'shell'      : Run command in the shell (i.e. with :!)
 augroup compile_source
         au!
         au FileType,BufEnter * nnoremap <Leader>m :make<CR>
-        au FileType python   nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('python3 %')<CR>
+        au FileType python   nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('python3 %', 'tab')<CR>
         au FileType bash     nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('bash %')<CR>
         au FileType pascal   nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('fpc -ovimPasEXE % ; echo -e "\e[44m Running program ...\e(B\e[m"; ./vimPasEXE')<CR>
         au FileType tex      nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('pdflatex %; evince %:s?\.tex?\.pdf?', 'shell')<CR>
