@@ -1,5 +1,4 @@
-syntax region PitchNumber start='{' end='}'
-syntax match  PitchNumber "{.*}"
+syntax match PitchNumber /{-\?\d\+}/
 syntax keyword Error global
 
 highlight default link PitchNumber Error

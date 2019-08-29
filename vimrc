@@ -68,6 +68,7 @@ call plug#begin('~/.vim/plugged/')
     Plug 'scrooloose/nerdcommenter'
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-surround'
+    Plug 'tpope/vim-fugitive'
     
     Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
     
@@ -158,7 +159,7 @@ endfunction
 "}}}
 
 function! MakeSection(...) "{{{
-        let l:text = join(a:000, " ") . " "
+        let l:text = " " . join(a:000, " ") . " "
         let l:comment_character = GetCommentCharacter()
         let l:width = &textwidth > 0 ? &textwidth : 80
         let banner = repeat('-', l:width - len(l:comment_character) - len(l:text))
@@ -264,7 +265,7 @@ endif
 " ~~~ Options for indentation ~~~ {{{
 set autoindent
 "set tabstop=4
-set shiftwidth=0
+set shiftwidth=4
 set softtabstop=-1
 set expandtab
 "}}}
@@ -322,6 +323,7 @@ endif
 
 " ~~~ NERDCommenter ~~~ {{{
 let g:NERDSpaceDelims = 1
+let g:NERDDefaultAlign = 'left'
 let g:NERDCustomDelimiters = {
     \ 'swift': { 'left': '//', 'leftAlt': '/*', 'right': '', 'rightAlt': '*/' } 
 \ }
@@ -525,6 +527,7 @@ augroup compile_source
         au FileType cpp      nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('g++ -o a.out % ; draw_center_text.sh "Running program"; ./*.out')<CR>
         au FileType sh       nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('./%')<CR>
         au FileType swift    nnoremap <buffer> <LocalLeader>r :update \| call RunMessage() \| call RunTermCommand('swift %')<CR>
+        au FileType html     nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('firefox %', 'shell')<CR>
 augroup END
 "}}}
 
@@ -555,24 +558,12 @@ endfunction
 " comment character for filetypes (b:comment_character) "{{{
 augroup comment_char
         autocmd!
-        au FileType python,bash,sh,ruby,yaml  let b:comment_character = '#'
-        au FileType pascal,cpp,swift          let b:comment_character = '//'
-        au FileType vim                       let b:comment_character = '"'
-        au FileType tex,plaintex,lilypond     let b:comment_character = '%'
-        au FileType text,md                   let b:comment_character = ''
+        au FileType python,bash,sh,ruby,yaml        let b:comment_character = '#'
+        au FileType pascal,cpp,swift,javascript     let b:comment_character = '//'
+        au FileType vim                             let b:comment_character = '"'
+        au FileType tex,plaintex,lilypond           let b:comment_character = '%'
+        au FileType text,md                         let b:comment_character = ''
 augroup END
-"}}}
-
-" filetype commenting {{{
-" switched to NERDCommenter Plugin
-" see ':h NERCommenter'
-"augroup ft_commenting
-"        au!
-"        au FileType python,bash,ruby,yaml  nnoremap <buffer> <LocalLeader>c I#<ESC> 
-"        au FileType pascal,cpp,swift       nnoremap <buffer> <LocalLeader>c I//<ESC> 
-"        au FileType vim                    nnoremap <buffer> <LocalLeader>c I"<ESC>
-"        au FileType tex,plaintex,lilypond  nnoremap <buffer> <LocalLeader>c I%<ESC>
-"augroup END
 "}}}
 
 " colons {{{
