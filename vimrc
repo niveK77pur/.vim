@@ -1,9 +1,9 @@
 "" Check out what other interesting things there are to add here
 "" http://stackoverflow.com/questions/164847/what-is-in-your-vimrc
 
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"                               Plugins
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                                   Plugins
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " hand-made {{{
 "set runtimepath+=$HOME/.vim/bundle/nerdtree/
@@ -64,31 +64,38 @@ call plug#begin('~/.vim/plugged/')
     " use :PlugUpgrade to upgrade vim-plug itself
     Plug 'junegunn/vim-plug'
     
+" Handy tools ----------------------------------------------------------------
     Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
+    Plug 'thinca/vim-localrc'
+    Plug 'terryma/vim-multiple-cursors'
+
+" Interface ------------------------------------------------------------------
+    Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
+    Plug 'morhetz/gruvbox'
+
+" Editing --------------------------------------------------------------------
     Plug 'scrooloose/nerdcommenter'
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-fugitive'
-    
-    Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
-    
-    Plug 'keith/swift.vim', { 'for' : 'swift' }
-    if isdirectory('/usr/share/lilypond/')
-        Plug '/usr/share/lilypond/2.18.2/vim/', { 'for' : 'lilypond' }
-    endif
-    
-    Plug 'thinca/vim-localrc'
-    Plug 'terryma/vim-multiple-cursors'
-    Plug 'morhetz/gruvbox'
-    
-    if has('python') " requires to be compiled with +python
-        Plug 'FredKSchott/CoVim', { 'on' : 'CoVim' }
-    endif
+    Plug 'sukima/xmledit' ", { 'for' : ['html', 'xhtml', 'xml', 'php'] }
     
     " Plug 'suan/vim-instant-markdown', { 'for' : 'markdown' }
     " ... never got it working + switching to 'typora' for Markdown files
     " TODO remove all packages installed for this plugin
     
+" Language support -----------------------------------------------------------
+    Plug 'keith/swift.vim', { 'for' : 'swift' }
+    if isdirectory('/usr/share/lilypond/')
+        Plug '/usr/share/lilypond/2.18.2/vim/', { 'for' : 'lilypond' }
+    endif
+    
+" Collaboration --------------------------------------------------------------
+    if has('python') " requires to be compiled with +python
+        Plug 'FredKSchott/CoVim', { 'on' : 'CoVim' }
+    endif
+    
+" Language Server ------------------------------------------------------------
     if v:version >= 800 || has('nvim')  " requires vim 8.0+ or neovim
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
     endif
@@ -329,6 +336,10 @@ let g:NERDCustomDelimiters = {
 \ }
 "}}}
 
+" ~~~ AutoPairs ~~~ {{{
+let g:AutoPairsMoveCharacter = ""   "Fix bug where § does funny things in insert mode
+" }}}
+
 " ~~~ CoVim ~~~ {{{
 let CoVim_default_name = "kevin"
 let CoVim_default_port = "8080"
@@ -398,13 +409,17 @@ autocmd FileType vim inoremap <buffer> <Leader>S <ESC>:wa<CR>:source %<CR>
 autocmd FileType vim nnoremap <buffer> <Leader>S :wa<CR>:source %<CR>
 "}}}
 
-" jump to next [>VIM<] tag "{{{
+" the custom [>VIM<] tag "{{{
+" insert a [>VIM<] to jump to
+inoremap <Leader>j [>VIM<]
+
+" jump to next [>VIM<] tag
+nnoremap <Leader>j /\[>VIM<\]<CR>
+
+" jump to and replace next [>VIM<] tag
 inoremap <Leader><space> <ESC>/\[>VIM<\]<CR>v//e<CR>s
 nnoremap <Leader><space> /\[>VIM<\]<CR>v//e<CR>s
 "}}}
-
-" insert a [>VIM<] to jump to
-inoremap <Leader>j [>VIM<]
 
 " toggle 'background' between light and dark
 nnoremap <F6> :call ToggleBackground()<CR>
@@ -422,6 +437,13 @@ nnoremap <Leader>f :exe ":tabnew /home/kevin/.vim/after/ftplugin/" . &filetype .
 tnoremap <Leader>t <C-W>:tabprevious<CR>
 tnoremap <Leader>w <C-W>p
 " }}}
+
+" mapping for uni keyboard without <,> and \ "{{{
+noremap § <
+noremap ° >
+inoremap § <
+inoremap ° >
+"}}}
 
 noremap <F12> :echo "\\°O°/" <CR>
 
@@ -602,7 +624,8 @@ augroup script_templates
         au BufNewFile *.sh    0r $HOME/.vim/skeletons/Bash/HashBang.sh
         au BufNewFile *.yml   0r $HOME/.vim/skeletons/Yaml/new.yml
         au BufNewFile *.tex   0r $HOME/.vim/skeletons/Latex/new.tex
-        au BufNewFile *.swift 0r $HOME/.vim/skeletons/swift/foundation.swift
+        au BufNewFile *.swift 0r $HOME/.vim/skeletons/Swift/foundation.swift
+        au BufNewFile *.html  0r $HOME/.vim/skeletons/HTML/new.html
         "au BufNewFile *.ly  call NewLilypond()
 augroup END
 "}}}
@@ -610,6 +633,20 @@ augroup END
 " use TEX instead of PLAINTEX by default (:h ft-tex-plugin)
 let g:tex_flavor = "latex"
 
+" }}}
+
+" Syntax highlighting {{{
+augroup custom_marks
+    au!
+    let arekeywords = &iskeyword
+    set iskeyword=V,I,M,60,62,91,93
+    
+    au BufRead,BufNewFile * syntax keyword Todo [>VIM<]
+    au BufRead,BufNewFile * syntax match   Todo "\[>VIM<\]"
+
+    let &iskeyword = arekeywords
+    unlet arekeywords
+augroup END
 " }}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
