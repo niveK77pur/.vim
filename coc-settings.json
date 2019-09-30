@@ -1,4 +1,10 @@
 {
-    
+  "languageserver": {
+    "digestif": {
+      "command": "/opt/luarocks-3.2.0/lua_modules/bin/digestif",
+      "filetypes": ["tex", "plaintex", "context"]
+    }
+  }
 }
 // https://gitea.justinrestivo.me/jrestivo/neovim_dots/src/branch/master/coc-settings.json
+// vim: sw=2

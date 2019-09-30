@@ -4,7 +4,7 @@
   title = "TITLE"
   %instrument = "Piano"
   composer = "Kevin L. Biewesch"
-  %arranger = "Kevin L. Biewesch"
+  %arranger = "Arr. by VinLudens"
 }
 
 %#(set-global-staff-size 20)

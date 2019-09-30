@@ -1,6 +1,6 @@
-set ts=4
+" set ts=4
 
-". escape caracters
+" escpae characters ----------------------------------------------------------
 iabb <buffer> <e   <ESC>
 iabb <buffer> <b   <buffer>
 iabb <buffer> <l   <Leader>
@@ -9,30 +9,27 @@ iabb <buffer> cr   <CR>
 iabb <buffer> bs   <BS>
 iabb <buffer> tab  <Tab>
 
-" motion
+" motion ---------------------------------------------------------------------
 iabb <buffer> left  <Left>
 iabb <buffer> right <Right>
 iabb <buffer> up    <Up>
 iabb <buffer> down  <Down>
 
-" autocommad-events 
+" autocommand-events ---------------------------------------------------------
 iabb <buffer> FT   FileType
 iabb <buffer> BNF  BufNewFile
 iabb <buffer> BR   BufRead
 
-" mapping
+" mapping --------------------------------------------------------------------
 iabb <buffer> inap inoremap
 iabb <buffer> nnap nnoremap
 iabb <buffer> onap onoremap
 
-" open and closing arguments
+" open and closing arguments -------------------------------------------------
 iabb <buffer> augr augroup<CR>augroup END<Up>
 
-" insert jump mark
-inoremap <buffer> <LocalLeader>jj [>VIM<]
-
-" make a fold out of block in .vim files
+" make a fold out of block in .vim files -------------------------------------
 nnoremap <buffer>  <LocalLeader>f {jA "{{{<ESC>}O"}}}<ESC>
 
-" make a mapping buffer local by putting <buffer>
+" make a mapping buffer local by putting <buffer> ----------------------------
 nnoremap <buffer>  <LocalLeader>b ^ea <buffer> <ESC>

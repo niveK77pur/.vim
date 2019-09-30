@@ -1,15 +1,16 @@
 " have a transparent background to see the underlying PDF
-colorscheme ron
-redraw!         " automatically redraw screen
+" colorscheme ron
+" redraw!         " automatically redraw screen
 
 setlocal norelativenumber
 setlocal number
 setlocal nowrap
 setlocal scrollbind
 setlocal tw=0
+setlocal autoread
 
 if exists(':CocDisable')
-    CocDisable
+    silent CocDisable
 endif
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -72,7 +73,7 @@ iabbrev HN \unHideNotes
 
 iabbrev featherl <c-r>=Feather('l')<CR><c-o>?+<CR><DEL>
 iabbrev featherr <c-r>=Feather('r')<CR><c-o>?+<CR><DEL>
-iabbrev feather0 \override Beam.grow-direction = #'()
+iabbrev feather0 \override Beam.grow-direction = #<C-V>'()
 
 iabbrev ct \clef "treble"
 iabbrev cb \clef "bass"
@@ -84,9 +85,11 @@ iabbrev p\  <ESC>:call FromTemplate("DoublePoly1")<CR>
 iabbrev p\\ <ESC>:call FromTemplate("DoublePoly2")<CR>
 iabbrev pt  <ESC>:call FromTemplate("TempPoly")<CR>
 
+iabbrev shape \shape #<C-V>'(([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]))
+
 "}}}
 
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                              Commands
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -103,28 +106,18 @@ command! -nargs=+ -range -buffer Switch :call SwitchNotes(<f-args>)
 
 " {{{ script local functions
 
-if !exists('*s:startLilypond')
-    function! s:startLilypond()  
-        if index(argv(), 'right.ly') < 0  ||  index(argv(), 'left.ly') < 0
-            return
-        endif
-        edit! right.ly
-        vsplit left.ly
-    endfunction
-endif
-
 " }}}
 
 " make octaves {{{
 function! MakeOctave(pitch)
-    if g:pitch_mode == 'sign'
+    " if g:pitch_mode == 'sign'
         let match_pattern = '\(\s\+\)\([abcdefg]\%([ie]\?s\)*\)\(['',]*\)\|\ze<.\{-}>\zs'
         execute 's#' . match_pattern . '#\1<\2\3 \2' . a:pitch . '>#g' | s#<\s*[',]>##ge
-    else
-        let match_pattern = '\(\s\+\)\([abcdefg]\%([ie]\?s\)*\)\%(\({\)\(-\?\d\+\)\(}\)\)\?\|\ze<.\{-}>\zs'
-        let offset = a:pitch =~ ',' ? -1 : +1
-        exe 's#' . match_pattern . '#\=submatch(1) . "<" . submatch(2) . submatch(3).submatch(4).submatch(5) . " " . submatch(2) . "{".(submatch(4)+' . offset . ')."}" . ">"#g' | s#<\s*{-\?\d\+}>##ge
-    endif
+    " else
+    "     let match_pattern = '\(\s\+\)\([abcdefg]\%([ie]\?s\)*\)\%(\({\)\(-\?\d\+\)\(}\)\)\?\|\ze<.\{-}>\zs'
+    "     let offset = a:pitch =~ ',' ? -1 : +1
+    "     exe 's#' . match_pattern . '#\=submatch(1) . "<" . submatch(2) . submatch(3).submatch(4).submatch(5) . " " . submatch(2) . "{".(submatch(4)+' . offset . ')."}" . ">"#g' | s#<\s*{-\?\d\+}>##ge
+    " endif
 endfunction
 "}}}
 
@@ -238,7 +231,7 @@ function! AbsolutePitch2Sign(pitch)
 endfunction
 
 function! AbsolutePitchTransform2Number() range
-    exe a:firstline . "," . a:lastline . 's#[,'']\+#\=AbsolutePitch2Number(submatch(0))#ge'
+    exe a:firstline . "," . a:lastline . 's/[[:digit:]s.abcdefg]\zs[,'']\+/\=AbsolutePitch2Number(submatch(0))/ge'
 endfunction
 
 function! AbsolutePitchTransform2Sign() range
@@ -267,6 +260,17 @@ function! ResetScrollBind()
 endfunction
 "}}}
 
+" reload all open lilpond files "{{{
+if !exists('*ReloadLiliypond')
+    function! ReloadLiliypond()
+        if expand('%:e') ==? 'ly'
+            edit
+            echo "Reloading" expand('%:t')
+        endif
+    endfunction
+endif
+"}}}
+
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                            Autocommands
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -274,15 +278,9 @@ endfunction
 augroup LiliyPond "{{{
     au!
     au FocusLost *.ly                       :wa | e
-    au BufWritePre *.ly                     :silent call AbsolutePitchTransformTo("sign") | let g:pitch_mode = "sign"
-    au BufRead,BufEnter,BufWritePost *.ly   :silent call AbsolutePitchTransformTo("number") | let g:pitch_mode = "number"
+    " au BufWritePre *.ly                     :silent call AbsolutePitchTransformTo("sign") | let g:pitch_mode = "sign"
+    " au BufRead,BufEnter,BufWritePost *.ly   :silent call AbsolutePitchTransformTo("number") | let g:pitch_mode = "number"
     au FileChangedShell *.ly                :if input("File changed. Reload? (y/n)  ") == 'y' | edit | endif
-augroup END
-"}}}
-
-augroup LiliPondStart  "{{{
-    au!
-    au VimEnter *.ly :call s:startLilypond() | windo set ft=lilypond | syntax on
 augroup END
 "}}}
 
@@ -294,6 +292,9 @@ augroup END
 
 "use a <C-V><SPACE> instead. Prevents extra space when creating slurs
 inoremap <buffer> <LocalLeader><SPACE> <c-v><space>
+
+" reload all lilypond files
+noremap <LocalLeader><c-r> :bufdo call ReloadLiliypond()<CR>
 
 "}}}
 
@@ -309,13 +310,8 @@ inoremap <buffer> <LocalLeader>b <c-o>A \|<ESC>
 nnoremap <buffer> <LocalLeader>bb A \|<ESC>
 "}}}
 
-"insert octave up/down in insert mode (deprecated) {{{
-" inoremap <buffer> <LocalLeader>ou <ESC>yiwi<<ESC>ea <C-O>p'>
-" inoremap <buffer> <LocalLeader>od <ESC>yiwi<<ESC>ea <C-O>p,>
-"}}}
-
 "make octave {{{
-nnoremap <LocalLeader>mo :call MakeOctave("'")<CR>
+nnoremap <buffer> <LocalLeader>mo :call MakeOctave("'")<CR>
 vnoremap <buffer> <LocalLeader>mo v`>a<CR><ESC>`<i<CR><ESC>:call MakeOctave("'")<CR><UP>JJ
 nnoremap <buffer> <LocalLeader>mO :call MakeOctave(",")<CR>
 vnoremap <buffer> <LocalLeader>mO v`>a<CR><ESC>`<i<CR><ESC>:call MakeOctave(",")<CR><UP>JJ

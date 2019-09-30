@@ -58,7 +58,7 @@
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
       \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.vim/plugged/')
     " use :PlugUpgrade to upgrade vim-plug itself
@@ -68,6 +68,8 @@ call plug#begin('~/.vim/plugged/')
     Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
     Plug 'thinca/vim-localrc'
     Plug 'terryma/vim-multiple-cursors'
+    Plug 'junegunn/fzf.vim'
+    " Plug 'liuchengxu/vista.vim'
 
 " Interface ------------------------------------------------------------------
     Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
@@ -77,18 +79,16 @@ call plug#begin('~/.vim/plugged/')
     Plug 'scrooloose/nerdcommenter'
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-surround'
-    Plug 'tpope/vim-fugitive'
-    Plug 'sukima/xmledit' ", { 'for' : ['html', 'xhtml', 'xml', 'php'] }
-    
-    " Plug 'suan/vim-instant-markdown', { 'for' : 'markdown' }
-    " ... never got it working + switching to 'typora' for Markdown files
-    " TODO remove all packages installed for this plugin
+    " Plug 'tpope/vim-fugitive'
+
+" Music ----------------------------------------------------------------------
+    " Plug g:plug_home . '/vim-midi'
     
 " Language support -----------------------------------------------------------
     Plug 'keith/swift.vim', { 'for' : 'swift' }
-    if isdirectory('/usr/share/lilypond/')
-        Plug '/usr/share/lilypond/2.18.2/vim/', { 'for' : 'lilypond' }
-    endif
+    Plug '/usr/share/lilypond/2.18.2/vim/', { 'for' : 'lilypond' }
+    Plug 'sukima/xmledit', { 'for' : ['html', 'xhtml', 'xml', 'php'] }
+    Plug 'lervag/vimtex', { 'for' : ['latex', 'tex', 'plaintex', 'context', 'bib'] }
     
 " Collaboration --------------------------------------------------------------
     if has('python') " requires to be compiled with +python
@@ -220,14 +220,14 @@ endfunction
 "}}}
 
 
-function! SubstituteList(list, pat, sub, flag) "{{{
-    " same as substitute() but do substitution on every item in a list
-    " maybe use map() instead
-    let l:result = []
-    for item in a:list
-        call add(l:result, substitute(item, a:pat, a:sub, a:flag))
-    endfor
-    return l:result
+function! IndentAdjustSpaces(from, to) range "{{{
+    let old_ts = &tabstop
+    set noexpandtab     " change to tabs
+    exe a:firstline . ',' . a:lastline . 'retab!' a:from
+    let &tabstop = a:to
+    set expandtab       " go back to spaces
+    exe a:firstline . ',' . a:lastline . 'retab'
+    let &tabstop = old_ts
 endfunction
 "}}}
 
@@ -332,12 +332,17 @@ endif
 let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCustomDelimiters = {
-    \ 'swift': { 'left': '//', 'leftAlt': '/*', 'right': '', 'rightAlt': '*/' } 
+    \ 'swift': { 'left': '//', 'right': '', 'leftAlt': '/*', 'rightAlt': '*/' },
+    \ 'html' : { 'left': '<!--', 'right': '-->', 'leftAlt': '//' }
 \ }
 "}}}
 
 " ~~~ AutoPairs ~~~ {{{
 let g:AutoPairsMoveCharacter = ""   "Fix bug where § does funny things in insert mode
+augroup AutoPairsVim
+    au FileType vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", '`':'`'}
+    " au FileType vim inoremap " ""<Left>
+augroup END
 " }}}
 
 " ~~~ CoVim ~~~ {{{
@@ -348,6 +353,14 @@ let CoVim_default_port = "8080"
 " ~~~ COC ~~~ {{{
 nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
 nnoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
+" }}}
+
+" ~~~ vimtex ~~~ {{{
+let g:vimtex_view_method = 'zathura'
+
+let g:vimtex_quickfix_latexlog = {
+    \ 'overfull' : 0,
+    \}
 " }}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -392,6 +405,9 @@ noremap <Leader>p :set paste! paste? <CR>
 " exit insert mode more comfortably
 inoremap jk <Left><esc> 
 
+" execute macros comfortably (and remove unnecessary ex mode, see :h gQ)
+nnoremap Q @
+
 " see tabs, spaces and what have you "{{{
 nnoremap <Leader>l :set list! list? <CR>
 inoremap <Leader>l <ESC>:set list! list? <CR>a
@@ -431,19 +447,31 @@ nnoremap <F10> :Goyo<CR>
 nnoremap <F2> :set paste! paste?<CR>
 
 " edit filtype plugin of current file
-nnoremap <Leader>f :exe ":tabnew /home/kevin/.vim/after/ftplugin/" . &filetype . ".vim"<CR>
+nnoremap <Leader>f :exe ":tabnew $HOME/.vim/ftplugin/" . &filetype . ".vim"<CR>
 
 " terminal mappings {{{
 tnoremap <Leader>t <C-W>:tabprevious<CR>
+tnoremap <Leader>T <C-W>:tabnext<CR>
 tnoremap <Leader>w <C-W>p
 " }}}
 
 " mapping for uni keyboard without <,> and \ "{{{
-noremap § <
-noremap ° >
-inoremap § <
-inoremap ° >
+" noremap  § <
+" inoremap § <
+" cnoremap § <
+" noremap  ° >
+" inoremap ° >
+" cnoremap ° >
+" noremap  ¬ \
+" inoremap ¬ \
+" cnoremap ¬ \
 "}}}
+
+" Add 'TEST<<' to end of line and remove these lines {{{
+inoremap <Leader>tt <ESC>:exe 'normal A' . b:comment_character . '<<TEST<<'<CR>
+nnoremap <Leader>tt      :exe 'normal A' . b:comment_character . '<<TEST<<'<CR>
+nnoremap <Leader>td :g/<<TEST<</normal dd<CR>
+" }}}
 
 noremap <F12> :echo "\\°O°/" <CR>
 
@@ -454,10 +482,19 @@ noremap <F12> :echo "\\°O°/" <CR>
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " Command-line mode "{{{
-cabbrev Wq wq
-cabbrev WQ wq
-cabbrev W w
-cabbrev Q q
+
+" Whoops! Held <Shift> down too long -----------------------------------------
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
 "}}}
 
 " Insert mode "{{{
@@ -470,12 +507,16 @@ cabbrev Q q
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 "{{{
-" set the b:comment_character variable below in the FileTpye-Specific
+" set the b:comment_character variable below in the FileType-Specific
 " Settings for the following commands
 command! -nargs=+ MakeHeader  call MakeHeader(<f-args>)
 command! -nargs=+ MakeSection call MakeSection(<f-args>)
 
 command! -nargs=+ MakeTextAbbrevs call MakeTextAbbrevs(<f-args>)
+
+command! -nargs=1 IFcheck if <args> | echo <args> "is True" | else | echo <args> "is False" | endif
+
+command! -nargs=+ -range IndentAdjustSpaces <line1>,<line2>call IndentAdjustSpaces(<f-args>)
 "}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -498,32 +539,59 @@ function! RunMessage() "{{{
 endfunction
 "}}}
 
-function! s:createTrackedTerm(cmd, where, track) "{{{
+function! s:createTrackedTerm(cmd, where, options, track) "{{{
     let l:cmd = substitute(a:cmd, '%', '\=expand("%")', '')
     if bufexists(winbufnr(eval(a:track)))
         " return to previous terminal if it still exists
         call win_gotoid(eval(a:track))
-        call term_start(l:cmd, {"curwin": v:true})
+        call term_start(l:cmd, extend({"curwin": v:true},a:options))
     else
         " create new terminal if none exists
-        if a:where ==? 'vertical'
-            exe 'let' a:track '= win_findbuf(term_start(l:cmd, {"vertical":1}))[0]'
-        elseif a:where ==? 'horizontal'
-            exe 'let' a:track '= win_findbuf(term_start(l:cmd))[0]'
-        elseif a:where ==? 'tab'
-            exe 'tab let' a:track '= win_findbuf(term_start(l:cmd))[0]'
+        if a:where ==? 'vertical' || a:where ==? 'v'
+            exe 'let' a:track '= win_findbuf(term_start(l:cmd, extend({"vertical":1},a:options)))[0]'
+        elseif a:where ==? 'horizontal' || a:where ==? 'h'
+            exe 'let' a:track '= win_findbuf(term_start(l:cmd, a:options))[0]'
+        elseif a:where ==? 'auto' || a:where ==? 'a'
+            echo winwidth(0) '>' winheight(0)
+            if winwidth(0) > winheight(0)
+                " s:createTrackedTerm(a:cmd, 'vertical', a:track)
+                echom "V"
+                exe 'let' a:track '= win_findbuf(term_start(l:cmd, extend({"vertical":1},a:options)))[0]'
+            else
+                " s:createTrackedTerm(a:cmd, 'horizontal', a:track)
+                echom "H"
+                exe 'let' a:track '= win_findbuf(term_start(l:cmd,a:options))[0]'
+            endif
+        elseif a:where ==? 'tab' || a:where ==? 't'
+            exe 'tab let' a:track '= win_findbuf(term_start(l:cmd,a:options))[0]'
         endif
     endif
 endfunction
 "}}}
 
-function! RunTermCommand(cmd, where=eval('g:where_term'), track='g:compile_term') "{{{
+" function! RunTermCommand(cmd, where=eval('g:where_term'), options={}, track='g:compile_term') "{{{
+"     " cmd   : String of command to be executed in terminal
+"     " track : Variable that tracks the terminal window. This way the 
+"     "   terminal is reused when you run the command again
+"     if has('terminal') && a:where !=? 'shell'
+"         call s:createTrackedTerm(a:cmd, a:where, a:options, a:track)
+"     else "no terminal support  OR  a:where ==? 'shell'
+"         exe ':!' a:cmd
+"     endif
+" endfunction
+" "}}}
+
+function! RunTermCommand(cmd, ...) "{{{
+    " above is the original version. Replaced with this one for compatibility.
+    let s:where =   get(a:000, 0, eval('g:where_term'))
+    let s:options = get(a:000, 1, {})
+    let s:track =   get(a:000, 2, 'g:compile_term')
     " cmd   : String of command to be executed in terminal
     " track : Variable that tracks the terminal window. This way the 
     "   terminal is reused when you run the command again
-    if has('terminal') && a:where !=? 'shell'
-        call s:createTrackedTerm(a:cmd, a:where, a:track)
-    else "no terminal support  OR  a:where ==? 'shell'
+    if has('terminal') && s:where !=? 'shell'
+        call s:createTrackedTerm(a:cmd, s:where, s:options, s:track)
+    else "no terminal support  OR  s:where ==? 'shell'
         exe ':!' a:cmd
     endif
 endfunction
@@ -531,25 +599,30 @@ endfunction
 
 " }}}
 let g:compile_term = -1 "window id
-let g:where_term = 'vertical'
+let g:where_term = 'auto'
     " Where to place the terminal. Either of these values:
-    "     'vertical'   : Terminal is in a vertically split window
-    "     'horizontal' : Terminal is in a horizontally split window
-    "     'tab'        : Terminal is in a new tab
-    "     'shell'      : Run command in the shell (i.e. with :!)
+    "     'vertical'   or 'v': Terminal is in a vertically split window
+    "     'horizontal' or 'h': Terminal is in a horizontally split window
+    "     'auto'       or 'a': window is split vertically or horizontally
+    "                           according to window size. So
+    "                               vertical   if height > width
+    "                               horizontal if width > height
+    "     'tab'        or 't': Terminal is in a new tab
+    "     'shell'      or 's': Run command in the shell (i.e. with :!)
 augroup compile_source
         au!
-        au FileType,BufEnter * nnoremap <Leader>m :make<CR>
-        au FileType python   nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('python3 %', 'tab')<CR>
+        " au FileType,BufEnter * nnoremap <Leader>m :make<CR>
+        au FileType python   nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('python3 %')<CR>
         au FileType bash     nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('bash %')<CR>
         au FileType pascal   nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('fpc -ovimPasEXE % ; echo -e "\e[44m Running program ...\e(B\e[m"; ./vimPasEXE')<CR>
-        au FileType tex      nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('pdflatex %; evince %:s?\.tex?\.pdf?', 'shell')<CR>
+        " au FileType tex      nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('pdflatex -synctex=1 -interaction=nonstopmode %', 'tab')<CR>
         au FileType markdown nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('retext --preview %', 'shell')<CR>
         au FileType cpp      nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('g++ -o vim-a.out % ; draw_center_text.sh "Running program"; ./*.out')<CR>
         au FileType cpp      nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('g++ -o a.out % ; draw_center_text.sh "Running program"; ./*.out')<CR>
         au FileType sh       nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('./%')<CR>
         au FileType swift    nnoremap <buffer> <LocalLeader>r :update \| call RunMessage() \| call RunTermCommand('swift %')<CR>
         au FileType html     nnoremap <buffer> <LocalLeader>r :update \| call RunTermCommand('firefox %', 'shell')<CR>
+        au FileType lilypond nnoremap <buffer> <LocalLeader>R :wa     \| call RunTermCommand('lilypond main.ly', 'horizontal')<CR>
 augroup END
 "}}}
 
@@ -580,7 +653,7 @@ endfunction
 " comment character for filetypes (b:comment_character) "{{{
 augroup comment_char
         autocmd!
-        au FileType python,bash,sh,ruby,yaml        let b:comment_character = '#'
+        au FileType python,bash,sh,ruby,yaml,conf   let b:comment_character = '#'
         au FileType pascal,cpp,swift,javascript     let b:comment_character = '//'
         au FileType vim                             let b:comment_character = '"'
         au FileType tex,plaintex,lilypond           let b:comment_character = '%'
@@ -627,6 +700,8 @@ augroup script_templates
         au BufNewFile *.swift 0r $HOME/.vim/skeletons/Swift/foundation.swift
         au BufNewFile *.html  0r $HOME/.vim/skeletons/HTML/new.html
         "au BufNewFile *.ly  call NewLilypond()
+
+        au BufNewFile description.txt 0r $HOME/.vim/skeletons/Miscellaneous/Youtube_description.txt
 augroup END
 "}}}
 

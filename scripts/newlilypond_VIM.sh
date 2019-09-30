@@ -9,8 +9,8 @@ then
         echo "Usage: $(basename $0) NAME [KEY] [TIME]"
         echo 
         echo "NAME - seperate words with dashes (-)"
-        echo "KEY  - set the key signature"
-        echo "TIME - set time signature"
+        echo 'KEY  - set the key signature (default: C major, see in `global.ly` file)'
+        echo 'TIME - set time signature (default: 4/4, see in `global.ly` file)'
         echo
         echo "Examples ..."
         echo "NAME : the-title-of-the-song"
