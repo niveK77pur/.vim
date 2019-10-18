@@ -64,11 +64,14 @@ call plug#begin('~/.vim/plugged/')
     Plug 'terryma/vim-multiple-cursors'
     Plug '/opt/fzf'
     Plug 'junegunn/fzf.vim'
+    Plug 'junegunn/vim-peekaboo'
+    Plug 'SirVer/ultisnips'
     " Plug 'liuchengxu/vista.vim'
 
 " Interface ------------------------------------------------------------------
     Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
     Plug 'morhetz/gruvbox'
+    Plug 'sainnhe/vim-color-forest-night'
 
 " Editing --------------------------------------------------------------------
     Plug 'scrooloose/nerdcommenter'
@@ -80,10 +83,10 @@ call plug#begin('~/.vim/plugged/')
     " Plug g:plug_home . '/vim-midi'
     
 " Language support -----------------------------------------------------------
-    Plug 'keith/swift.vim', { 'for' : 'swift' }
-    Plug '/usr/share/lilypond/2.18.2/vim/', { 'for' : 'lilypond' }
-    " Plug 'sukima/xmledit', { 'for' : ['html', 'xhtml', 'xml', 'php'] }
+    Plug 'sheerun/vim-polyglot'
+    " Plug '/usr/share/lilypond/2.18.2/vim/', { 'for' : 'lilypond' }
     Plug 'lervag/vimtex', { 'for' : ['latex', 'tex', 'plaintex', 'context', 'bib'] }
+    " Plug 'sukima/xmledit', { 'for' : ['html', 'xhtml', 'xml', 'php'] }
     
 " Collaboration --------------------------------------------------------------
     if has('python')
@@ -94,4 +97,7 @@ call plug#begin('~/.vim/plugged/')
     if v:version >= 800 || has('nvim')  " requires vim 8.0+ or neovim
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
     endif
+
+" Neovim candy ---------------------------------------------------------------
+    " Plug 'glacambre/firenvim'
 call plug#end()

@@ -1,0 +1,14 @@
+snippet s "snippet ... endsnippet" bA
+`!p snip.rv = 'snippet'` $1 "$2"
+$0
+`!p snip.rv = 'endsnippet'`
+endsnippet
+
+snippet V "${VISUAL}" i
+`!p snip.rv = '${VISUAL}'`$0
+endsnippet
+
+snippet '\$(\d+)v' "$16v -> ${16:${VISUAL}}" r
+`!p snip.rv = "${" + match.group(1) + ":${VISUAL}}"`
+endsnippet
+

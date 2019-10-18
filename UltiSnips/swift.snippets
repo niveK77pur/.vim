@@ -1,0 +1,41 @@
+snippet p "print('')"
+print("$1")
+endsnippet
+
+snippet .b "make a block : ... { ... }"
+$1 {
+	${0:${VISUAL}}
+}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Queues
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet ds "DispatchSemaphore(value: ...)" i
+DispatchSemaphore(value:$1)
+endsnippet
+
+snippet dq "DispatchQueue(label: '...')" i
+DispatchQueue(label: "$1")
+endsnippet
+
+snippet dg "DispatchGroup()" i
+DispatchGroup()
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Loops
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet w "while ... { ... }"
+while $1 {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet f "for ... in ... { ... }"
+for $1 in $2 {
+	${0:${VISUAL}}
+}
+endsnippet

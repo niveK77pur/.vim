@@ -118,6 +118,7 @@ augroup END
 augroup comment_char
         autocmd!
         au FileType python,bash,sh,ruby,yaml,conf   let b:comment_character = '#'
+        au FileType snippets                        let b:comment_character = '#'
         au FileType pascal,cpp,swift,javascript     let b:comment_character = '//'
         au FileType vim                             let b:comment_character = '"'
         au FileType tex,plaintex,lilypond           let b:comment_character = '%'
@@ -168,10 +169,6 @@ augroup script_templates
         au BufNewFile description.txt 0r $HOME/.vim/skeletons/Miscellaneous/Youtube_description.txt
 augroup END
 "}}}
-
-" use TEX instead of PLAINTEX by default (:h ft-tex-plugin)
-let g:tex_flavor = "latex"
-
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                             Sytax hightlighting

@@ -1,0 +1,21 @@
+snippet f "function ... endfunction"
+function${1:!} $2
+	${0:${VISUAL}}
+endfunction
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                   Mappings
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet '(\w)m' "nnoremap or inoremap or ..." br
+`!p snip.rv = match.group(1)`noremap ${1:LHS} ${2:RHS}
+endsnippet
+
+snippet L "<Leader>"
+<Leader>
+endsnippet
+
+snippet l "<LocalLeader>"
+<LocalLeader>
+endsnippet

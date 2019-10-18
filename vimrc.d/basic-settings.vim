@@ -12,6 +12,9 @@ syntax on
 filetype plugin indent on
 set autowrite
 
+" use TEX instead of PLAINTEX by default (:h ft-tex-plugin)
+let g:tex_flavor = "latex"
+
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                 Spell Check
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -28,15 +31,19 @@ set spellfile+=~/.vim/spell/en.uft-8.add
 "colorscheme morning
 "colorscheme shine
 "colorscheme koehler
-" ~~~ gruvbox ~~~ {{{
-if CheckColorsGruvbox()
-        let g:gruvbox_italic=1
-        "let g:gruvbox_italicize_comments=1
-        colorscheme gruvbox
-        set bg=dark
-        "call ToggleBackgroundTime(6,19)
+if has('nvim')
+    colorscheme forest-night
+else
+    " ~~~ gruvbox ~~~ {{{
+    if CheckColorsGruvbox()
+            let g:gruvbox_italic=1
+            let g:gruvbox_italicize_comments=1
+            colorscheme gruvbox
+            set bg=dark
+            "call ToggleBackgroundTime(6,19)
+    endif
+    " }}}
 endif
-" }}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                           Options for indentation

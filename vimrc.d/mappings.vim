@@ -19,6 +19,9 @@ autocmd FileType vim nnoremap <buffer> <Leader>S :wa<CR>:source %<CR>
 " edit filtype plugin of current file
 nnoremap <Leader>F :exe ":tabnew $HOME/.vim/ftplugin/" . &filetype . ".vim"<CR>
 
+" edit UltiSnips snippet definition of current filetype
+nnoremap <Leader>S :UltiSnipsEdit<CR>
+
 " text manipulation ----------------------------------------------------------
 
 " toggle 'paste'
@@ -100,9 +103,25 @@ noremap <Leader>hf :call ToggleFoldcolumn() <CR>
 "}}}
 
 " toggle 'background' between light and dark
-nnoremap <F6> :call ToggleBackground()<CR>
+" nnoremap <F6> :call ToggleBackground()<CR>
 
 " toggle Goyo
 nnoremap <F10> :Goyo<CR>
 
 noremap <F12> :echo "\\°O°/" <CR>
+
+" navigate windows with ALT+{h,j,k,l} "{{{
+tnoremap <A-h> <C-\><C-N><C-w>h 
+tnoremap <A-j> <C-\><C-N><C-w>j
+tnoremap <A-k> <C-\><C-N><C-w>k
+tnoremap <A-l> <C-\><C-N><C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+"}}}
+

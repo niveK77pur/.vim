@@ -3,6 +3,10 @@
     "digestif": {
       "command": "/opt/luarocks-3.2.0/lua_modules/bin/digestif",
       "filetypes": ["tex", "plaintex", "context"]
+    },
+    "swift": {
+      "command": "~/swift/sourcekite-master/.build/debug/sourcekite",
+      "filetypes": ["swift"]
     }
   }
 }
