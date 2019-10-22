@@ -5,6 +5,12 @@
 let mapleader='é'       "mapleader for <Leader>
 let maplocalleader='è'
 
+noremap <Leader><Leader> <Leader>
+inoremap <Leader><Leader> <Leader>
+
+noremap <LocalLeader><LocalLeader> <LocalLeader>
+inoremap <LocalLeader><LocalLeader> <LocalLeader>
+
 let vimrc_files = [
     \ 'plugins.vim',
     \ 'functions.vim',

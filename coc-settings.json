@@ -1,14 +1,12 @@
 {
   "languageserver": {
-    "digestif": {
-      "command": "/opt/luarocks-3.2.0/lua_modules/bin/digestif",
-      "filetypes": ["tex", "plaintex", "context"]
-    },
     "swift": {
-      "command": "~/swift/sourcekite-master/.build/debug/sourcekite",
-      "filetypes": ["swift"]
+      "command": "~/swift/sourcekite-master/.build/release/sourcekite",
+      "filetypes": ["swift"],
+      "swift.path.sourcekite": "~/swift/swift-bin"
     }
   }
 }
+
 // https://gitea.justinrestivo.me/jrestivo/neovim_dots/src/branch/master/coc-settings.json
 // vim: sw=2

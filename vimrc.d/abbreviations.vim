@@ -13,6 +13,12 @@ cnoreabbrev WQ wq
 cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
+cnoreabbrev X x
+cnoreabbrev Xa xa
+cnoreabbrev X! x!
+cnoreabbrev Xa! xa!
+
+cnoreabbrev H h
 
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -4,53 +4,59 @@
 
 snippet be "\begin{} ... \end{}"
 \begin{$1}
-	$0
+	${0:${VISUAL}}
 \end{$1}
 endsnippet
 
 snippet i "\item" b
-
 \item $0
+endsnippet
+
+snippet .i "\item[...]" b
+\item[${1:${VISUAL}}] $0
+endsnippet
+
+snippet i. "\item[] ..." b
+\item[$1] ${VISUAL}$0
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                   Sections
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-snippet "s([123])(\*?)" "s1* -> \section*{} or s2 -> \subsection{} or ..." br
+snippet "s([123])(\*?)" "s1* -> \section*{...} or s2 -> \subsection{...} or ..." br
 `!p snip.rv = "\\{}section{}".format(
 	(int(match.group(1)) - 1) * "sub", match.group(2))`{${1:${VISUAL}}}
 $0
-
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                 Text Commands
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-snippet 't(it|bf|tt)' "tit,tbf,ttt -> \textit{},\textbf{},\texttt{}" r
+snippet 't(it|bf|tt)' "tit,tbf,ttt -> \textit{...},\textbf{...},\texttt{...}" r
 `!p snip.rv = '\\text' + match.group(1)`{${1:${VISUAL}}}
 endsnippet
 
-snippet em "\emph{}"
+snippet em "\emph{...}"
 \emph{${1:${VISUAL}}}
 endsnippet
 
-snippet ul "\underline{}"
+snippet ul "\underline{...}"
 \underline{${1:${VISUAL}}} 
 endsnippet
 
-snippet | "\verb||"
+snippet | "\verb|...|"
 \verb|${1:${VISUAL}}|
 endsnippet
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                   Commands
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-snippet up "\usepackage{}" b
+snippet up "\usepackage{...}" b
 \usepackage{${1:${VISUAL}}}
 endsnippet
 
-snippet UP "\usepackage[]{}" b
+snippet UP "\usepackage[]{...}" b
 \usepackage[$2]{${1:${VISUAL}}}
 endsnippet

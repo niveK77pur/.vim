@@ -54,6 +54,9 @@ let g:tex_conceal='abdmg'
 " Mappings -------------------------------------------------------------------
 nmap <LocalLeader>ls <plug>(vimtex-compile-ss)
 
+nnoremap <LocalLeader>cw :VimtexCountWords
+nnoremap <LocalLeader>cl :VimtexCountLetters
+
 " Latex Documentation --------------------------------------------------------
 let g:vimtex_doc_handlers = ['TexdocHandler']
 function! TexdocHandler(context)
@@ -65,9 +68,13 @@ function! TexdocHandler(context)
 endfunction
 
 " Warnings to ignore ---------------------------------------------------------
-" let g:vimtex_quickfix_latexlog = {
-"     \ 'overfull' : 0,
-"     \}
+let g:vimtex_quickfix_latexlog = {
+    \ 'overfull' : 0,
+    \ 'underfull' : 0,
+    \ 'packages' : {
+    \    'hyperref' : 0,
+    \ },
+    \}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                   fzf.vim
