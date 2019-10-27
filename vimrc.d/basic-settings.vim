@@ -67,7 +67,7 @@ set showcmd
 set wildmenu
 
 try
-    set listchars=eol:¶,tab:>-,space:∙,trail:˛,extends:>,precedes:§
+    set listchars=eol:¶,tab:>-,space:∙,trail:×,extends:>,precedes:<
 catch "E474"
 endtry
  

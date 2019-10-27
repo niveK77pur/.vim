@@ -7,7 +7,6 @@ let g:NERDCustomDelimiters = {'swift' : { 'left': '//', 'leftAlt': '/*', 'rightA
 "                                Abbreviations
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-iabb CSC CustomStringConvertible
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Mappings

@@ -1,9 +1,11 @@
 {
+  "latex.lint.onSave" : false,
+  "latex.lint.onChange": false,
+
   "languageserver": {
     "swift": {
       "command": "~/swift/sourcekite-master/.build/release/sourcekite",
-      "filetypes": ["swift"],
-      "swift.path.sourcekite": "~/swift/swift-bin"
+      "filetypes": ["swift"]
     }
   }
 }

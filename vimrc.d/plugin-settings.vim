@@ -88,11 +88,11 @@ nnoremap <Leader>fL :BLines<CR>
 nnoremap <Leader>fh :Helptags<CR>
 
 " Insert mode completion
-imap <LocalLeader><c-x><c-k> <plug>(fzf-complete-word)
-imap <LocalLeader><c-x><c-f> <plug>(fzf-complete-path)
-imap <LocalLeader><c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <LocalLeader><c-x><c-l> <plug>(fzf-complete-line)
-imap <LocalLeader><c-x><c-L> <plug>(fzf-complete-buffer-line)
+imap <Leader><c-x><c-k> <plug>(fzf-complete-word)
+imap <Leader><c-x><c-f> <plug>(fzf-complete-path)
+imap <Leader><c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <Leader><c-x><c-l> <plug>(fzf-complete-line)
+imap <Leader><c-x><c-L> <plug>(fzf-complete-buffer-line)
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  UltiSnips

@@ -8,7 +8,18 @@ snippet V "${VISUAL}" i
 `!p snip.rv = '${VISUAL}'`$0
 endsnippet
 
-snippet '\$(\d+)v' "$16v -> ${16:${VISUAL}}" r
+snippet '\$(\d+)v' "$16v -> ${16:${VISUAL}}" ir
 `!p snip.rv = "${" + match.group(1) + ":${VISUAL}}"`
 endsnippet
 
+snippet '\$v(\d+)' "$v16 -> ${VISUAL}$16" ir
+`!p snip.rv = "${VISUAL}$" + match.group(1)`
+endsnippet
+
+snippet sr "snip.rv = ..."
+snip.rv = ${0:${VISUAL}}
+endsnippet
+
+snippet 'mg(\d+)' "match.group(...)" ir
+`!p snip.rv = 'match.group(' + match.group(1) + ')'`
+endsnippet

@@ -1,17 +1,8 @@
-snippet p "print('')"
-print("$1")
-endsnippet
-
-snippet .b "make a block : ... { ... }"
-$1 {
-	${0:${VISUAL}}
-}
-endsnippet
-
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                                    Queues
+#                                   Dispatch
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# Threads ----------------------------------------------------------------------
 snippet ds "DispatchSemaphore(value: ...)" i
 DispatchSemaphore(value:$1)
 endsnippet
@@ -20,22 +11,73 @@ snippet dq "DispatchQueue(label: '...')" i
 DispatchQueue(label: "$1")
 endsnippet
 
+snippet dqc "DispatchQueue(label: '...', attributes: .concurrent)"
+DispatchQueue(label: "$1", attributes: .concurrent)
+endsnippet
+
 snippet dg "DispatchGroup()" i
 DispatchGroup()
+endsnippet
+
+# Time -------------------------------------------------------------------------
+snippet dt "DispatchTime.now()" i
+DispatchTime.now()
+endsnippet
+
+snippet .upns ".uptimeNanoseconds" i
+.uptimeNanoseconds
+endsnippet
+
+snippet '(\w+)\.ups' ".uptimeNanoseconds -- in seconds" ir
+Double(`!p snip.rv = match.group(1)`.uptimeNanoseconds) / 1000000000.0
+endsnippet
+
+snippet '\|(.+)-(.+)\|' "elapsed time in seconds --> time_A - time_B" ir
+`!p snip.rv = '(Double('+match.group(1)+'.uptimeNanoseconds - '+match.group(2)+'.uptimeNanoseconds)) / 1000000000.0'`
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                     Loops
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-snippet w "while ... { ... }"
+snippet w "while ... { ___ }"
 while $1 {
 	${0:${VISUAL}}
 }
 endsnippet
 
-snippet f "for ... in ... { ... }"
+snippet f "for ... in ... { ___ }"
 for $1 in $2 {
 	${0:${VISUAL}}
 }
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Classes
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet csc "CustomStringConvertible"
+CustomStringConvertible
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                 Miscellaneous
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet p "print('...')"
+print("$1")
+endsnippet
+
+snippet .b "make a block : ... { ___ }"
+$1 {
+	${0:${VISUAL}}
+}
+endsnippet
+
+snippet .r "TYPE.random(in: ...)" i
+.random(${2:in: $1})
+endsnippet
+
+snippet i' "string \(interpolation)" i
+\(${1:${VISUAL}})
 endsnippet

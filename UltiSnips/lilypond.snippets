@@ -1,0 +1,123 @@
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Signs
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet fe "\fermata" i
+\fermata $0
+endsnippet
+
+snippet ar "\arpeggio" i
+\arpeggio $0
+endsnippet
+
+snippet pa "\parenthesize" i
+\parenthesize
+endsnippet
+
+snippet 'ot(-?\d)' "\ottava" ir
+`!p snip.rv = '\\ottava ' + match.group(1)` $0
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Voices
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet pt "Polyphonic passage << {===...} \new Voice {...} >>" b
+<< { \voiceOne 
+		${VISUAL}$1
+	}
+	\new Voice { \voiceTwo 
+		$2
+	}
+>> \oneVoice
+endsnippet
+
+snippet p\ "<< {===...} \\ {...} >>" b
+<< { ${VISUAL}$1 } \\ { $2 } >>
+endsnippet
+
+snippet p\\ "<< {===...} \\ {...} >>" b
+<<
+		{ ${VISUAL}$1 }
+		\\
+		{ $2 }
+>>
+endsnippet
+
+snippet 1v "\oneVoice" i
+\oneVoice
+endsnippet
+
+snippet v1 "\voiceOne" i
+\voiceOne
+endsnippet
+
+snippet v2 "\voiceTwo" i
+\voiceTwo
+endsnippet
+
+snippet v3 "\voiceThree" i
+\voiceThree
+endsnippet
+
+snippet v4 "\voiceFour" i
+\voiceFour
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Staves
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet re "\relative ... {___}"
+\relative $1 {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet chl "\change Staff = 'left'"
+\change Staff = "left" $0
+endsnippet
+
+snippet chr "\change Staff = 'right'"
+\change Staff = "right" $0
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Notes
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet hn "\hideNotes"
+\hideNotes
+endsnippet
+
+snippet uhn "\unHideNotes"
+\unHideNotes
+endsnippet
+
+snippet t "\tuplet ... { ___ }"
+\tuplet ${1:3/2} { ${VISUAL}$2 }$0
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Score
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet ct "\clef 'treble'"
+\clef "treble" $0
+endsnippet
+
+snippet cb "\clef 'bass'"
+\clef "bass" $0
+endsnippet
+
+snippet ti "\time ..."
+\time $1 = $2
+endsnippet
+
+snippet km "\key ... \minor"
+\key $1 \minor
+endsnippet
+
+snippet kM "\key ... \major"
+\key $1 \major
+endsnippet

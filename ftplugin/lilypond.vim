@@ -5,7 +5,7 @@
 setlocal norelativenumber
 setlocal number
 setlocal nowrap
-setlocal scrollbind
+" setlocal scrollbind
 setlocal tw=0
 setlocal autoread
 
@@ -51,39 +51,39 @@ let s:signatures = {
 
 " {{{
 
-iabbrev <buffer> fe \fermata
-iabbrev <buffer> ar \arpeggio
-iabbrev <buffer> pa \parenthesize
-iabbrev <buffer> ot \ottava
-iabbrev <buffer> re \relative
+" iabbrev <buffer> fe \fermata
+" iabbrev <buffer> ar \arpeggio
+" iabbrev <buffer> pa \parenthesize
+" iabbrev <buffer> ot \ottava
+" iabbrev <buffer> re \relative
 
-iabbrev 1v \oneVoice
-iabbrev v1 \voiceOne
-iabbrev v2 \voiceTwo
-iabbrev v3 \voiceThree
-iabbrev v4 \voiceFour
+" iabbrev 1v \oneVoice
+" iabbrev v1 \voiceOne
+" iabbrev v2 \voiceTwo
+" iabbrev v3 \voiceThree
+" iabbrev v4 \voiceFour
 
 iabbrev <buffer> ss <c-r>=BarRest()<CR>
 
-iabbrev chl \change Staff = "left"
-iabbrev chr \change Staff = "right"
+" iabbrev chl \change Staff = "left"
+" iabbrev chr \change Staff = "right"
 
-iabbrev hn \hideNotes
-iabbrev HN \unHideNotes
+" iabbrev hn \hideNotes
+" iabbrev HN \unHideNotes
 
 iabbrev featherl <c-r>=Feather('l')<CR><c-o>?+<CR><DEL>
 iabbrev featherr <c-r>=Feather('r')<CR><c-o>?+<CR><DEL>
 iabbrev feather0 \override Beam.grow-direction = #<C-V>'()
 
-iabbrev ct \clef "treble"
-iabbrev cb \clef "bass"
+" iabbrev ct \clef "treble"
+" iabbrev cb \clef "bass"
 
 iabbrev ii <c-o>o\bar "\|\|"<CR><ESC>
 iabbrev i. <c-o>o\bar "\|."<CR><ESC>
 
-iabbrev p\  <ESC>:call FromTemplate("DoublePoly1")<CR>
-iabbrev p\\ <ESC>:call FromTemplate("DoublePoly2")<CR>
-iabbrev pt  <ESC>:call FromTemplate("TempPoly")<CR>
+" iabbrev p\  <ESC>:call FromTemplate("DoublePoly1")<CR>
+" iabbrev p\\ <ESC>:call FromTemplate("DoublePoly2")<CR>
+" iabbrev pt  <ESC>:call FromTemplate("TempPoly")<CR>
 
 iabbrev shape \shape #<C-V>'(([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]))
 

@@ -6,7 +6,6 @@ setlocal tabstop=4
 setlocal textwidth=70
 setlocal noexpandtab
 setlocal keywordprg=texdoc
-"spell checking 
 setlocal spell
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
