@@ -30,8 +30,8 @@ endfor
 "                              Note worthy stuff
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" au VimEnter * !setxkbmap -option caps:swapescape
-" au VimLeave * !setxkbmap -option
+" au FocusGained * !setxkbmap -option caps:swapescape
+" au FocusLost   * !setxkbmap -option
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                        Learn Vimscript the Hard Way

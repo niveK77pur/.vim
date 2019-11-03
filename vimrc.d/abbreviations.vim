@@ -3,22 +3,24 @@
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " Whoops! Held <Shift> down too long -----------------------------------------
-cnoreabbrev W! w!
-cnoreabbrev Q! q!
-cnoreabbrev Qall! qall!
-cnoreabbrev Wq wq
+
+" Save
 cnoreabbrev Wa wa
-cnoreabbrev wQ wq
-cnoreabbrev WQ wq
+cnoreabbrev WA wa
 cnoreabbrev W w
+" Save & Exit
+cnoreabbrev Wq wq
+cnoreabbrev WQ wq
+cnoreabbrev X x
+cnoreabbrev XA xa
+cnoreabbrev Xa xa
+" Exit
 cnoreabbrev Q q
 cnoreabbrev Qall qall
-cnoreabbrev X x
-cnoreabbrev Xa xa
-cnoreabbrev X! x!
-cnoreabbrev Xa! xa!
-
+" Help
 cnoreabbrev H h
+cnoreabbrev hg helpgrep
+cnoreabbrev Hg helpgrep
 
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -64,7 +64,7 @@ call plug#begin('~/.vim/plugged/')
     Plug 'terryma/vim-multiple-cursors'
     Plug '/opt/fzf'
     Plug 'junegunn/fzf.vim'
-    Plug 'junegunn/vim-peekaboo'
+    " Plug 'junegunn/vim-peekaboo'
     Plug 'SirVer/ultisnips'
     " Plug 'liuchengxu/vista.vim'
 
