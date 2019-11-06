@@ -56,7 +56,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin('~/.vim/plugged/')
     " use :PlugUpgrade to upgrade vim-plug itself
-    Plug 'junegunn/vim-plug'
+    " Plug 'junegunn/vim-plug'
     
 " Handy tools ----------------------------------------------------------------
     Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
@@ -64,28 +64,32 @@ call plug#begin('~/.vim/plugged/')
     Plug 'terryma/vim-multiple-cursors'
     Plug '/opt/fzf'
     Plug 'junegunn/fzf.vim'
-    " Plug 'junegunn/vim-peekaboo'
     Plug 'SirVer/ultisnips'
     " Plug 'liuchengxu/vista.vim'
+    " Plug 'junegunn/vim-peekaboo'
 
 " Interface ------------------------------------------------------------------
-    Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
     Plug 'morhetz/gruvbox'
     Plug 'sainnhe/vim-color-forest-night'
+    " Plug 'itchyny/vim-cursorword'
+    " Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
 
 " Editing --------------------------------------------------------------------
     Plug 'scrooloose/nerdcommenter'
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-surround'
+    " Plug 'metakirby5/codi.vim'
+    " Plug 'dyng/ctrlsf.vim'
     " Plug 'tpope/vim-fugitive'
 
 " Music ----------------------------------------------------------------------
-    " Plug g:plug_home . '/vim-midi'
+    " Plug $HOME . '/.vim/tests/vim-midi'
     
 " Language support -----------------------------------------------------------
-    Plug 'sheerun/vim-polyglot'
-    " Plug '/usr/share/lilypond/2.18.2/vim/', { 'for' : 'lilypond' }
+    Plug '/usr/share/lilypond/2.18.2/vim/', { 'for' : 'lilypond' }
+    Plug 'keith/swift.vim', { 'for' : 'swift' }
     Plug 'lervag/vimtex', { 'for' : ['latex', 'tex', 'plaintex', 'context', 'bib'] }
+    " Plug 'sheerun/vim-polyglot'
     " Plug 'sukima/xmledit', { 'for' : ['html', 'xhtml', 'xml', 'php'] }
     
 " Collaboration --------------------------------------------------------------

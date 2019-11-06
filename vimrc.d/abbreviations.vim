@@ -11,7 +11,7 @@ cnoreabbrev W w
 " Save & Exit
 cnoreabbrev Wq wq
 cnoreabbrev WQ wq
-cnoreabbrev X x
+" cnoreabbrev X x
 cnoreabbrev XA xa
 cnoreabbrev Xa xa
 " Exit
