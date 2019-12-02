@@ -1,7 +1,6 @@
 "" Check out what other interesting things there are to add here
 "" http://stackoverflow.com/questions/164847/what-is-in-your-vimrc
 
-" use <option>! to toggle (if boolean)
 let mapleader='é'       "mapleader for <Leader>
 let maplocalleader='è'
 
@@ -32,6 +31,11 @@ endfor
 
 " au FocusGained * !setxkbmap -option caps:swapescape
 " au FocusLost   * !setxkbmap -option
+"
+" https://github.com/vim-advent-calendar/vimways.org/blob/master/content/2019/vim-and-the-shell/index.md
+"
+" select text within quotes (also supports nested quotes)
+" \(['"]\)\%(\\\?.\)\{-}\1
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                        Learn Vimscript the Hard Way

@@ -48,11 +48,14 @@ endfunction
 
 
 function! GetCommentCharacter() "{{{
-        if exists("b:comment_character")
-                return b:comment_character
-        else
-                return ""
-        endif
+    if exists('g:NERDDelimiterMap')
+        " Comes from the NERDCommenter plugin
+        return g:NERDDelimiterMap[&filetype]
+    elseif exists("b:comment_character")
+        return b:comment_character
+    else
+        return ""
+    endif
 endfunction
 "}}}
 

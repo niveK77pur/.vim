@@ -20,6 +20,10 @@ iabb <buffer> latex \LaTeX MH
 "                                  Mappings
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+" restructure table contents (put cursor inside tabular environment) "{{{
+nnoremap <LocalLeader>tr :exe (search('\\begin{tabular}','bn')+1) . "," . (search('\\end{tabular}', 'n')-1) . '!sed "s/\s*&\s*/わ\& /g" <bar> column -ts "わ"'<CR>
+"}}}
+
 "quotation with \enquote {{{
 "use the 'csquotes' package for this
 inoremap <buffer> <LocalLeader>2  \enquote{}<LEFT>
@@ -49,11 +53,11 @@ vnoremap <buffer> <LocalLeader><c-t> s\texttt{}<ESC>P
 nnoremap <buffer> <LocalLeader><space> gqip
 "}}}
 
-"insert three new lines and edit on the second one {{{
-"insert below
-nnoremap <buffer> <LocalLeader>o o<CR><ESC>O
-"insert above
-nnoremap <buffer> <LocalLeader>O O<CR><ESC>O
+"insert new lines below {{{
+"insert 2 new lines and edit on first
+nnoremap <buffer> <LocalLeader>o o<CR><UP>
+"insert 3 new lines and edit on second
+nnoremap <buffer> <LocalLeader>O o<CR><ESC>O
 "}}}
 
 "toggle spellcheck {{{

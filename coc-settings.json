@@ -1,11 +1,16 @@
 {
-  "latex.lint.onSave" : false,
-  "latex.lint.onChange": false,
-
+  "diagnostic.checkCurrentLine": true,
+  
   "languageserver": {
     "swift": {
-      "command": "~/swift/sourcekite-master/.build/release/sourcekite",
-      "filetypes": ["swift"]
+      "trace.server": "verbose",
+      "command": "~/swift/sourcekite-master/.build/debug/sourcekite",
+      // "command": "~/swift/sourcekite-master/.build/release/sourcekite",
+      "args": [],
+      "filetypes": ["swift"],
+      "initializationOptions": {},
+      "settings": {
+      }
     }
   }
 }

@@ -66,6 +66,7 @@ call plug#begin('~/.vim/plugged/')
     Plug 'junegunn/fzf.vim'
     Plug 'SirVer/ultisnips'
     " Plug 'liuchengxu/vista.vim'
+    " Plug 'JetBrains/ideavim'
     " Plug 'junegunn/vim-peekaboo'
 
 " Interface ------------------------------------------------------------------

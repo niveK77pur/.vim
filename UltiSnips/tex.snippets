@@ -1,10 +1,22 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Globals
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+global !p
+brackets = {
+	'(' : ')',
+	'[' : ']',
+	'{' : '}'
+}
+endglobal
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                    Blocks
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet be "\begin{...} ___ \end{}" b
 \begin{$1}
-	${0:${VISUAL}}
+	${VISUAL}$0
 \end{$1}
 endsnippet
 
@@ -50,7 +62,7 @@ snippet 't(i|t)' "ti,tt -> \textit{___},\texttt{___}" ir
 `!p snip.rv = '\\text' + match.group(1) + 't'`{${1:${VISUAL}}}
 endsnippet
 
-snippet bf "\textbf{___}" i
+snippet tb "\textbf{___}" i
 \textbf{${1:${VISUAL}}}
 endsnippet
 
@@ -64,6 +76,52 @@ endsnippet
 
 snippet | "\verb|___|" i
 \verb|${1:${VISUAL}}|
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Math
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet '([\d\w\.]+)/([\d\w\.]+)' "x/y -> \frac{x}{y}" r
+`!p snip.rv = '\\frac{' + match.group(1) + '}{' + match.group(2) + '}'`
+endsnippet
+
+snippet '([\(\[\{])' "(,{,[ -> \left(...\right)" ir
+\left`!p snip.rv = match.group(1)`${VISUAL}$1\right`!p snip.rv = brackets[match.group(1)]`
+endsnippet
+
+snippet 'nl$' "\\" ir
+\\\\
+$0
+endsnippet
+
+snippet >= "\geq" i
+\geq 
+endsnippet
+
+snippet <= "\leq" i
+\leq 
+endsnippet
+
+snippet log "\log{___}" i
+\log{${VISUAL}$1}$0
+endsnippet
+
+snippet sq "\sqrt{___}" i
+\sqrt{${VISUAL}$1}$0
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                             Figures, Tables, ...
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet INCLUDEGRAPHICS "create figure containing the graphic" b
+\begin{figure}
+	\centering
+	\includegraphics[width=\columnwidth]{$1}
+	\caption{$2}
+	\label{fig:$3}
+\end{figure}
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

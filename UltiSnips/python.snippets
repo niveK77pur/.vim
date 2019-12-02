@@ -32,3 +32,18 @@ endsnippet
 snippet ':(.*)/l' ":a,b,c/l --> ['a', 'b', 'c']" r
 `!p snip.rv = match.group(1).strip().split(',')`
 endsnippet
+
+snippet 'def isPrime' "function to generate primes" b
+def isPrime(n):
+	if n < 2:
+		return False
+	elif n == 2:
+		return True
+	elif n % 2 == 0:
+		return False
+	else:
+		for i in range(3,int(sqrt(n)),2):
+			if n % i == 0:
+				return False
+		return True
+endsnippet

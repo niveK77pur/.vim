@@ -11,17 +11,16 @@ nmap <Leader>an gg}oName: Kevin Biewesch<CR>StudentID: 0180556255<CR><ESC><UP>vi
 
 " vim configs ----------------------------------------------------------------
 
-" Quickly edit vimrc file"{{{
-"vimrc: edit
-nnoremap <leader>ve :tabnew $MYVIMRC<CR>
-"vimrc: source (immediately take effect of changes)
-nnoremap <leader>vs :w<CR>:source $MYVIMRC<CR>
-"}}}
-
-" source vim files "{{{
-autocmd FileType vim inoremap <buffer> <Leader>S <ESC>:wa<CR>:source %<CR>
-autocmd FileType vim nnoremap <buffer> <Leader>S :wa<CR>:source %<CR>
-"}}}
+" Quickly edit vimrc file
+nnoremap <leader>ve :tabnew <BAR> Files ~/.vim/vimrc.d<CR>
+" if exists(':Files')
+"     nnoremap <leader>ve :tabnew <BAR> Files ~/.vim/vimrc.d<CR>
+" elseif exists(':NERDTree')
+"     nnoremap <leader>ve :tabnew <BAR> NERDTree ~/.vim/vimrc.d<CR>
+" else
+"     nnoremap <leader>ve :tabnew ~/.vim/vimrc.d/
+" endif
+    
 
 " edit filtype plugin of current file
 nnoremap <Leader>F :exe ":tabnew $HOME/.vim/ftplugin/" . &filetype . ".vim"<CR>
@@ -35,7 +34,7 @@ nnoremap <Leader>S :UltiSnipsEdit<CR>
 nnoremap <F2> :set paste! paste?<CR>
 
 " exit insert mode more comfortably
-inoremap jk <Left><esc> 
+inoremap jk <left><esc> 
 
 " save and reload files "{{{
 inoremap <Leader>s <c-o>:wa<CR>

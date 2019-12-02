@@ -6,8 +6,10 @@ let g:NERDSpaceDelims = 1
 let g:NERDDefaultAlign = 'left'
 let g:NERDCustomDelimiters = {
     \ 'swift': { 'left': '//', 'right': '', 'leftAlt': '/*', 'rightAlt': '*/' },
-    \ 'html' : { 'left': '<!--', 'right': '-->', 'leftAlt': '//' }
+    \ 'html' : { 'left': '<!--', 'right': '-->', 'leftAlt': '//' },
+    \ 'c' : {'rightAlt': '*/', 'leftAlt': '/*', 'left': '//'}
 \ }
+    " \ 'c' : g:NERDDelimiterMap['cpp']
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  NERDTree
@@ -54,8 +56,8 @@ let g:tex_conceal='abdmg'
 " Mappings -------------------------------------------------------------------
 nmap <LocalLeader>ls <plug>(vimtex-compile-ss)
 
-nnoremap <LocalLeader>cw :VimtexCountWords
-nnoremap <LocalLeader>cl :VimtexCountLetters
+nnoremap <LocalLeader>cw :VimtexCountWords<CR>
+nnoremap <LocalLeader>cl :VimtexCountLetters<CR>
 
 " Latex Documentation --------------------------------------------------------
 let g:vimtex_doc_handlers = ['TexdocHandler']
@@ -83,8 +85,8 @@ let g:vimtex_quickfix_latexlog = {
 " FZF Commands
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>fb :Buffers<CR>
-nnoremap <Leader>fl :Lines<CR>
-nnoremap <Leader>fL :BLines<CR>
+nnoremap <Leader>fl :BLines<CR>
+nnoremap <Leader>fL :Lines<CR>
 nnoremap <Leader>fh :Helptags<CR>
 
 " Insert mode completion
@@ -107,3 +109,9 @@ let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
 
 " The LaTeX-Box plugin is included with vim-ployglot and conflicts with vimtex
 let g:polyglot_disabled = ['latex']
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                                   localrc
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+nnoremap <Leader>L :exe 'tabnew' join(g:localrc#search(g:localrc_filename), ' ')<CR>

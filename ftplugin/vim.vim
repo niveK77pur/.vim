@@ -33,3 +33,8 @@ nnoremap <buffer>  <LocalLeader>f {jA "{{{<ESC>}O"}}}<ESC>
 
 " make a mapping buffer local by putting <buffer> ----------------------------
 nnoremap <buffer>  <LocalLeader>b ^ea <buffer> <ESC>
+
+" source vim files -----------------------------------------------------------
+inoremap <buffer> <Leader>S <ESC>:wa<CR>:source %<CR>
+nnoremap <buffer> <Leader>S :wa<CR>:source %<CR>
+

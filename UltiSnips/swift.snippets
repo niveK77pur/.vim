@@ -1,5 +1,5 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                                   Dispatch
+#									Dispatch
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Threads ----------------------------------------------------------------------
@@ -17,6 +17,14 @@ endsnippet
 
 snippet dg "DispatchGroup()" i
 DispatchGroup()
+endsnippet
+
+# Semaphores -------------------------------------------------------------------
+
+snippet '(\w+).ws' "xxx.wait() ... xxx.signal()" br
+`!p snip.rv = match.group(1) + '.wait()'`
+$0
+`!p snip.rv = match.group(1) + '.signal()'`
 endsnippet
 
 # Time -------------------------------------------------------------------------
@@ -37,7 +45,84 @@ snippet '\|(.+)-(.+)\|' "elapsed time in seconds --> time_A - time_B" ir
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                                     Loops
+#									 Socket
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet .conn ".connect()" i
+.connect(to:${1:host}, port:${2:port})
+endsnippet
+
+snippet .w ".write()" i
+.write(from:${1:String})
+endsnippet
+
+snippet .r ".read()" i
+.read(into: &${1:Data})
+endsnippet
+
+snippet '(\w+)\.READ' "read from socket + convert to string" br
+var ${1:readData} = Data(capacity:4096)
+guard try `!p snip.rv = match.group(1)`.read(into: &$1) > 0 else {
+	print("Connection terminated.")
+	break
+}
+guard let ${2:message} = String(data:$1, encoding:.utf8) else {
+	print("Error decoding message.")
+	break
+}
+endsnippet
+
+snippet .l ".listen()" i
+.listen(on:${1:port})
+endsnippet
+
+snippet .acc ".acceptClientConnection()" i
+.acceptClientConnection()
+endsnippet
+
+snippet Data "Data()"
+Data(capacity:${1:4096})
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#									JSON RPC
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet jsonHandler "create a jsonRPC hander" b
+func ${1:name}Handler(jsonRequest:String) throws -> String {
+	return try jsonRPCHandler(jsonRequest) { (${2:parameters}) -> ${3:return type} in
+		$0
+	}
+}
+endsnippet
+
+snippet jsonHANDLER "create 'extended' JRPC handler" b
+func ${1:name}(${2:parameters}) -> ${3:return type} {
+	$0
+}
+func $1Handler(jsonRequest:String) throws -> String {
+	return try jsonRPCHandler(jsonRequest, handlerBlock: $1)
+}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#									 String
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet ii "string \(interpolation)" i
+\(${1:${VISUAL}})
+endsnippet
+
+snippet SD "String(data:..., encoding:.utf8)"
+String(data:${1:Data}, encoding:.utf8)
+endsnippet
+
+snippet .sp ".split()" i
+.split(separator:$1)
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#									  Loops
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet w "while ... { ___ }"
@@ -53,7 +138,30 @@ for $1 in $2 {
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                                    Classes
+#									 Blocks
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet .b "make a block : ... { ___ }"
+$1 {
+	${VISUAL}$0
+}
+endsnippet
+
+snippet b. "make a block : ___ { ... }"
+$1${VISUAL}$2 {
+	$0
+}
+endsnippet
+
+snippet	guard "guard ___ else { ... }" b
+guard ${VISUAL}$1 else {
+	$0
+	break
+}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#									 Classes
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet csc "CustomStringConvertible"
@@ -61,23 +169,13 @@ CustomStringConvertible
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                                 Miscellaneous
+#								  Miscellaneous
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-snippet p "print('...')"
-print("$1")
+snippet p "print('___')"
+print("${VISUAL}$1")
 endsnippet
 
-snippet .b "make a block : ... { ___ }"
-$1 {
-	${0:${VISUAL}}
-}
-endsnippet
-
-snippet .r "TYPE.random(in: ...)" i
+snippet .rand "TYPE.random(in: ...)" i
 .random(${2:in: $1})
-endsnippet
-
-snippet i' "string \(interpolation)" i
-\(${1:${VISUAL}})
 endsnippet
