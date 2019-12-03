@@ -1,14 +1,15 @@
-"" Check out what other interesting things there are to add here
-"" http://stackoverflow.com/questions/164847/what-is-in-your-vimrc
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                      The beginning of something great
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-let mapleader='é'       "mapleader for <Leader>
+let mapleader='é'
 let maplocalleader='è'
 
-noremap <Leader><Leader> <Leader>
-inoremap <Leader><Leader> <Leader>
-
-noremap <LocalLeader><LocalLeader> <LocalLeader>
-inoremap <LocalLeader><LocalLeader> <LocalLeader>
+" In case I need the characters behind my leader keys ------------------------
+noremap   <Leader><Leader>            <Leader>
+inoremap  <Leader><Leader>            <Leader>
+noremap   <LocalLeader><LocalLeader>  <LocalLeader>
+inoremap  <LocalLeader><LocalLeader>  <LocalLeader>
 
 let vimrc_files = [
     \ 'plugins.vim',

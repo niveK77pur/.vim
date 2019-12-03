@@ -50,7 +50,8 @@ endif
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 set autoindent
-"set tabstop=4
+set smartindent
+" set tabstop=4
 set shiftwidth=4
 set softtabstop=-1
 set expandtab
@@ -65,6 +66,10 @@ set relativenumber  "Relative numbering
 set linebreak       "Line wrapping at a character
 set showcmd
 set wildmenu
+set lazyredraw
+
+set sidescroll=5
+set sidescrolloff=5
 
 try
     set listchars=eol:¶,tab:>-,space:∙,trail:×,extends:>,precedes:<
@@ -91,12 +96,14 @@ set stl+=\ %P
 
 set backspace=2
 set splitright
+set shiftround
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                        Settings for auto-completion
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 set ignorecase  " \c -- like ignore case is on, \C -- force matching case
+set smartcase
 set noinfercase
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
