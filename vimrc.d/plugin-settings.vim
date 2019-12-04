@@ -101,7 +101,7 @@ imap <Leader><c-x><c-L> <plug>(fzf-complete-buffer-line)
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 let g:UltiSnipsEditSplit = 'tabdo'
-let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+let g:UltiSnipsSnippetDirectories = [ '~/.vim/UltiSnips' ]
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Ployglot
