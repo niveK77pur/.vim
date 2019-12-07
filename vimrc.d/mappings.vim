@@ -66,10 +66,10 @@ nnoremap <Leader>td :g/<<TEST<</normal dd<CR>
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 "Toggle number and relativenumber
-noremap <F3> :set relativenumber! number! relativenumber? <CR><ESC>
+noremap <F3> :set relativenumber! number! relativenumber?<CR><ESC>
 
 "Toggle line wrapping
-noremap <F5> :set wrap! wrap? <CR>
+noremap <F5> :set wrap! wrap?<CR>
 
 " execute macros comfortably (and remove unnecessary ex mode, see :h gQ)
 nnoremap Q @
@@ -85,8 +85,8 @@ tnoremap <Leader>w <C-W>p
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " see tabs, spaces and what have you "{{{
-nnoremap <Leader>l :set list! list? <CR>
-inoremap <Leader>l <ESC>:set list! list? <CR>a
+nnoremap <Leader>l :set list! list?<CR>
+inoremap <Leader>l <ESC>:set list! list?<CR>a
 "}}}
 
 " the custom [>VIM<] tag "{{{
@@ -102,10 +102,10 @@ nnoremap <Leader><space> /\[>VIM<\]<CR>v//e<CR>s
 "}}}
 
 "Toggle highlighting stuff"{{{
-noremap <Leader>hs :set hlsearch! hlsearch? <CR>
-noremap <Leader>hl :set cursorline! cursorline? <CR>
-noremap <Leader>hc :set cursorcolumn! cursorcolumn? <CR>
-noremap <Leader>hf :call ToggleFoldcolumn() <CR>
+noremap <Leader>hs :set hlsearch! hlsearch?<CR>
+noremap <Leader>hl :set cursorline! cursorline?<CR>
+noremap <Leader>hc :set cursorcolumn! cursorcolumn?<CR>
+noremap <Leader>hf :call ToggleFoldcolumn()<CR>
 "}}}
 
 " toggle 'background' between light and dark
@@ -114,7 +114,7 @@ noremap <Leader>hf :call ToggleFoldcolumn() <CR>
 " toggle Goyo
 nnoremap <F10> :Goyo<CR>
 
-noremap <F12> :echo "\\°O°/" <CR>
+noremap <F12> :echo "\\°O°/"<CR>
 
 " navigate windows with ALT+{h,j,k,l} "{{{
 tnoremap <A-h> <C-\><C-N><C-w>h 
