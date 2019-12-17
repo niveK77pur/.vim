@@ -1,5 +1,5 @@
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#									Dispatch
+#                                   Dispatch
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # Threads ----------------------------------------------------------------------
@@ -63,7 +63,7 @@ snippet '\|(.+)-(.+)\|' "elapsed time in seconds --> time_A - time_B" ir
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#									 Socket
+#                                    Socket
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet .conn ".connect()" i
@@ -103,7 +103,7 @@ Data(capacity:${1:4096})
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#									JSON RPC
+#                                   JSON RPC
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet jsonHandler "create a jsonRPC handler" b
@@ -116,10 +116,10 @@ endsnippet
 
 # snippet jsonHANDLER "create 'expanded' JRPC handler" b
 # func ${1:name}(${2:parameters}) -> ${3:return type} {
-#     $0
+#	  $0
 # }
 # func $1Handler(jsonRequest:String) throws -> String {
-#     return try jsonRPCHandler(jsonRequest, handlerBlock: $1)
+#	  return try jsonRPCHandler(jsonRequest, handlerBlock: $1)
 # }
 # endsnippet
 
@@ -244,7 +244,7 @@ snippet .DONE "finishing block for promise (explicit)" i
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#									 String
+#                                    String
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet ii "string \(interpolation)" i
@@ -260,7 +260,7 @@ snippet .sp ".split()" i
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#									  Loops
+#                                     Loops
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet w "while ... { ___ }"
@@ -276,7 +276,7 @@ for $1 in $2 {
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#									 Blocks
+#                                    Blocks
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet .b "make a block : ... { ___ }"
@@ -291,14 +291,14 @@ $1${VISUAL}$2 {
 }
 endsnippet
 
-snippet	guard "guard ___ else { ... }" b
+snippet guard "guard ___ else { ... }" b
 guard ${VISUAL}$1 else {
 	$0
 }
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#									 Classes
+#                                    Classes
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet csc "CustomStringConvertible"
@@ -310,7 +310,7 @@ Codable
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#								  Miscellaneous
+#                                 Miscellaneous
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet p "print('___')"
