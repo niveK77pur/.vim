@@ -1,5 +1,6 @@
 setl tabstop=4
 setl def=func
+setl nowrap
 
 let g:NERDCustomDelimiters = {'swift' : { 'left': '//', 'leftAlt': '/*', 'rightAlt': '*/' }}
 

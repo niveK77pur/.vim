@@ -10,9 +10,7 @@ def get_tw():
 
 def get_cc():
 	"""Get comment character"""
-	if vim.eval('exists("b:comment_character")') == '1':
-		return vim.eval('b:comment_character')
-	return ''
+	return vim.eval('GetCommentCharacter()')
 endglobal
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -41,4 +39,8 @@ endsnippet
 snippet MS "MakeSection(...)"
 `!p text_len = get_tw() - len(get_cc()) - len(t[1]) - 2`
 `!p snip.rv = get_cc()` ${1:${VISUAL}} `!p snip.rv = '-' * text_len`
+endsnippet
+
+snippet hallo "expand this thing"
+hallo, $1. How are you doing? $0
 endsnippet

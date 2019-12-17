@@ -9,7 +9,6 @@ let g:NERDCustomDelimiters = {
     \ 'html' : { 'left': '<!--', 'right': '-->', 'leftAlt': '//' },
     \ 'c' : {'rightAlt': '*/', 'leftAlt': '/*', 'left': '//'}
 \ }
-    " \ 'c' : g:NERDDelimiterMap['cpp']
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  NERDTree

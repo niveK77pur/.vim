@@ -36,7 +36,7 @@ endfor
 " https://github.com/vim-advent-calendar/vimways.org/blob/master/content/2019/vim-and-the-shell/index.md
 "
 " select text within quotes (also supports nested quotes)
-" \(['"]\)\%(\\\?.\)\{-}\1
+" \v(['"])%(\1@![^\\]|\\.)*\1
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                        Learn Vimscript the Hard Way

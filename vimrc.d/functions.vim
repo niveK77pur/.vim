@@ -48,14 +48,15 @@ endfunction
 
 
 function! GetCommentCharacter() "{{{
-    if exists('g:NERDDelimiterMap')
-        " Comes from the NERDCommenter plugin
-        return g:NERDDelimiterMap[&filetype]
-    elseif exists("b:comment_character")
-        return b:comment_character
-    else
-        return ""
-    endif
+    try
+        return g:NERDDelimiterMap[&filetype]['left']
+    catch /^Vim\%((\a\+)\)\=:E121/
+        if exists("b:comment_character")
+            return b:comment_character
+        else
+            return ""
+        endif
+    endtry
 endfunction
 "}}}
 
@@ -63,9 +64,9 @@ function! MakeSection(...) "{{{
         let l:text = " " . join(a:000, " ") . " "
         let l:comment_character = GetCommentCharacter()
         let l:width = &textwidth > 0 ? &textwidth : 80
-        let banner = repeat('-', l:width - len(l:comment_character) - len(l:text))
+        let l:banner = repeat('-', l:width - len(l:comment_character) - len(l:text))
         set paste
-        execute "normal o\r".l:comment_character.l:text.banner
+        execute "normal o\r" . l:comment_character . l:text . l:banner
         set nopaste
 endfunction
 "}}}
@@ -77,7 +78,7 @@ function! MakeHeader(...) "{{{
         let l:space = l:comment_character . repeat(' ', l:width/2 - len(l:text)/2 - len(l:comment_character))
         let l:banner = l:comment_character . repeat('~', l:width - len(l:comment_character))
         set paste
-        execute "normal o\r".l:banner."\r".l:space.l:text."\r".l:banner."\r\e"
+        execute "normal o\r" . l:banner . "\r" . l:space . l:text . "\r" . l:banner . "\r\e"
         set nopaste
 endfunction
 "}}}
