@@ -29,13 +29,13 @@ snippet pt "Polyphonic passage << {===...} \new Voice {...} >>" b
 endsnippet
 
 snippet p\ "<< {===...} \\ {...} >>" b
-<< { ${VISUAL}$1 } \\ { $2 } >>
+<< { ${VISUAL}$1 } \\\\ { $2 } >>
 endsnippet
 
 snippet p\\ "<< {===...} \\ {...} >>" b
 <<
 	{ ${VISUAL}$1 }
-	\\
+	\\\\
 	{ $2 }
 >>
 endsnippet
@@ -89,6 +89,22 @@ snippet ottavation "manual ottavation" b
 ${VISUAL}$1
 \unset Staff.ottavation
 \unset Voice.middleCPosition
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Phrases
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet gg "\grace{...}" i
+\grace { ${VISUAL}$1 }
+endsnippet
+
+snippet ga "\acciaccatura{...}" i
+\acciaccatura { ${VISUAL}$1 }
+endsnippet
+
+snippet gap "\appoggiatura{...}" i
+\appoggiatura { ${VISUAL}$1 }
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

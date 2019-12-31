@@ -116,16 +116,85 @@ snippet sq "\sqrt{___}" i
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                     Lists
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+post_jump "if snip.tabstop == 0: snip.expand_anon('\n\\item $1$0')"
+snippet	itemize "create an itemize environment"
+\begin{itemize}
+	\item $1$0
+\end{itemize}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                             Figures, Tables, ...
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet includegraphics "command to include a graphic"
+\includegraphics[${2:width=$4\\${3:columnwidth}}]{$1}
+endsnippet
 
 snippet INCLUDEGRAPHICS "create figure containing the graphic" b
 \begin{figure}
 	\centering
-	\includegraphics[width=\columnwidth]{$1}
-	\caption{$2}
-	\label{fig:$3}
+	\includegraphics[${2:width=$4\\${3:columnwidth}}]{$1}
+	\caption{$5}
+	\label{fig:$6}
 \end{figure}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    BEAMER
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Frames -----------------------------------------------------------------------
+snippet frame "create a frame" b
+\begin{frame}{${1:Frame title}}
+	$0
+\end{frame}
+endsnippet
+
+snippet lframe "create a frame with label"
+\begin{frame}[label=$2]{${1:Frame title}}
+	$0
+\end{frame}
+endsnippet
+
+snippet sframe "create a single slide frame" b
+\begin{frame}[environment=singleslide]{${1:Frame title}}
+	$0
+\end{frame}
+endsnippet
+
+snippet lsframe "create a Labeled Single slide frame" b
+\begin{frame}[environment=singleslide, label=$2]{${1:Frame title}}
+	$0
+\end{frame}
+endsnippet
+
+# Columns ----------------------------------------------------------------------
+
+snippet columns "create 2 columns" b
+\begin{columns}[c]
+	\column{0.5\textwidth}
+		${VISUAL}$1
+	\column{0.5\textwidth}
+		$2
+\end{columns}
+
+endsnippet
+
+snippet minicolumns "create 2 columns with minipages" b
+\begin{columns}[c]
+	\column{0.5\textwidth}
+		\begin{minipage}[c][0.8\textheight]{\columnwidth}
+			${VISUAL}$1
+		\end{minipage}
+	\column{0.5\textwidth}
+		\begin{minipage}[c][0.8\textheight]{\columnwidth}
+			$2
+		\end{minipage}
+\end{columns}
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

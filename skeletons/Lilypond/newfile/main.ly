@@ -3,11 +3,12 @@
 \header {
   title = "TITLE"
   %instrument = "Piano"
-  composer = "Kevin L. Biewesch"
+  composer = "VinLudens"
   %arranger = "Arr. by VinLudens"
 }
 
 %#(set-global-staff-size 20)
+%showLastLength = R1 * 10
 
 \paper {
   #(set-paper-size "a4")

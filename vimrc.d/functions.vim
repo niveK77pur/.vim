@@ -34,7 +34,7 @@ endfunction
 "}}}
 
 function! CheckColorsGruvbox() "{{{
-        " Make sure the terminal support at least 16 colors
+        " Make sure the terminal supports at least 16 colors
         " otherwise do not use gruvbox colorscheme
         let l:colors = system("tput colors")
         if l:colors == 16
@@ -50,7 +50,7 @@ endfunction
 function! GetCommentCharacter() "{{{
     try
         return g:NERDDelimiterMap[&filetype]['left']
-    catch /^Vim\%((\a\+)\)\=:E121/
+    catch /^Vim\%((\a\+)\)\=:E716/
         if exists("b:comment_character")
             return b:comment_character
         else

@@ -271,6 +271,14 @@ if !exists('*ReloadLiliypond')
 endif
 "}}}
 
+" get least number of lines in open files in  window "{{{
+function! GetLowestLineNumber()
+    let l:lineNumbers = []
+    windo call add(l:lineNumbers, line("$"))
+    return min(l:lineNumbers)
+endfunction
+"}}}
+
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                            Autocommands
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -303,6 +311,12 @@ noremap <LocalLeader><c-r> :bufdo call ReloadLiliypond()<CR>
 nnoremap <buffer> <LocalLeader>bt :set scrollbind!<CR>
 "reset scroll binding
 nnoremap <buffer> <LocalLeader>br :call ResetScrollBind()<CR>
+"}}}
+
+" Align windows on current line number "{{{
+nnoremap <LocalLeader>zt :exe 'silent windo' min([line("."),GetLowestLineNumber()]) '<BAR> normal zt'<CR>
+nnoremap <LocalLeader>zz :exe 'silent windo' min([line("."),GetLowestLineNumber()]) '<BAR> normal zz'<CR>
+nnoremap <LocalLeader>zb :exe 'silent windo' min([line("."),GetLowestLineNumber()]) '<BAR> normal zb'<CR>
 "}}}
 
 "put a | at the end of a line {{{

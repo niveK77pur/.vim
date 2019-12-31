@@ -68,6 +68,8 @@ set showcmd
 set wildmenu
 set lazyredraw
 
+set nowrap          " prevent annyoing, ugly and confusing line breaks
+
 set sidescroll=5
 set sidescrolloff=5
 
