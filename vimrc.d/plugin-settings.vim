@@ -108,9 +108,3 @@ let g:UltiSnipsSnippetDirectories = [ '~/.vim/UltiSnips' ]
 
 " The LaTeX-Box plugin is included with vim-ployglot and conflicts with vimtex
 let g:polyglot_disabled = ['latex']
-
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"                                   localrc
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-nnoremap <Leader>L :exe 'tabnew' join(g:localrc#search(g:localrc_filename), ' ')<CR>

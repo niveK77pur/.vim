@@ -28,6 +28,9 @@ nnoremap <Leader>F :exe ":tabnew $HOME/.vim/ftplugin/" . &filetype . ".vim"<CR>
 " edit UltiSnips snippet definition of current filetype
 nnoremap <Leader>S :UltiSnipsEdit<CR>
 
+" edit localrc file
+nnoremap <Leader>L :exe 'tabnew' join(g:localrc#search(g:localrc_filename), ' ')<CR>
+
 " text manipulation ----------------------------------------------------------
 
 " toggle 'paste'
@@ -60,6 +63,9 @@ inoremap <Leader>tt <ESC>:exe 'normal A' . b:comment_character . '<<TEST<<'<CR>
 nnoremap <Leader>tt      :exe 'normal A' . b:comment_character . '<<TEST<<'<CR>
 nnoremap <Leader>td :g/<<TEST<</normal dd<CR>
 " }}}
+
+" paste text in " register more easily in insert mode
+inoremap <Leader>p <c-r>"
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Settings

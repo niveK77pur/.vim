@@ -125,3 +125,9 @@ function! IndentAdjustSpaces(from, to) range "{{{
     let &tabstop = old_ts
 endfunction
 "}}}
+
+
+function! SetLanguage(lang)
+    let &spellfile = substitute(&spellfile, '\v\w+\ze\.[[:alnum:]-]+\.add$', a:lang, '')
+    let &spelllang = a:lang
+endfunction

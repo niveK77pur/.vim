@@ -19,7 +19,7 @@ let g:tex_flavor = "latex"
 "                                 Spell Check
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-set spellfile+=~/.vim/spell/en.uft-8.add
+set spellfile+=~/.vim/spell/en.utf-8.add
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                            Colorschemes for vim

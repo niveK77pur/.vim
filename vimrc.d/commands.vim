@@ -8,3 +8,5 @@ command! -nargs=+ MakeTextAbbrevs call MakeTextAbbrevs(<f-args>)
 command! -nargs=1 IFcheck if <args> | echo <args> "is True" | else | echo <args> "is False" | endif
 
 command! -nargs=+ -range IndentAdjustSpaces <line1>,<line2>call IndentAdjustSpaces(<f-args>)
+
+command! -nargs=1 SetLanguage call SetLanguage(<f-args>)
