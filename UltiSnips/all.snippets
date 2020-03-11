@@ -14,10 +14,16 @@ def get_cc():
 endglobal
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#                                    Headers
+#                                       Boxes
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-snippet box5 "[box] style [5]"
+snippet box "== box ==" b
+`!p snip.rv = "=" * (6 + len(t[1]))`
+== $1 ==
+`!p snip.rv = "=" * (6 + len(t[1]))`
+endsnippet
+
+snippet letter "[box] style [5]" b
  ____`!p snip.rv = '_' * len(t[1])`____
 /\   `!p snip.rv = ' ' * len(t[1])`    \
 \_|  `!p snip.rv = ' ' * len(t[1])`    |
@@ -27,7 +33,11 @@ snippet box5 "[box] style [5]"
   \_/`!p snip.rv = '_' * len(t[1])`_____/
 endsnippet
 
-snippet MH "MakeHeader(...)"
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    Headers
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet MH "MakeHeader(...)" b
 `!p text_len = get_tw() - len(get_cc())`
 `!p snip.rv = '{}{}'.format(get_cc(), '~' * text_len)`
 `!p snip.rv = get_cc() + ' ' * (get_tw()//2 - len(t[1])//2 - len(get_cc()))`${1:${VISUAL}}
@@ -36,11 +46,7 @@ snippet MH "MakeHeader(...)"
 $0
 endsnippet
 
-snippet MS "MakeSection(...)"
+snippet MS "MakeSection(...)" b
 `!p text_len = get_tw() - len(get_cc()) - len(t[1]) - 2`
 `!p snip.rv = get_cc()` ${1:${VISUAL}} `!p snip.rv = '-' * text_len`
-endsnippet
-
-snippet hallo "expand this thing"
-hallo, $1. How are you doing? $0
 endsnippet

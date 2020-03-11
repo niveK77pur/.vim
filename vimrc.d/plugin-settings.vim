@@ -41,6 +41,14 @@ let CoVim_default_port = "8080"
 "                                     COC
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+let g:coc_global_extensions = [
+    \ 'coc-json',
+    \ 'coc-ultisnips',
+    \ 'coc-vimlsp', 
+    \ 'coc-python',
+    \ 'coc-vimtex'
+\ ]
+
 nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
 nnoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
 

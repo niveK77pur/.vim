@@ -25,25 +25,26 @@ set spellfile+=~/.vim/spell/en.utf-8.add
 "                            Colorschemes for vim
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+if &t_Co > 255
+    set termguicolors
+endif
+
 "" Available colorschemes can be found in /usr/share/vim/vim74/colors/
 "colorscheme pablo
 "colorscheme ron "default
 "colorscheme morning
 "colorscheme shine
 "colorscheme koehler
-if has('nvim')
-    colorscheme forest-night
-else
-    " ~~~ gruvbox ~~~ {{{
-    if CheckColorsGruvbox()
-            let g:gruvbox_italic=1
-            let g:gruvbox_italicize_comments=1
-            colorscheme gruvbox
-            set bg=dark
-            "call ToggleBackgroundTime(6,19)
-    endif
-    " }}}
-endif
+colorscheme forest-night
+" ~~~ gruvbox ~~~ {{{
+" if CheckColorsGruvbox()
+"         let g:gruvbox_italic=1
+"         let g:gruvbox_italicize_comments=1
+"         colorscheme gruvbox
+"         set bg=dark
+"         "call ToggleBackgroundTime(6,19)
+" endif
+" }}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                           Options for indentation

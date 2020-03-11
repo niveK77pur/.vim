@@ -20,7 +20,7 @@ call plug#begin('~/.vim/plugged/')
     " Plug 'junegunn/vim-peekaboo'
 
 " Interface ------------------------------------------------------------------
-    Plug 'morhetz/gruvbox'
+    " Plug 'morhetz/gruvbox'
     Plug 'sainnhe/vim-color-forest-night'
     " Plug 'itchyny/vim-cursorword'
     " Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }

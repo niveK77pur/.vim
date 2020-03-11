@@ -127,7 +127,9 @@ endfunction
 "}}}
 
 
-function! SetLanguage(lang)
-    let &spellfile = substitute(&spellfile, '\v\w+\ze\.[[:alnum:]-]+\.add$', a:lang, '')
+function! SetLanguage(lang) "{{{
     let &spelllang = a:lang
+    let &spellfile = substitute(&spellfile, '\v\w+\ze\.[[:alnum:]-]+\.add$', a:lang, '')
 endfunction
+"}}}
+
