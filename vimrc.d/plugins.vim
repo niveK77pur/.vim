@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged/')
     Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
     Plug 'thinca/vim-localrc'
     Plug 'terryma/vim-multiple-cursors'
-    Plug '/opt/fzf'
+    Plug 'junegunn/fzf', { 'do': './install --xdg --all --no-fish' }
     Plug 'junegunn/fzf.vim'
     Plug 'SirVer/ultisnips'
     " Plug 'liuchengxu/vista.vim'
@@ -24,6 +24,7 @@ call plug#begin('~/.vim/plugged/')
     Plug 'sainnhe/vim-color-forest-night'
     " Plug 'itchyny/vim-cursorword'
     " Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
+    " Plug 'Yggdroot/indentLine', { 'on' : ['IndentLinesToggle', 'IndentLinesEnable', 'LeadingSpaceEnable', 'LeadingSpaceToggle'] }
 
 " Editing --------------------------------------------------------------------
     Plug 'scrooloose/nerdcommenter'

@@ -41,16 +41,21 @@ let CoVim_default_port = "8080"
 "                                     COC
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+let g:coc_node_path = '/usr/bin/node'
 let g:coc_global_extensions = [
     \ 'coc-json',
     \ 'coc-ultisnips',
     \ 'coc-vimlsp', 
     \ 'coc-python',
+    \ 'coc-java',
     \ 'coc-vimtex'
 \ ]
 
 nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
 nnoremap <expr><C-b> coc#util#has_float() ? coc#util#float_scroll(0) : "\<C-b>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                   vimtex
@@ -90,6 +95,7 @@ let g:vimtex_quickfix_latexlog = {
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " FZF Commands
+nnoremap <Leader>fr :Rg<CR>
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>fb :Buffers<CR>
 nnoremap <Leader>fl :BLines<CR>
@@ -116,3 +122,9 @@ let g:UltiSnipsSnippetDirectories = [ '~/.vim/UltiSnips' ]
 
 " The LaTeX-Box plugin is included with vim-ployglot and conflicts with vimtex
 let g:polyglot_disabled = ['latex']
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                                 indentLine
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+let g:indentLine_char_list = ['│', '|', '¦', '┆', '┊']

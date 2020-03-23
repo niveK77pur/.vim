@@ -81,9 +81,11 @@ noremap <F5> :set wrap! wrap?<CR>
 nnoremap Q @
 
 " terminal mappings {{{
-tnoremap <Leader>t <C-W>:tabprevious<CR>
-tnoremap <Leader>T <C-W>:tabnext<CR>
-tnoremap <Leader>w <C-W>p
+if has('terminal')
+    tnoremap <Leader>t <C-W>:tabprevious<CR>
+    tnoremap <Leader>T <C-W>:tabnext<CR>
+    tnoremap <Leader>w <C-W>p
+endif
 " }}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -123,17 +125,19 @@ nnoremap <F10> :Goyo<CR>
 noremap <F12> :echo "\\°O°/"<CR>
 
 " navigate windows with ALT+{h,j,k,l} "{{{
-tnoremap <A-h> <C-\><C-N><C-w>h 
-tnoremap <A-j> <C-\><C-N><C-w>j
-tnoremap <A-k> <C-\><C-N><C-w>k
-tnoremap <A-l> <C-\><C-N><C-w>l
-inoremap <A-h> <C-\><C-N><C-w>h
-inoremap <A-j> <C-\><C-N><C-w>j
-inoremap <A-k> <C-\><C-N><C-w>k
-inoremap <A-l> <C-\><C-N><C-w>l
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
+if has('terminal')
+    tnoremap <A-h> <C-\><C-N><C-w>h 
+    tnoremap <A-j> <C-\><C-N><C-w>j
+    tnoremap <A-k> <C-\><C-N><C-w>k
+    tnoremap <A-l> <C-\><C-N><C-w>l
+    inoremap <A-h> <C-\><C-N><C-w>h
+    inoremap <A-j> <C-\><C-N><C-w>j
+    inoremap <A-k> <C-\><C-N><C-w>k
+    inoremap <A-l> <C-\><C-N><C-w>l
+    nnoremap <A-h> <C-w>h
+    nnoremap <A-j> <C-w>j
+    nnoremap <A-k> <C-w>k
+    nnoremap <A-l> <C-w>l
+endif
 "}}}
 

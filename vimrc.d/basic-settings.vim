@@ -35,6 +35,7 @@ endif
 "colorscheme morning
 "colorscheme shine
 "colorscheme koehler
+let g:forest_night_transparent_background = 1
 colorscheme forest-night
 " ~~~ gruvbox ~~~ {{{
 " if CheckColorsGruvbox()
@@ -45,6 +46,9 @@ colorscheme forest-night
 "         "call ToggleBackgroundTime(6,19)
 " endif
 " }}}
+
+" Additional settings for colorschemes ---------------------------------------
+" hi Normal guibg=NONE ctermbg=NONE
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                           Options for indentation
