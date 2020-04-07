@@ -125,7 +125,7 @@ nnoremap <F10> :Goyo<CR>
 noremap <F12> :echo "\\°O°/"<CR>
 
 " navigate windows with ALT+{h,j,k,l} "{{{
-if has('terminal')
+if has('nvim') || has('terminal')
     tnoremap <A-h> <C-\><C-N><C-w>h 
     tnoremap <A-j> <C-\><C-N><C-w>j
     tnoremap <A-k> <C-\><C-N><C-w>k
