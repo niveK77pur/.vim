@@ -265,14 +265,14 @@ if !exists('*ReloadLiliypond')
     function! ReloadLiliypond()
         if expand('%:e') ==? 'ly'
             edit
-            echo "Reloading" expand('%:t')
+            echom "Reloading" expand('%:t')
         endif
     endfunction
 endif
 "}}}
 
 " get least number of lines in open files in  window "{{{
-function! GetLowestLineNumber()
+function! GetLowestLineNumberInWindows()
     let l:lineNumbers = []
     windo call add(l:lineNumbers, line("$"))
     return min(l:lineNumbers)
@@ -285,10 +285,10 @@ endfunction
 
 augroup LiliyPond "{{{
     au!
-    au FocusLost *.ly                       :wa | e
+    " au FocusLost *.ly                       :wa | e
     " au BufWritePre *.ly                     :silent call AbsolutePitchTransformTo("sign") | let g:pitch_mode = "sign"
     " au BufRead,BufEnter,BufWritePost *.ly   :silent call AbsolutePitchTransformTo("number") | let g:pitch_mode = "number"
-    au FileChangedShell *.ly                :if input("File changed. Reload? (y/n)  ") == 'y' | edit | endif
+    " au FileChangedShell *.ly                :if input("File changed. Reload? (y/n)  ") == 'y' | edit | endif
 augroup END
 "}}}
 
@@ -302,7 +302,10 @@ augroup END
 inoremap <buffer> <LocalLeader><SPACE> <c-v><space>
 
 " reload all lilypond files
-noremap <LocalLeader><c-r> :bufdo call ReloadLiliypond()<CR>
+nnoremap <LocalLeader><c-r> :bufdo call ReloadLiliypond()<CR>
+
+" reload all files in the current window
+nnoremap <LocalLeader>e :let lilypond_window_view = winsaveview() <BAR> windo edit <BAR> call winrestview(lilypond_window_view)<CR>:unlet lilypond_window_view<CR>
 
 "}}}
 
@@ -314,9 +317,9 @@ nnoremap <buffer> <LocalLeader>br :call ResetScrollBind()<CR>
 "}}}
 
 " Align windows on current line number "{{{
-nnoremap <LocalLeader>zt :exe 'silent windo' min([line("."),GetLowestLineNumber()]) '<BAR> normal zt'<CR>
-nnoremap <LocalLeader>zz :exe 'silent windo' min([line("."),GetLowestLineNumber()]) '<BAR> normal zz'<CR>
-nnoremap <LocalLeader>zb :exe 'silent windo' min([line("."),GetLowestLineNumber()]) '<BAR> normal zb'<CR>
+nnoremap <LocalLeader>zt :exe 'silent windo' min([line("."),GetLowestLineNumberInWindows()]) '<BAR> normal zt'<CR>
+nnoremap <LocalLeader>zz :exe 'silent windo' min([line("."),GetLowestLineNumberInWindows()]) '<BAR> normal zz'<CR>
+nnoremap <LocalLeader>zb :exe 'silent windo' min([line("."),GetLowestLineNumberInWindows()]) '<BAR> normal zb'<CR>
 "}}}
 
 "put a | at the end of a line {{{
