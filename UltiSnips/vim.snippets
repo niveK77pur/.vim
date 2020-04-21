@@ -9,7 +9,7 @@ endsnippet
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet '(\w)m' "nnoremap or inoremap or ..." br
-`!p snip.rv = match.group(1)`noremap ${1:LHS} ${2:RHS}
+`!p snip.rv = match.group(1)`noremap $0
 endsnippet
 
 snippet L "<Leader>" i

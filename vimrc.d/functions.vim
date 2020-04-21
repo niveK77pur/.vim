@@ -133,3 +133,6 @@ function! SetLanguage(lang) "{{{
 endfunction
 "}}}
 
+function! Replace(dict) range
+    exe a:firstline . ',' . a:lastline . 's@\V'.join(keys(a:dict),'\|').'@\='.a:dict.'[submatch(0)]@g'
+endfunction
