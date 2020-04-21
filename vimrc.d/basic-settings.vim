@@ -104,6 +104,7 @@ set stl+=\ %P
 set backspace=2
 set splitright
 set shiftround
+set modeline
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                        Settings for auto-completion
