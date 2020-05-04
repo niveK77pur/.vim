@@ -2,7 +2,7 @@
 "                                  Settings
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-setlocal tabstop=4
+setlocal tabstop=2
 setlocal textwidth=70
 setlocal noexpandtab
 setlocal keywordprg=texdoc

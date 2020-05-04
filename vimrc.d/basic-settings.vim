@@ -27,6 +27,10 @@ set spellfile+=~/.vim/spell/en.utf-8.add
 
 if &t_Co > 255
     set termguicolors
+    if !has('nvim')
+        let &t_8f = "\<esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<esc>[48;2;%lu;%lu;%lum"
+    endif
 endif
 
 "" Available colorschemes can be found in /usr/share/vim/vim74/colors/
@@ -56,7 +60,7 @@ colorscheme forest-night
 
 set autoindent
 set smartindent
-" set tabstop=4
+set tabstop=4
 set shiftwidth=0
 set softtabstop=-1
 set expandtab
