@@ -1,17 +1,10 @@
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"                               Add information
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-" Name & Student ID ----------------------------------------------------------
-nmap <Leader>an gg}oName: Kevin Biewesch<CR>StudentID: 0180556255<CR><ESC><UP>vip<Leader>cc
-
-"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                   Editing
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " vim configs ----------------------------------------------------------------
 
-" Quickly edit vimrc file
+" Quickly edit vimrc file "{{{
 nnoremap <leader>ve :tabnew <BAR> Files ~/.vim/vimrc.d<CR>
 " if exists(':Files')
 "     nnoremap <leader>ve :tabnew <BAR> Files ~/.vim/vimrc.d<CR>
@@ -20,7 +13,7 @@ nnoremap <leader>ve :tabnew <BAR> Files ~/.vim/vimrc.d<CR>
 " else
 "     nnoremap <leader>ve :tabnew ~/.vim/vimrc.d/
 " endif
-    
+"}}}
 
 " edit filtype plugin of current file
 nnoremap <Leader>F :exe ":tabnew $HOME/.vim/ftplugin/" . &filetype . ".vim"<CR>
@@ -80,14 +73,6 @@ noremap <F5> :set wrap! wrap?<CR>
 " execute macros comfortably (and remove unnecessary ex mode, see :h gQ)
 nnoremap Q @
 
-" terminal mappings {{{
-if has('terminal')
-    tnoremap <Leader>t <C-W>:tabprevious<CR>
-    tnoremap <Leader>T <C-W>:tabnext<CR>
-    tnoremap <Leader>w <C-W>p
-endif
-" }}}
-
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Interface
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -124,6 +109,10 @@ nnoremap <F10> :Goyo<CR>
 
 noremap <F12> :echo "\\°O°/"<CR>
 
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                                 Navigation
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 " navigate windows with ALT+{h,j,k,l} "{{{
 if has('nvim') || has('terminal')
     tnoremap <A-h> <C-\><C-N><C-w>h 
@@ -131,13 +120,38 @@ if has('nvim') || has('terminal')
     tnoremap <A-k> <C-\><C-N><C-w>k
     tnoremap <A-l> <C-\><C-N><C-w>l
 endif
-    inoremap <A-h> <C-\><C-N><C-w>h
-    inoremap <A-j> <C-\><C-N><C-w>j
-    inoremap <A-k> <C-\><C-N><C-w>k
-    inoremap <A-l> <C-\><C-N><C-w>l
-    nnoremap <A-h> <C-w>h
-    nnoremap <A-j> <C-w>j
-    nnoremap <A-k> <C-w>k
-    nnoremap <A-l> <C-w>l
+inoremap <A-h> <C-\><C-N><C-w>h
+inoremap <A-j> <C-\><C-N><C-w>j
+inoremap <A-k> <C-\><C-N><C-w>k
+inoremap <A-l> <C-\><C-N><C-w>l
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-k> <C-w>k
+nnoremap <A-l> <C-w>l
+"}}}
+
+" use ALT+{, .} to navigate tabs "{{{
+if has('nvim') || has('terminal')
+    tnoremap <A-,> <C-\><C-N>:tabprevious<CR>
+    tnoremap <A-.> <C-\><C-N>:tabnext<CR>
+endif
+inoremap <A-,> <esc>:tabprevious<CR>
+inoremap <A-.> <esc>:tabnext<CR>
+nnoremap <A-,> :tabprevious<CR>
+nnoremap <A-.> :tabnext<CR>
+"}}}
+
+" use arrow keys to move linewise on wrapped lines "{{{
+nnoremap  <up>    g<up>
+nnoremap  <down>  g<down>
+inoremap  <up>    <c-o>g<up>
+inoremap  <down>  <c-o>g<down>
+"}}}
+
+" use ALT+{h,j,k,l} to move cursor in insert mode "{{{
+inoremap <a-h> <left>
+inoremap <a-j> <down>
+inoremap <a-k> <up>
+inoremap <a-l> <right>
 "}}}
 

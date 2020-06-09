@@ -7,6 +7,9 @@ setlocal textwidth=70
 setlocal noexpandtab
 setlocal keywordprg=texdoc
 setlocal spell
+"allow concealing with vimtex
+setlocal conceallevel=2
+setlocal concealcursor=n
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                Abbreviations
@@ -75,6 +78,9 @@ nnoremap <LocalLeader>B :s#\(\w\+\)#\\begin\{\1\}\r\\end\{\1\}#<CR><UP>A
 
 " use detex to get the word count of a latex file
 nnoremap <LocalLeader>d :w !detex \| wc -w<CR>
+
+" make math brackets with '\left' and '\right'
+nnoremap <LocalLeader>( :s#[([]#\\left&#ge <BAR> s#[)\]]#\\right&#ge<CR>
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                Miscellaneous

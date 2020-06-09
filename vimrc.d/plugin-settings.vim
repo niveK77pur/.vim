@@ -64,7 +64,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 " Settings -------------------------------------------------------------------
 let g:vimtex_view_method = 'zathura'
 let g:vimtex_fold_enabled = 1
-let g:tex_conceal='abdmg'
+let g:tex_conceal='adbmgs'
 
 " Mappings -------------------------------------------------------------------
 nmap <LocalLeader>ls <plug>(vimtex-compile-ss)

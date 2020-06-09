@@ -14,6 +14,7 @@ call plug#begin('~/.vim/plugged/')
     Plug 'terryma/vim-multiple-cursors'
     Plug 'junegunn/fzf', { 'do': './install --xdg --all --no-fish' }
     Plug 'junegunn/fzf.vim'
+    " Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
     Plug 'SirVer/ultisnips'
     " Plug 'liuchengxu/vista.vim'
     " Plug 'JetBrains/ideavim'

@@ -20,6 +20,12 @@ snippet be "\begin{...} ___ \end{}" b
 \end{$1}
 endsnippet
 
+snippet 'be(\w+\*?)' "\begin{} ___ \end{}" br
+\begin{`!p snip.rv = match.group(1)`}
+	${VISUAL}$0
+\end{`!p snip.rv = match.group(1)`}
+endsnippet
+
 snippet i "\item" b
 \item $0
 endsnippet
@@ -63,31 +69,35 @@ snippet 't(i|t)' "ti,tt -> \textit{___},\texttt{___}" ir
 endsnippet
 
 snippet tb "\textbf{___}" i
-\textbf{${1:${VISUAL}}}
+\textbf{${1:${VISUAL}}} 
 endsnippet
 
 snippet em "\emph{___}" i
-\emph{${1:${VISUAL}}}
+\emph{${1:${VISUAL}}} 
 endsnippet
 
 snippet ul "\underline{___}" i
 \underline{${1:${VISUAL}}} 
 endsnippet
 
+snippet hl "\hl{___}" i
+\hl{${1:${VISUAL}}} 
+endsnippet
+
 snippet | "\verb|___|" i
-\verb|${1:${VISUAL}}|
+\verb|${1:${VISUAL}}| 
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                     Math
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-snippet '([\d\w\.]+)/([\d\w\.]+)' "x/y -> \frac{x}{y}" r
-`!p snip.rv = '\\frac{' + match.group(1) + '}{' + match.group(2) + '}'`
+snippet '([\d\w\.\+\-\*\^{}\(\)]+)/([\d\w\.\+\-\*\^{}\(\)]+)(\\)?' "x/y\t -> \tfrac{x}{y}" r
+`!p snip.rv = '\\' + ('t' if match.group(3) else '') + 'frac{' + match.group(1) + '}{' + match.group(2) + '}'`
 endsnippet
 
-snippet '([\(\[\{])' "(,{,[ -> \left(...\right)" ir
-\left`!p snip.rv = match.group(1)`${VISUAL}$1\right`!p snip.rv = brackets[match.group(1)]`
+snippet '(\[\]|{}|\(\))' "(),{},[] -> \left(...\right)" ir
+\left`!p snip.rv = match.group(1)[0]`${VISUAL}$1\right`!p snip.rv = match.group(1)[1]`
 endsnippet
 
 snippet 'nl$' "\\" ir
@@ -103,9 +113,9 @@ snippet <= "\leq" i
 \leq 
 endsnippet
 
-snippet * "\times" i
-\times
-endsnippet
+# snippet * "\times" i
+# \times
+# endsnippet
 
 snippet log "\log{___}" i
 \log{${VISUAL}$1}$0
@@ -137,10 +147,21 @@ endsnippet
 snippet INCLUDEGRAPHICS "create figure containing the graphic" b
 \begin{figure}
 	\centering
-	\includegraphics[${2:width=$4\\${3:columnwidth}}]{$1}
-	\caption{$5}
-	\label{fig:$6}
+	\includegraphics[${4:width=$6\\${5:columnwidth}}]{$3}
+	\caption{$1}
+	\label{fig:$2}
 \end{figure}
+endsnippet
+
+snippet table "\begin{table}...\begin{tabular} ..." b
+\begin{table}
+	\centering
+	\begin{tabular}{$3}
+		$0
+	\end{tabular}
+	\caption{$1}
+	\label{tab:$2}
+\end{table}
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

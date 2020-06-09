@@ -118,13 +118,17 @@ endfunction
 function! IndentAdjustSpaces(from, to) range "{{{
     let old_ts = &tabstop
     set noexpandtab     " change to tabs
-    exe a:firstline . ',' . a:lastline . 'retab!' a:from
-    let &tabstop = a:to
+    let &tabstop = a:from
+    exe a:firstline . ',' . a:lastline . 'retab!' a:to
     set expandtab       " go back to spaces
-    exe a:firstline . ',' . a:lastline . 'retab'
-    let &tabstop = old_ts
+    exe a:firstline . ',' . a:lastline . 'retab' old_ts
 endfunction
 "}}}
+
+function! Align(char) range "{{{
+    exec a:firstline.','.a:lastline.'s@\s*\(' . a:char . '\)\s*@ \1★@g'
+    silent exec a:firstline.','.a:lastline.'!column -ts "★"'
+endfunction "}}}
 
 
 function! SetLanguage(lang) "{{{
@@ -133,6 +137,9 @@ function! SetLanguage(lang) "{{{
 endfunction
 "}}}
 
-function! Replace(dict) range
+
+function! Replace(dict) range "{{{
     exe a:firstline . ',' . a:lastline . 's@\V'.join(keys(a:dict),'\|').'@\='.a:dict.'[submatch(0)]@g'
 endfunction
+"}}}
+
