@@ -126,7 +126,7 @@ endfunction
 "}}}
 
 function! Align(char) range "{{{
-    exec a:firstline.','.a:lastline.'s@\s*\(' . a:char . '\)\s*@ \1★@g'
+    silent exec a:firstline.','.a:lastline.'s@\s*\(' . a:char . '\)\s*@ \1★@g'
     silent exec a:firstline.','.a:lastline.'!column -ts "★"'
 endfunction "}}}
 

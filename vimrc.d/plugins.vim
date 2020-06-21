@@ -15,7 +15,9 @@ call plug#begin('~/.vim/plugged/')
     Plug 'junegunn/fzf', { 'do': './install --xdg --all --no-fish' }
     Plug 'junegunn/fzf.vim'
     " Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
-    Plug 'SirVer/ultisnips'
+    if has('nvim') || xor(has('python_dynamic'), has('python3_dynamic'))
+        Plug 'SirVer/ultisnips'
+    endif
     " Plug 'liuchengxu/vista.vim'
     " Plug 'JetBrains/ideavim'
     " Plug 'junegunn/vim-peekaboo'

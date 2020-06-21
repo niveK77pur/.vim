@@ -2,8 +2,7 @@
 "                                   Editing
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-" vim configs ----------------------------------------------------------------
-
+" vim configs ----------------------------------------------------------------{{{1
 " Quickly edit vimrc file "{{{
 nnoremap <leader>ve :tabnew <BAR> Files ~/.vim/vimrc.d<CR>
 " if exists(':Files')
@@ -24,7 +23,7 @@ nnoremap <Leader>S :UltiSnipsEdit<CR>
 " edit localrc file
 nnoremap <Leader>L :exe 'tabnew' join(g:localrc#search(g:localrc_filename), ' ')<CR>
 
-" text manipulation ----------------------------------------------------------
+" text manipulation ----------------------------------------------------------{{{1
 
 " toggle 'paste'
 nnoremap <F2> :set paste! paste?<CR>
@@ -57,8 +56,26 @@ nnoremap <Leader>tt      :exe 'normal A' . b:comment_character . '<<TEST<<'<CR>
 nnoremap <Leader>td :g/<<TEST<</normal dd<CR>
 " }}}
 
+" Registers ------------------------------------------------------------------{{{1
+
 " paste text in " register more easily in insert mode
-inoremap <Leader>p <c-r>"
+inoremap <a-p> <c-r>"
+
+" copy directly to clipboard "{{{
+nnoremap <Leader>yy "+yy
+vnoremap <Leader>y "+y
+"}}}
+
+" paste directly from clipboard "{{{
+nnoremap <Leader>p "+p
+nnoremap <Leader>P "+P
+nnoremap <Leader>[p "+[p
+nnoremap <Leader>]p "+]p
+nnoremap <Leader>[P "+[P
+nnoremap <Leader>]P "+]P
+"}}}
+
+"}}}1
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Settings

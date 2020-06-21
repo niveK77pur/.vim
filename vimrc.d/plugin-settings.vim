@@ -24,6 +24,7 @@ nnoremap <Leader>N  :NERDTreeFocus<CR>
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 let g:AutoPairsMoveCharacter = ""   "Fix 'bug' where § does funny things in insert mode
+let g:AutoPairsShortcutToggle = "<Leader><M-p>"
 augroup AutoPairsVim
     " au FileType vim let b:AutoPairs = remove(g:AutoPairs, '"')
     au FileType vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", '`':'`'}
