@@ -102,6 +102,9 @@ function! MakeTextAbbrevs(abbrev, ...) "{{{
     "   1. hmw -> hello my world
     "   2. HMW -> Hello My World
     "   3. Hmw -> Hello my world
+    " You need/ought to specify the upper case abbreviation. I.e.:
+    "   1. ST  -> Some Thing
+    "   2. STs -> Some Things
     let l:abbrev = tolower(a:abbrev)
     let l:text   = tolower(join(a:000))
     let l:ABBREV = toupper(a:abbrev)
@@ -139,7 +142,13 @@ endfunction
 
 
 function! Replace(dict) range "{{{
-    exe a:firstline . ',' . a:lastline . 's@\V'.join(keys(a:dict),'\|').'@\='.a:dict.'[submatch(0)]@g'
+    exe a:firstline . ',' . a:lastline . 's#\V'.join(keys(a:dict),'\|').'#\='.string(a:dict).'[submatch(0)]#g'
+endfunction
+"}}}
+
+function! Exchange(key1, key2) range "{{{
+    let l:dict = {a:key1 : a:key2 , a:key2 : a:key1}
+    exe a:firstline . ',' . a:lastline . 'call Replace('.string(l:dict).')'
 endfunction
 "}}}
 

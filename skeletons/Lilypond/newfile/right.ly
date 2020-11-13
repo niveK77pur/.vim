@@ -3,5 +3,6 @@
 
 right = \absolute {
   \global
+  g'
 %}
 }

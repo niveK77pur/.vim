@@ -34,5 +34,6 @@
   \layout { }
   \midi {
     %\tempo 4=80
+    \set Staff.midiMaximumVolume = #0.7
   }
 }

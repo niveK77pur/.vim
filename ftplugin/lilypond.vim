@@ -8,6 +8,7 @@ setlocal nowrap
 " setlocal scrollbind
 setlocal tw=0
 setlocal autoread
+setlocal cursorline
 
 if exists(':CocDisable')
     silent CocDisable
@@ -98,6 +99,9 @@ iabbrev shape \shape #<C-V>'(([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]) ([>VIM<] . 
 " command for changing a note into another in the current line (i.e. c --> d)
 command! -nargs=+ -range -buffer Switch :call SwitchNotes(<f-args>)
 
+" command for tranform simple polyphony to temporary polyphony
+command! -buffer MakeTempPoly :call MakeTempPoly()
+
 "}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -107,6 +111,17 @@ command! -nargs=+ -range -buffer Switch :call SwitchNotes(<f-args>)
 " {{{ script local functions
 
 " }}}
+
+
+"toggle articulations {{{
+function! HideArticulations()
+        %s#\\\([<>!]\|m\?[pf]\|sfz\?\)#%{\\\1%}#g
+        %s#%{\\\([fp]\)%}\(ermata\|artial\)#\\\1\2#g
+endfunction
+function! ShowArticulations()
+        %s#%{\(\\\([<>!]\|m\?[pf]\|sfz\?\)\)%}#\1#g
+endfunction
+"}}}
 
 " make octaves {{{
 function! MakeOctave(pitch)
@@ -118,16 +133,6 @@ function! MakeOctave(pitch)
     "     let offset = a:pitch =~ ',' ? -1 : +1
     "     exe 's#' . match_pattern . '#\=submatch(1) . "<" . submatch(2) . submatch(3).submatch(4).submatch(5) . " " . submatch(2) . "{".(submatch(4)+' . offset . ')."}" . ">"#g' | s#<\s*{-\?\d\+}>##ge
     " endif
-endfunction
-"}}}
-
-"toggle articulations {{{
-function! HideArticulations()
-        %s#\\\([<>!]\|m\?[pf]\|sfz\?\)#%{\\\1%}#g
-        %s#%{\\\([fp]\)%}\(ermata\|artial\)#\\\1\2#g
-endfunction
-function! ShowArticulations()
-        %s#%{\(\\\([<>!]\|m\?[pf]\|sfz\?\)\)%}#\1#g
 endfunction
 "}}}
 
@@ -145,35 +150,11 @@ function! Feather(side)
 endfunction
 "}}}
  
-" change a note into another in the current line (i.e. cis --> dis) "{{{
-function! SwitchNotes(...)
-        if a:0%2 != 0
-                echoerr "Invalid number of notes. Missing couple:" a:0 "notes given."
-                return 1
-        endif
-
-        for i in range(0,a:0-1,2)
-                if a:000[i][0] ==# toupper(a:000[i][0])
-                        " don't ignore accidentals if first letter is
-                        " upper case.  The accidental will be removed.
-                        " i.e. SwitchNotes(A,b) : ais --> b
-                        let accidental = ''
-                else
-                        " ignore accidentals if first letter is lower
-                        " case.  The accidental will be kept.
-                        " i.e. SwitchNotes(a,b) : ais --> bis
-                        let accidental = "\\2"
-                endif
-
-                execute 's#[^\\]\<\(<\?\)' . a:000[i] . '\(\a*\)# \1' . tolower(a:000[i+1]) . accidental . '#gi'
-        endfor
-endfunction
-"}}}
-
 function! BarRest() "{{{
         return b:bar_rest . ' |'
 endfunction
 "}}}
+
 
 " apply key signature accidentals to notes {{{
 
@@ -219,6 +200,44 @@ endfunction
 
 " }}}
 
+" tranform simple polyphony to temporary polyphony "{{{
+function! MakeTempPoly()
+    normal! 0f{a \voiceOne
+    normal! lcw
+    normal! f}BE cw |
+    normal! f\;ct{new Voice 
+    normal! f{lcw \voiceTwo
+    normal! f}BE cw |
+    normal! f} cw
+    normal! E C \oneVoice
+endfunction
+"}}}
+
+" change a note into another in the current line (i.e. cis --> dis) "{{{
+function! SwitchNotes(...)
+        if a:0%2 != 0
+                echoerr "Invalid number of notes. Missing couple:" a:0 "notes given."
+                return 1
+        endif
+
+        for i in range(0,a:0-1,2)
+                if a:000[i][0] ==# toupper(a:000[i][0])
+                        " don't ignore accidentals if first letter is
+                        " upper case.  The accidental will be removed.
+                        " i.e. SwitchNotes(A,b) : ais --> b
+                        let accidental = ''
+                else
+                        " ignore accidentals if first letter is lower
+                        " case.  The accidental will be kept.
+                        " i.e. SwitchNotes(a,b) : ais --> bis
+                        let accidental = "\\2"
+                endif
+
+                execute 's#[^\\]\<\(<\?\)' . a:000[i] . '\(\a*\)# \1' . tolower(a:000[i+1]) . accidental . '#gi'
+        endfor
+endfunction
+"}}}
+
 " transform pitch indications into numbers (i.e. ,,, --> {-3}) {{{
 
 function! AbsolutePitch2Number(pitch)
@@ -250,6 +269,7 @@ endfunction
 
 " }}}
 
+
 " reset scrollbind if it happens to get messed up "{{{
 function! ResetScrollBind()
     let l:view = winsaveview()
@@ -278,6 +298,25 @@ function! GetLowestLineNumberInWindows()
     return min(l:lineNumbers)
 endfunction
 "}}}
+
+" Align lines on which the cursor is positioned "{{{
+function! BarAlign()
+    let l:cursor_positions = []
+    windo call add(l:cursor_positions, getcurpos()[:1])
+    if len(l:cursor_positions) != 2
+        echoerr 'Too many windows are opened. 2 were expected.'
+    endif
+
+    " Get highest line in opened windows
+    let l:highest = l:cursor_positions[1][1] < l:cursor_positions[0][1] ? l:cursor_positions[1] : l:cursor_positions[0]
+    let l:delta = abs(l:cursor_positions[0][1] - l:cursor_positions[1][1])
+
+    " Add enough new lines to align with the lowest of the two lines
+    call setbufline(l:highest[0], l:highest[1],
+        \ add(repeat([''], l:delta), getbufline(l:highest[0], l:highest[1])[0]))
+endfunction
+"}}}
+
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                            Autocommands

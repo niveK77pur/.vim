@@ -8,12 +8,12 @@ if [[ -z "$1" ]]
 then
         echo "Usage: $(basename $0) NAME [KEY] [TIME]"
         echo 
-        echo "NAME - seperate words with dashes (-)"
+        echo "NAME - seperate words with dashes (-); prefix categorie seperated by underscore (_)"
         echo 'KEY  - set the key signature (default: C major, see in `global.ly` file)'
         echo 'TIME - set time signature (default: 4/4, see in `global.ly` file)'
         echo
         echo "Examples ..."
-        echo "NAME : the-title-of-the-song"
+        echo "NAME : 'ARR-000_the-title-of-the-song' or simply 'the-title-of-the-song'"
         echo "       use underscore (_) to give 'Untitled'"
         echo "KEY  : append M or m to denote major or minor."
         echo "          aM gives a major"
@@ -24,36 +24,34 @@ then
 fi
 
 VERSION=$(lilypond --version | head -n 1 | awk '{ print $3 }')
-MAINFILE="main.ly"
+PROJECT="$1"
 GLOBALFILE="global.ly"
 
 # set the name of the project
 if [[ "$1" = "_" ]]
 then
         NAME="Untitled"
+        MAINFILE="Untitled.ly"
 else
-        NAME="$1"
+        NAME="${1#*_}"
+        MAINFILE="${NAME}.ly"
 fi
 
 # make sure the project does not exist
-[[ -d "$NAME" ]] && { echo "'$NAME' already exists. Aborting."; exit 1; }
+[[ -d "$PROJECT" ]] && { echo "'$PROJECT' already exists. Aborting."; exit 1; }
 
 # put all the files in place
-mkdir "$NAME"
-cd "$NAME"
+mkdir "$PROJECT"
+cd "$PROJECT"
 cp "/home/kevin/.vim/skeletons/Lilypond/newfile"/* .
 
 # Put lilypond's version in every file
 sed -i "s/\(.version \).*/\1\"$VERSION\"/" *.ly
-#for f in *.ly
-#do
-#        sed -i "s/\(.version \).*/\1\"$VERSION\"/" "$f"
-#done
-
 
 # set the title
 TITLE="${NAME//-/ }"
-sed -i "s/TITLE/$TITLE/" "$MAINFILE"
+sed -i "s/TITLE/$TITLE/" "main.ly"
+mv "main.ly" "$MAINFILE"
 
 
 # set the key signature

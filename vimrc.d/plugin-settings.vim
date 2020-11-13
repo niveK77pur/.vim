@@ -28,6 +28,7 @@ let g:AutoPairsShortcutToggle = "<Leader><M-p>"
 augroup AutoPairsVim
     " au FileType vim let b:AutoPairs = remove(g:AutoPairs, '"')
     au FileType vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", '`':'`'}
+    au FileType lilypond let b:AutoPairs = {'{':'}','"':'"', '`':'`'}
     " au FileType vim inoremap " ""<Left>
 augroup END
 
@@ -48,7 +49,6 @@ let g:coc_global_extensions = [
     \ 'coc-ultisnips',
     \ 'coc-vimlsp', 
     \ 'coc-python',
-    \ 'coc-java',
     \ 'coc-vimtex'
 \ ]
 
@@ -136,3 +136,68 @@ let g:indentLine_char_list = ['│', '|', '¦', '┆', '┊']
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 let g:netrw_silent = 1
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                                 vim-pencil
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+" let g:pencil#autoformat = 1
+" let g:pencil#wrapModeDefault = 'hard'   " default is 'hard'
+" " let g:pencil#textwidth = 74
+" " let g:pencil#cursorwrap = 1     " 0=disable, 1=enable (def)
+
+" nnoremap <Leader>pt :PencilToggle<CR>
+" nnoremap <Leader>po :PencilOff<CR>
+" nnoremap <Leader>ph :PencilHard<CR>
+" nnoremap <Leader>ps :PencilSoft<CR>
+
+" let g:turnPencilOff = v:false
+" nnoremap <Leader>i :let g:turnPencilOff = v:true<CR>:PencilHard<CR>i
+" nnoremap <Leader>a :let g:turnPencilOff = v:true<CR>:PencilHard<CR>a
+
+" augroup pencil
+"     autocmd!
+"     au FileType text call pencil#init({'wrap': 'hard'})
+"     au FileType tex,latex,markdown call pencil#init({'wrap': 'hard'})
+"     au InsertLeave *.tex if g:turnPencilOff | call execute('PencilOff') | let g:turnPencilOff = v:false | endif
+"     au FileType clipboard call pencil#init({'wrap': 'soft', 'autoformat': 0})
+" augroup END
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                                  vim-ditto
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+" Turn Ditto on and off
+nmap <Leader>dt <Plug>ToggleDitto
+" Jump to the next word
+nmap <Leader>dn <Plug>DittoNext
+" Jump to the previous word
+nmap <Leader>dp <Plug>DittoPrev
+" Ignore the word under the cursor
+nmap <Leader>d+ <Plug>DittoGood
+" Stop ignoring the word under the cursor
+nmap <Leader>d- <Plug>DittoBad
+" Show the next matches
+nmap <Leader>d> <Plug>DittoMore
+" Show the previous matches
+nmap <Leader>d< <Plug>DittoLess
+
+augroup ditto
+    autocmd!
+    au FileType markdown,text,tex,latex DittoOn
+augroup END
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                                 vim-lexical
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+" let g:lexical#spell = 1         " 0=disabled, 1=enabled
+" let g:lexical#spelllang = ['en_us','en_ca',]
+" let g:lexical#thesaurus = ['~/.vim/thesaurus/mthesaur.txt',]
+" let g:lexical#dictionary = ['/usr/share/dict/words',]
+
+" augroup lexical
+"     autocmd!
+"     au FileType markdown,text,tex,latex call lexical#init()
+"     au FileType clipboard call lexical#init()
+" augroup END

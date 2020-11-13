@@ -77,6 +77,14 @@ nnoremap <Leader>]P "+]P
 
 "}}}1
 
+" execute macros comfortably (and remove unnecessary ex mode, see :h gQ)
+nnoremap Q @
+
+" conveniently execute macro in register 'q'
+nnoremap <space> @q
+" empty the 'q' register to avoid running a macro by accident
+nnoremap <c-space> :let @q=""<CR>
+
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Settings
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -86,9 +94,6 @@ noremap <F3> :set relativenumber! number! relativenumber?<CR><ESC>
 
 "Toggle line wrapping
 noremap <F5> :set wrap! wrap?<CR>
-
-" execute macros comfortably (and remove unnecessary ex mode, see :h gQ)
-nnoremap Q @
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Interface

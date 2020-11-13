@@ -6,8 +6,7 @@ inoremap <buffer> <LocalLeader>w <c-o>:w<CR>
 inoremap <buffer> <LocalLeader>u <c-o>u
 inoremap <buffer> <LocalLeader>r <c-o><c-r>
 
-"make headers
-nnoremap <buffer> <LocalLeader>h ------------------------------------
-
 "join paragraph into single line
 nnoremap <LocalLeader>J vipJ0}}{j
+
+nnoremap <buffer> <LocalLeader><space> gqip

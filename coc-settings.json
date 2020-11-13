@@ -4,7 +4,7 @@
   "python.jediEnabled" : true,
 
   "java.jdt.ls.vmargs": "-Dfile.encoding=UTF-8 -noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication",
-  "java.home": "/usr/lib/jvm/default-runtime/",
+  "java.home": "/usr/lib/jvm/default-runtime/" 
   
   // "languageserver": {
   //   "swift": {

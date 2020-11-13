@@ -143,10 +143,10 @@ snippet ti "\time ..."
 \time $1 = $2
 endsnippet
 
-snippet km "\key ... \minor"
-\key $1 \minor
+snippet 'k(\w+)m' "\key ... \minor" r
+\key `!p snip.rv = match.group(1)` \minor
 endsnippet
 
-snippet kM "\key ... \major"
-\key $1 \major
+snippet 'k(\w+)M' "\key ... \major" r
+\key `!p snip.rv = match.group(1)` \major
 endsnippet

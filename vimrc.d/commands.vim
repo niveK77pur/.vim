@@ -12,4 +12,6 @@ command! -nargs=+ -range Align <line1>,<line2>call Align(<f-args>)
 
 command! -nargs=1 SetLanguage call SetLanguage(<f-args>)
 
+command! -nargs=+ -range Exchange <line1>,<line2>call Exchange(<f-args>)
+
 command! XX %s#\s\+$##e <bar> x

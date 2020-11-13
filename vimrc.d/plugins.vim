@@ -21,12 +21,20 @@ call plug#begin('~/.vim/plugged/')
     " Plug 'liuchengxu/vista.vim'
     " Plug 'JetBrains/ideavim'
     " Plug 'junegunn/vim-peekaboo'
+    " Plug 'szymonmaszke/vimpyter'
+
+" Writing --------------------------------------------------------------------
+    " https://tomfern.com/posts/vim-for-writers
+    " Plug 'reedes/vim-pencil', { 'for' : ['tex', 'latex', 'text', 'clipboard'] }
+    Plug 'dbmrq/vim-ditto', { 'for' : ['tex', 'latex', 'text'] }
+    " Plug 'reedes/vim-lexical', { 'for' : ['tex', 'latex', 'text', 'clipboard'] }
+    " Plug 'reedes/vim-litecorrect', { 'for' : ['tex', 'latex', 'text'] }
+    " Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
 
 " Interface ------------------------------------------------------------------
     " Plug 'morhetz/gruvbox'
     Plug 'sainnhe/vim-color-forest-night'
     " Plug 'itchyny/vim-cursorword'
-    " Plug 'junegunn/goyo.vim', { 'on' : 'Goyo' }
     " Plug 'Yggdroot/indentLine', { 'on' : ['IndentLinesToggle', 'IndentLinesEnable', 'LeadingSpaceEnable', 'LeadingSpaceToggle'] }
 
 " Editing --------------------------------------------------------------------

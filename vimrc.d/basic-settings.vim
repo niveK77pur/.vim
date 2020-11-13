@@ -33,7 +33,7 @@ if &t_Co > 255
     endif
 endif
 
-"" Available colorschemes can be found in /usr/share/vim/vim74/colors/
+"" Available colorschemes can be found in /usr/share/vim/vimXX/colors/
 "colorscheme pablo
 "colorscheme ron "default
 "colorscheme morning
@@ -64,6 +64,8 @@ set tabstop=4
 set shiftwidth=0
 set softtabstop=-1
 set expandtab
+set breakindent
+let &showbreak = '>'
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Interface
