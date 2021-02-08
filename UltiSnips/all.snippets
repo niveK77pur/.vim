@@ -36,6 +36,10 @@ endsnippet
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                    Headers
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# https://asciiart.website/
+# https://asciiart.website/index.php?art=art%20and%20design/borders
+# https://www.asciiart.eu/art-and-design/dividers
+# http://www.asciiworld.com/-Edges-and-Funds-.html
 
 snippet MH "MakeHeader(...)" b
 `!p text_len = get_tw() - len(get_cc())`
@@ -49,4 +53,13 @@ endsnippet
 snippet MS "MakeSection(...)" b
 `!p text_len = get_tw() - len(get_cc()) - len(t[1]) - 2`
 `!p snip.rv = get_cc()` ${1:${VISUAL}} `!p snip.rv = '-' * text_len`
+endsnippet
+
+snippet banner "Cool text banner" b
+           ___`!p snip.rv = "_"*len(t[1])`___
+  ________|   `!p snip.rv = " "*len(t[1])`   |_______
+  \       |   ${1:${VISUAL}}   |      /
+   ›      |___`!p snip.rv = "_"*len(t[1])`___|     ‹
+  /__________)`!p snip.rv = " "*len(t[1])`(_________\
+
 endsnippet

@@ -27,7 +27,7 @@ let g:AutoPairsMoveCharacter = ""   "Fix 'bug' where § does funny things in ins
 let g:AutoPairsShortcutToggle = "<Leader><M-p>"
 augroup AutoPairsVim
     " au FileType vim let b:AutoPairs = remove(g:AutoPairs, '"')
-    au FileType vim let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", '`':'`'}
+    au FileType vim,bspvideoscript let b:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'", '`':'`'}
     au FileType lilypond let b:AutoPairs = {'{':'}','"':'"', '`':'`'}
     " au FileType vim inoremap " ""<Left>
 augroup END
@@ -84,13 +84,15 @@ function! TexdocHandler(context)
 endfunction
 
 " Warnings to ignore ---------------------------------------------------------
-let g:vimtex_quickfix_latexlog = {
-    \ 'overfull' : 0,
-    \ 'underfull' : 0,
-    \ 'packages' : {
-    \    'hyperref' : 0,
-    \ },
-    \}
+let g:vimtex_quickfix_ignore_filters = [
+    \ 'Underfull',
+    \ 'Overfull',
+    \ ]
+    " \ 'overfull' : 0,
+    " \ 'underfull' : 0,
+    " \ 'packages' : {
+    " \    'hyperref' : 0,
+    " \ },
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                   fzf.vim
@@ -146,10 +148,10 @@ let g:netrw_silent = 1
 " " let g:pencil#textwidth = 74
 " " let g:pencil#cursorwrap = 1     " 0=disable, 1=enable (def)
 
-" nnoremap <Leader>pt :PencilToggle<CR>
-" nnoremap <Leader>po :PencilOff<CR>
-" nnoremap <Leader>ph :PencilHard<CR>
-" nnoremap <Leader>ps :PencilSoft<CR>
+nnoremap <Leader>pt :PencilToggle<CR>
+nnoremap <Leader>po :PencilOff<CR>
+nnoremap <Leader>ph :PencilHard<CR>
+nnoremap <Leader>ps :PencilSoft<CR>
 
 " let g:turnPencilOff = v:false
 " nnoremap <Leader>i :let g:turnPencilOff = v:true<CR>:PencilHard<CR>i

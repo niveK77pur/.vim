@@ -41,6 +41,7 @@ endif
 "colorscheme koehler
 let g:forest_night_transparent_background = 1
 colorscheme forest-night
+" colorscheme salvation
 " ~~~ gruvbox ~~~ {{{
 " if CheckColorsGruvbox()
 "         let g:gruvbox_italic=1

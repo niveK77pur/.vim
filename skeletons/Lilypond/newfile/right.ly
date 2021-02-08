@@ -3,6 +3,6 @@
 
 right = \absolute {
   \global
-  g'
+  r
 %}
 }

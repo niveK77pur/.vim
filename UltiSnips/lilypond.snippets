@@ -20,15 +20,15 @@ endsnippet
 
 snippet pt "Polyphonic passage << {===...} \new Voice {...} >>" b
 << { \voiceOne 
-		${VISUAL}$1
+		${VISUAL:r}$1
 	}
 	\new Voice { \voiceTwo 
-		$2
+		${2:r}
 	}
 >> \oneVoice
 endsnippet
 
-snippet p\ "<< {===...} \\ {...} >>" b
+snippet p\ "<< {===...} \\ {...} >>"
 << { ${VISUAL}$1 } \\\\ { $2 } >>
 endsnippet
 

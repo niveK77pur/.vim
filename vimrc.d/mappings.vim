@@ -34,8 +34,8 @@ inoremap jk <left><esc>
 " save and reload files "{{{
 inoremap <Leader>s <c-o>:wa<CR>
 nnoremap <Leader>s :wa<CR>
-inoremap <Leader>e <c-o>:e<CR>
-nnoremap <Leader>e :e<CR>
+" inoremap <Leader>e <c-o>:e<CR>
+" nnoremap <Leader>e :e<CR>
 "}}}
 
 " mapping for uni keyboard without <,> and \ "{{{
@@ -81,9 +81,13 @@ nnoremap <Leader>]P "+]P
 nnoremap Q @
 
 " conveniently execute macro in register 'q'
-nnoremap <space> @q
+" nnoremap <space> @q
+
 " empty the 'q' register to avoid running a macro by accident
-nnoremap <c-space> :let @q=""<CR>
+" nnoremap <c-space> :let @q=""<CR>
+
+" 'gf' but make it create new file if not existant
+nnoremap <Leader>gf :e <cfile><CR>
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Settings
@@ -112,8 +116,8 @@ inoremap <Leader>j [>VIM<]
 nnoremap <Leader>j /\[>VIM<\]<CR>
 
 " jump to and replace next [>VIM<] tag
-inoremap <Leader><space> <ESC>/\[>VIM<\]<CR>v//e<CR>s
-nnoremap <Leader><space> /\[>VIM<\]<CR>v//e<CR>s
+inoremap <Leader><c-space> <ESC>/\[>VIM<\]<CR>v//e<CR>s
+nnoremap <Leader><c-space> /\[>VIM<\]<CR>v//e<CR>s
 "}}}
 
 "Toggle highlighting stuff"{{{

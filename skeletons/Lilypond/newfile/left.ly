@@ -3,6 +3,6 @@
 
 left = \absolute {
   \global
-  f
+  r
 %}
 }

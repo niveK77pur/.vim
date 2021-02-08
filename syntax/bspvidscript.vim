@@ -1,16 +1,17 @@
-syntax region readReport start="READ" end=";;" skipnl
+" syntax region readReport start="READ" end="$" contains=readSection
+syntax region readReport start="READ" end="$"
 syntax region readAddition start="+" end="$"
-" syntax region readSection start="^" end="^"  skipnl
+" syntax region readSection start=/"/ end=/"/ contained
 
 syntax region videoComment start="%%" end=";;" skipnl
-syntax keyword textUncertain ??
+syntax region textUncertain start="??" end="$"
 syntax region textComment start="(" end=")" skipnl
 
 
 
 highlight link readReport   Special
 highlight link readAddition Constant
-" highlight link readSection  Error
+highlight readSection cterm=italic,bold ctermfg=11 ctermbg=NONE guifg=fg guibg=bg
 
 highlight link videoComment PreProc
 highlight link textComment Comment

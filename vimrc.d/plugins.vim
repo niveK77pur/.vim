@@ -25,7 +25,7 @@ call plug#begin('~/.vim/plugged/')
 
 " Writing --------------------------------------------------------------------
     " https://tomfern.com/posts/vim-for-writers
-    " Plug 'reedes/vim-pencil', { 'for' : ['tex', 'latex', 'text', 'clipboard'] }
+    Plug 'reedes/vim-pencil', { 'for' : ['tex', 'latex', 'text', 'clipboard'] }
     Plug 'dbmrq/vim-ditto', { 'for' : ['tex', 'latex', 'text'] }
     " Plug 'reedes/vim-lexical', { 'for' : ['tex', 'latex', 'text', 'clipboard'] }
     " Plug 'reedes/vim-litecorrect', { 'for' : ['tex', 'latex', 'text'] }
@@ -34,6 +34,7 @@ call plug#begin('~/.vim/plugged/')
 " Interface ------------------------------------------------------------------
     " Plug 'morhetz/gruvbox'
     Plug 'sainnhe/vim-color-forest-night'
+    " Plug 'branwright1/salvation-vim'
     " Plug 'itchyny/vim-cursorword'
     " Plug 'Yggdroot/indentLine', { 'on' : ['IndentLinesToggle', 'IndentLinesEnable', 'LeadingSpaceEnable', 'LeadingSpaceToggle'] }
 

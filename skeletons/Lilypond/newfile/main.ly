@@ -5,6 +5,12 @@
   %instrument = "Piano"
   composer = "VinLudens"
   %arranger = "Arr. by VinLudens"
+  tagline = \markup {
+    \with-url #"https://youtube.com/c/VinLudens"
+    \line {
+      "Engraving with Lilypond" $(lilypond-version) \char ##x2014 "https://youtube.com/c/VinLudens"
+    }
+  }
 }
 
 %#(set-global-staff-size 20)
@@ -22,7 +28,7 @@
 \score {
   \new PianoStaff \with {
     instrumentName = "Piano"
-  } <<
+  } << \accidentalStyle piano
     \new Staff = "right" \with {
       midiInstrument = "acoustic grand"
     } \right
