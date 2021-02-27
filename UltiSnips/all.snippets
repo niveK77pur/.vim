@@ -46,8 +46,6 @@ snippet MH "MakeHeader(...)" b
 `!p snip.rv = '{}{}'.format(get_cc(), '~' * text_len)`
 `!p snip.rv = get_cc() + ' ' * (get_tw()//2 - len(t[1])//2 - len(get_cc()))`${1:${VISUAL}}
 `!p snip.rv = '{}{}'.format(get_cc(), '~' * text_len)`
-
-$0
 endsnippet
 
 snippet MS "MakeSection(...)" b
@@ -61,5 +59,4 @@ snippet banner "Cool text banner" b
   \       |   ${1:${VISUAL}}   |      /
    ›      |___`!p snip.rv = "_"*len(t[1])`___|     ‹
   /__________)`!p snip.rv = " "*len(t[1])`(_________\
-
 endsnippet
