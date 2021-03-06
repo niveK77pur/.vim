@@ -47,3 +47,26 @@ def isPrime(n):
 				return False
 		return True
 endsnippet
+
+snippet timeit "enclose selection with time keeping code" b
+print("Starting $1 ...")
+from time import time
+s = time()
+${2:${VISUAL}}
+e = time()
+print("Finished $1.")
+print(">> Took {} seconds".format(e-s))
+endsnippet
+
+snippet timeitloop "enclose selection with time keeping code" b
+print("Starting $1 ...")
+from time import time
+time_entries = []
+for i in range(${2:10}):
+	s = time()
+	${3:${VISUAL}}
+	e = time()
+	time_entries.append(e-s)
+print("Finished $1.")
+print(">> Took {} seconds on average".format(sum(time_entries)/len(time_entries)))
+endsnippet

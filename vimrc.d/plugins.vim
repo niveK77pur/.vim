@@ -57,15 +57,17 @@ call plug#begin('~/.vim/plugged/')
     " Plug 'sukima/xmledit', { 'for' : ['html', 'xhtml', 'xml', 'php'] }
     
 " Collaboration --------------------------------------------------------------
-    if has('python')
-        Plug 'FredKSchott/CoVim', { 'on' : 'CoVim' }
-    endif
+    " if has('python')
+    "     Plug 'FredKSchott/CoVim', { 'on' : 'CoVim' }
+    " endif
     
 " Language Server ------------------------------------------------------------
     if v:version >= 800 || has('nvim')  " requires vim 8.0+ or neovim
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
     endif
 
-" Neovim candy ---------------------------------------------------------------
-    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+" Candy ----------------------------------------------------------------------
+    " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+    " Plug 'subnut/nvim-ghost.nvim', {'do': ':call nvim_ghost#installer#install()'}
+    Plug 'raghur/vim-ghost', { 'do': ':GhostInstall'}
 call plug#end()
