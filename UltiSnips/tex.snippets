@@ -73,23 +73,23 @@ snippet 't(i|t)' "ti,tt -> \textit{___},\texttt{___}" ir
 endsnippet
 
 snippet tb "\textbf{___}" i
-\textbf{${1:${VISUAL}}} 
+\textbf{${1:${VISUAL}}}
 endsnippet
 
 snippet em "\emph{___}" i
-\emph{${1:${VISUAL}}} 
+\emph{${1:${VISUAL}}}
 endsnippet
 
 snippet ul "\underline{___}" i
-\underline{${1:${VISUAL}}} 
+\underline{${1:${VISUAL}}}
 endsnippet
 
 snippet hl "\hl{___}" i
-\hl{${1:${VISUAL}}} 
+\hl{${1:${VISUAL}}}
 endsnippet
 
 snippet | "\verb|___|" i
-\verb|${1:${VISUAL}}| 
+\verb|${1:${VISUAL}}|
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -145,13 +145,13 @@ endsnippet
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 snippet includegraphics "command to include a graphic"
-\includegraphics[${2:width=$4\\${3:columnwidth}}]{$1}
+\includegraphics[${2:width=$4\\${3:linewidth}}]{$1}
 endsnippet
 
 snippet INCLUDEGRAPHICS "create figure containing the graphic" b
 \begin{figure}
 	\centering
-	\includegraphics[${4:width=$6\\${5:columnwidth}}]{$3}
+	\includegraphics[${4:width=$6\\${5:linewidth}}]{$3}
 	\caption{$1}
 	\label{fig:$2}
 \end{figure}
@@ -179,19 +179,19 @@ snippet frame "create a frame" b
 \end{frame}
 endsnippet
 
-snippet lframe "create a frame with label"
+snippet framel "create a frame with label"
 \begin{frame}[label=$2]{${1:Frame title}}
 	$0
 \end{frame}
 endsnippet
 
-snippet sframe "create a single slide frame" b
+snippet frames "create a single slide frame" b
 \begin{frame}[environment=singleslide]{${1:Frame title}}
 	$0
 \end{frame}
 endsnippet
 
-snippet lsframe "create a Labeled Single slide frame" b
+snippet framels "create a Labeled Single slide frame" b
 \begin{frame}[environment=singleslide, label=$2]{${1:Frame title}}
 	$0
 \end{frame}

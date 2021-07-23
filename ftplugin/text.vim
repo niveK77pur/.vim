@@ -1,5 +1,6 @@
 setl textwidth=70
 setl tabstop=4
+setl nosmartindent
 
 "inoremap jk jk
 inoremap <buffer> <LocalLeader>w <c-o>:w<CR>

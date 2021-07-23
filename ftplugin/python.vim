@@ -1,4 +1,6 @@
 setlocal define=def
+setlocal conceallevel=2
+setlocal concealcursor=n
 
 let b:template_file = "$HOME/.vim/skeletons/Python/templates.py"
 

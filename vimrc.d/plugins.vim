@@ -33,7 +33,7 @@ call plug#begin('~/.vim/plugged/')
 
 " Interface ------------------------------------------------------------------
     " Plug 'morhetz/gruvbox'
-    Plug 'sainnhe/vim-color-forest-night'
+    Plug 'sainnhe/everforest'
     " Plug 'branwright1/salvation-vim'
     " Plug 'itchyny/vim-cursorword'
     " Plug 'Yggdroot/indentLine', { 'on' : ['IndentLinesToggle', 'IndentLinesEnable', 'LeadingSpaceEnable', 'LeadingSpaceToggle'] }
@@ -55,6 +55,7 @@ call plug#begin('~/.vim/plugged/')
     Plug 'lervag/vimtex', { 'for' : ['latex', 'tex', 'plaintex', 'context', 'bib'] }
     " Plug 'sheerun/vim-polyglot'
     " Plug 'sukima/xmledit', { 'for' : ['html', 'xhtml', 'xml', 'php'] }
+    Plug 'mfukar/robotframework-vim', { 'for': ['robot'] }
     
 " Collaboration --------------------------------------------------------------
     " if has('python')
@@ -67,7 +68,9 @@ call plug#begin('~/.vim/plugged/')
     endif
 
 " Candy ----------------------------------------------------------------------
-    " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
-    " Plug 'subnut/nvim-ghost.nvim', {'do': ':call nvim_ghost#installer#install()'}
-    Plug 'raghur/vim-ghost', { 'do': ':GhostInstall'}
+    if has('nvim')
+        " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+        " Plug 'subnut/nvim-ghost.nvim', {'do': ':call nvim_ghost#installer#install()'}
+        Plug 'raghur/vim-ghost', { 'do': ':GhostInstall'}
+    endif
 call plug#end()

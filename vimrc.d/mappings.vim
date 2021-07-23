@@ -29,14 +29,13 @@ nnoremap <Leader>L :exe 'tabnew' join(g:localrc#search(g:localrc_filename), ' ')
 nnoremap <F2> :set paste! paste?<CR>
 
 " exit insert mode more comfortably
-inoremap jk <left><esc> 
+inoremap jk <esc>
 
-" save and reload files "{{{
+" save and reload files
 inoremap <Leader>s <c-o>:wa<CR>
 nnoremap <Leader>s :wa<CR>
 " inoremap <Leader>e <c-o>:e<CR>
 " nnoremap <Leader>e :e<CR>
-"}}}
 
 " mapping for uni keyboard without <,> and \ "{{{
 " noremap  § <
@@ -50,33 +49,29 @@ nnoremap <Leader>s :wa<CR>
 " cnoremap ¬ \
 "}}}
 
-" Add 'TEST<<' to end of line and remove these lines {{{
+" Add 'TEST<<' to end of line and remove these lines
 inoremap <Leader>tt <ESC>:exe 'normal A' . b:comment_character . '<<TEST<<'<CR>
 nnoremap <Leader>tt      :exe 'normal A' . b:comment_character . '<<TEST<<'<CR>
 nnoremap <Leader>td :g/<<TEST<</normal dd<CR>
-" }}}
 
 " Registers ------------------------------------------------------------------{{{1
 
 " paste text in " register more easily in insert mode
 inoremap <a-p> <c-r>"
 
-" copy directly to clipboard "{{{
+" copy directly to clipboard
 nnoremap <Leader>yy "+yy
 vnoremap <Leader>y "+y
-"}}}
 
-" paste directly from clipboard "{{{
+" paste directly from clipboard
 nnoremap <Leader>p "+p
 nnoremap <Leader>P "+P
 nnoremap <Leader>[p "+[p
 nnoremap <Leader>]p "+]p
 nnoremap <Leader>[P "+[P
 nnoremap <Leader>]P "+]P
-"}}}
 
-"}}}1
-
+" Macros ------------------------------------------------------------------{{{1
 " execute macros comfortably (and remove unnecessary ex mode, see :h gQ)
 nnoremap Q @
 
@@ -86,8 +81,13 @@ nnoremap Q @
 " empty the 'q' register to avoid running a macro by accident
 " nnoremap <c-space> :let @q=""<CR>
 
+"}}}1
+
 " 'gf' but make it create new file if not existant
 nnoremap <Leader>gf :e <cfile><CR>
+
+" add '{{{' and '}}}' markings for folding
+nnoremap <Leader>{ :call append('.', [GetCommentCharacter() . '{{{', GetCommentCharacter() . '}}}'])<CR>
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Settings

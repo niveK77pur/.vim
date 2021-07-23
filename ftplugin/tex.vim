@@ -10,6 +10,7 @@ setlocal spell
 "allow concealing with vimtex
 setlocal conceallevel=2
 setlocal concealcursor=n
+setlocal nosmartindent
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                Abbreviations
@@ -35,9 +36,9 @@ vnoremap <buffer> <LocalLeader>2 s\enquote{}<ESC>P
 "}}}
 
 "save, undo, redo w/o leaving insert mode {{{
-inoremap <buffer> <LocalLeader>w <c-o>:w<CR>
-inoremap <buffer> <LocalLeader>u <c-o>u
-inoremap <buffer> <LocalLeader>r <c-o><c-r>
+" inoremap <buffer> <LocalLeader>w <c-o>:w<CR>
+" inoremap <buffer> <LocalLeader>u <c-o>u
+" inoremap <buffer> <LocalLeader>r <c-o><c-r>
 "}}}
 
 "text manipulation {{{
@@ -81,6 +82,14 @@ nnoremap <LocalLeader>d :w !detex \| wc -w<CR>
 
 " make math brackets with '\left' and '\right'
 nnoremap <LocalLeader>( :s#[([]#\\left&#ge <BAR> s#[)\]]#\\right&#ge<CR>
+
+" add references/citations '\ref{}' {{{
+inoremap <LocalLeader>rf \ref{fig:}<LEFT>
+inoremap <LocalLeader>rs \ref{sec:}<LEFT>
+inoremap <LocalLeader>ra \ref{app:}<LEFT>
+inoremap <LocalLeader>rt \ref{tab:}<LEFT>
+inoremap <LocalLeader>c  \cite{}<LEFT>
+"}}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                Miscellaneous

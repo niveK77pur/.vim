@@ -255,7 +255,7 @@ function! s:SetupGhostBuffer()
     let l:fname = expand("%:a")
     if l:fname =~# '\v/ghost-(github|reddit)\.com-'
         set ft=markdown
-    elseif l:fname =~# '/ghost-localhost.*jupyter-notebook'
+    elseif l:fname =~# '/ghost-localhost.*jupyter-'
         set ft=python
         set tw=0
     endif

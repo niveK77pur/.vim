@@ -39,8 +39,6 @@ endif
 "colorscheme morning
 "colorscheme shine
 "colorscheme koehler
-let g:forest_night_transparent_background = 1
-colorscheme forest-night
 " colorscheme salvation
 " ~~~ gruvbox ~~~ {{{
 " if CheckColorsGruvbox()
@@ -50,6 +48,22 @@ colorscheme forest-night
 "         set bg=dark
 "         "call ToggleBackgroundTime(6,19)
 " endif
+" }}}
+" ~~~ everforest ~~~ {{{
+" Important!!
+if has('termguicolors')
+    set termguicolors
+endif
+" For dark version.
+" set background=dark
+" For light version.
+" set background=light
+" Set contrast.
+" This configuration option should be placed before `colorscheme everforest`.
+" Available values: 'hard', 'medium'(default), 'soft'
+" let g:everforest_background = 'hard'
+let g:everforest_transparent_background = 1
+colorscheme everforest
 " }}}
 
 " Additional settings for colorschemes ---------------------------------------
@@ -112,6 +126,8 @@ set backspace=2
 set splitright
 set shiftround
 set modeline
+set backup
+set backupdir=/tmp
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                        Settings for auto-completion
