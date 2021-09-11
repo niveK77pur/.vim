@@ -25,8 +25,11 @@ set spellfile+=~/.vim/spell/en.utf-8.add
 "                            Colorschemes for vim
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-if &t_Co > 255
-    set termguicolors
+if &t_Co > 255 && $TERM !=# "linux"
+    " $TERM ==# 'linux' if it is running in a tty
+    if has('termguicolors')
+        set termguicolors
+    endif
     if !has('nvim')
         let &t_8f = "\<esc>[38;2;%lu;%lu;%lum"
         let &t_8b = "\<esc>[48;2;%lu;%lu;%lum"
@@ -51,9 +54,9 @@ endif
 " }}}
 " ~~~ everforest ~~~ {{{
 " Important!!
-if has('termguicolors')
-    set termguicolors
-endif
+" if has('termguicolors')
+"     set termguicolors
+" endif
 " For dark version.
 " set background=dark
 " For light version.
@@ -116,6 +119,35 @@ set stl+=\ %03l/%L      " current line and total lines
 set stl+=,%02c          " column number
 set stl+=%V             " Virtual column number (not displayed if equal to %c)
 set stl+=\ %P
+" }}}
+
+" Defining function to be used for 'foldtext'. {{{
+function! MyFoldText()
+    let fillchar = "."
+    " let folding_sign = '>'
+    " let folding_sign = "祉"
+    let folding_sign = ""
+    " let folding_sign = ""
+    " let folding_sign = ""
+    " let folding_sign = ""
+    let folded_line_num = v:foldend - v:foldstart
+    let foldline = {
+                \ 'spaces' : substitute(getline(v:foldstart), '^\s*\zs.*', '', ''),
+                \ 'text' : substitute(getline(v:foldstart), '^\s*','',''),
+                \}
+    let line_text_left = foldline['spaces'] . folding_sign .
+                \ ' {lvl.' . v:foldlevel . '} ' .
+                \ substitute(foldline['text'], '\s*'.split(&foldmarker,',')[0].'\d*\s*', '', '') .
+                \ ' '
+    let line_text_right = ' [' . folded_line_num . 'L]'
+    let fillcharcount = (&textwidth>0 ? &textwidth : 80) - len(line_text_left) - len(line_text_right)
+    " Hard-coded value adjustment due to Nerd Font icon character length not
+    " being correctly computed.
+    let fillcharcount = fillcharcount + 2
+    return line_text_left . repeat(fillchar, fillcharcount) . line_text_right
+endfunction
+set foldtext=MyFoldText()
+set fillchars=fold:\ ,vert:\|
 " }}}
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

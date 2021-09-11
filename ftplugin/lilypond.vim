@@ -86,7 +86,7 @@ iabbrev i. <c-o>o\bar "\|."<CR><ESC>
 " iabbrev p\\ <ESC>:call FromTemplate("DoublePoly2")<CR>
 " iabbrev pt  <ESC>:call FromTemplate("TempPoly")<CR>
 
-iabbrev shape \shape #<C-V>'(([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]))
+" iabbrev shape \shape #<C-V>'(([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]) ([>VIM<] . [>VIM<]))
 
 "}}}
 
