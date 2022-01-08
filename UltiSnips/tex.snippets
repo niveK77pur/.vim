@@ -60,8 +60,20 @@ snippet url "\url{___}" i
 \url{${1:${VISUAL}}}
 endsnippet
 
-snippet ':(\w+)' "\gls{===}" ir
-\gls{`!p snip.rv = match.group(1)`}
+snippet '(?<![:tslf]):(\w+)' ":x -> \gls*{x}" ir
+\gls*{`!p snip.rv = match.group(1)`}
+endsnippet
+
+snippet '::(\w+)' "::x -> \glspl*{x}" ir
+\glspl*{`!p snip.rv = match.group(1)`}
+endsnippet
+
+snippet '([tslf]):(\w+)' "t:x -> \glsentrytext{x}" ir
+\glsentry`!p snip.rv = {'t':'text','s':'short','l':'long','f':'full'}[match.group(1)]`{`!p snip.rv = match.group(2)`}
+endsnippet
+
+snippet '!(.*?)!' "!...! -> \alert{...}" ir
+\alert{`!p snip.rv = match.group(1)`}
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -127,6 +139,14 @@ endsnippet
 
 snippet sq "\sqrt{___}" i
 \sqrt{${VISUAL}$1}$0
+endsnippet
+
+snippet '<(.)' "\vec{...}" ir
+\vec{`!p snip.rv = match.group(1)`}
+endsnippet
+
+snippet '<(.*?)>' "\overrightarrow{...}" ir
+\overrightarrow{`!p snip.rv = match.group(1)`}
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -198,7 +218,6 @@ snippet framels "create a Labeled Single slide frame" b
 endsnippet
 
 # Columns ----------------------------------------------------------------------
-
 snippet columns "create 2 columns" b
 \begin{columns}[c]
 	\column{0.5\textwidth}
@@ -221,6 +240,12 @@ snippet minicolumns "create 2 columns with minipages" b
 \end{columns}
 endsnippet
 
+# beamerarticle ----------------------------------------------------------------
+
+# snippet P "<presentation>" i
+# <presentation>
+# endsnippet
+
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #                                   Commands
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -231,4 +256,8 @@ endsnippet
 
 snippet UP "\usepackage[...]{___}" b
 \usepackage[$2]{${1:${VISUAL}}}
+endsnippet
+
+snippet 'newac ([^ ]+) (.*)' "\newacronym{...}{...}{...}" br
+\newacronym{`!p snip.rv = match.group(1).lower()`}{`!p snip.rv = match.group(1)`}{`!p snip.rv = match.group(2)`}
 endsnippet

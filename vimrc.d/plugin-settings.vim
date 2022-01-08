@@ -87,7 +87,11 @@ endfunction
 let g:vimtex_quickfix_ignore_filters = [
     \ 'Underfull',
     \ 'Overfull',
+    \ 'Font Warning:',
+    \ 'Empty bibliography',
+    \ 'LaTeX hooks Warning: Generic hook'
     \ ]
+    " \ 'siunitx/group-digits',
     " \ 'overfull' : 0,
     " \ 'underfull' : 0,
     " \ 'packages' : {

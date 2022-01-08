@@ -46,6 +46,13 @@ to set the ties explicitly such that we can avoid using the TieColumn object.
 NOTE from bug report:
 if we use \once, we have to put it at the time-step where the ties *complete*
 
+Modifying broken spanners ------------------------------------------------------
+
+Use the following to modify the parts of a broken spanner (i.e. line break)
+  [-]\alterBroken property values item
+This is an example of repositioning a broken phrasing slur
+  \once\alterBroken positions #'((2.5 . 4) (5 . 2.5)) PhrasingSlur
+
 Collision ----------------------------------------------------------------------
 
 use this to suppress the warning about clashing notes. Please note that this

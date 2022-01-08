@@ -9,6 +9,8 @@ setlocal nowrap
 setlocal tw=0
 setlocal autoread
 setlocal cursorline
+set comments-=://
+set comments-=b:#
 
 if exists(':CocDisable')
     silent CocDisable

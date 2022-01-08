@@ -48,15 +48,21 @@ endfunction
 
 
 function! GetCommentCharacter() "{{{
-    try
-        return g:NERDDelimiterMap[&filetype]['left']
-    catch /^Vim\%((\a\+)\)\=:E716/
-        if exists("b:comment_character")
-            return b:comment_character
-        else
-            return ""
+    " try
+    "     return g:NERDDelimiterMap[&filetype]['left']
+    " catch /^Vim\%((\a\+)\)\=:E716/
+        " if exists("b:comment_character")
+        "     return b:comment_character
+        " else
+        "     return ""
+        " endif
+    " endtry
+    for c in split(&comments, ',')
+        if c =~# '\v^b?:'
+            return substitute(c, '\v^.{-}:', '', '')
         endif
-    endtry
+    endfor
+    return ''
 endfunction
 "}}}
 

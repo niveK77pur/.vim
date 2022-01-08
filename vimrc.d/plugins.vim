@@ -50,7 +50,7 @@ call plug#begin('~/.vim/plugged/')
     " Plug $HOME . '/.vim/tests/vim-midi'
     
 " Language support -----------------------------------------------------------
-    Plug '/usr/share/lilypond/2.18.2/vim/', { 'for' : 'lilypond' }
+    Plug '/usr/share/lilypond/2.22.1/vim/', { 'for' : 'lilypond' }
     " Plug 'keith/swift.vim', { 'for' : 'swift' }
     Plug 'lervag/vimtex', { 'for' : ['latex', 'tex', 'plaintex', 'context', 'bib'] }
     " Plug 'sheerun/vim-polyglot'

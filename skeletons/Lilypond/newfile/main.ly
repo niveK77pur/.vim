@@ -1,16 +1,17 @@
 \version ""
 
+date = #(strftime "%B %d %Y" (localtime (current-time)))
 \header {
   title = "TITLE"
+  subtitle = "TODO: Page numbering on same side/place"
   %instrument = "Piano"
   composer = "VinLudens"
   %arranger = "Arr. by VinLudens"
-  tagline = \markup {
+  tagline = \markup { \center-column {
     \with-url #"https://youtube.com/c/VinLudens"
-    \line {
-      "Engraving with Lilypond" $(lilypond-version) \char ##x2014 "https://youtube.com/c/VinLudens"
-    }
-  }
+    \line { "Engraving with Lilypond" $(lilypond-version) \char ##x2014 "https://youtube.com/c/VinLudens" }
+    \line { \small \italic {  \date  } }
+  } }
 }
 
 %#(set-global-staff-size 20)

@@ -1,6 +1,6 @@
 set tabstop=4
 
-let g:NERDCustomDelimiters['c'] = g:NERDDelimiterMap['cpp']
+" let g:NERDCustomDelimiters['c'] = g:NERDDelimiterMap['cpp']
 
 iabb <buffer> <, << endl;
 

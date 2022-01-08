@@ -12,6 +12,11 @@ setlocal conceallevel=2
 setlocal concealcursor=n
 setlocal nosmartindent
 
+" default engine
+let g:vimtex_compiler_latexmk_engines = {
+    \ '_' : '-lualatex',
+    \ }
+
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                Abbreviations
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
