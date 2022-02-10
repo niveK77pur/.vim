@@ -1,3 +1,4 @@
+" vim: tw=78
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Settings
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -11,6 +12,7 @@ setlocal spell
 setlocal conceallevel=2
 setlocal concealcursor=n
 setlocal nosmartindent
+setlocal nofoldenable
 
 " default engine
 let g:vimtex_compiler_latexmk_engines = {
@@ -24,6 +26,22 @@ let g:vimtex_compiler_latexmk_engines = {
 " use ellipsis
 iabb <buffer> ... \ldots\
 iabb <buffer> latex \LaTeX MH
+
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                                  Functions
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function! LatexMakeLabel()
+	call append(line('.'), getline('.'))
+	" delete surrounding command
+	normal! j^df{f}D
+	" replace with dashes
+	s#\v%([[:space:]]|,)+#-#ge
+	" add \label{...} around the text
+	call setline(line('.'), '\label{' . getline('.') . '}')
+	" make lower case and position cursor
+	normal! 0gu$f{
+endfunction
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  Mappings
@@ -70,8 +88,8 @@ nnoremap <buffer> <LocalLeader>O o<CR><ESC>O
 "}}}
 
 "toggle spellcheck {{{
-inoremap <buffer> <LocalLeader>s <c-o>:set spell! spell?<CR>
-nnoremap <buffer> <LocalLeader>s :set spell! spell?<CR>
+" inoremap <buffer> <LocalLeader>s <c-o>:set spell! spell?<CR>
+" nnoremap <buffer> <LocalLeader>s :set spell! spell?<CR>
 "}}}
 
 "put word in a line into a \begin{word} and \end{word} {{{
@@ -89,12 +107,14 @@ nnoremap <LocalLeader>d :w !detex \| wc -w<CR>
 nnoremap <LocalLeader>( :s#[([]#\\left&#ge <BAR> s#[)\]]#\\right&#ge<CR>
 
 " add references/citations '\ref{}' {{{
-inoremap <LocalLeader>rf \ref{fig:}<LEFT>
-inoremap <LocalLeader>rs \ref{sec:}<LEFT>
-inoremap <LocalLeader>ra \ref{app:}<LEFT>
-inoremap <LocalLeader>rt \ref{tab:}<LEFT>
-inoremap <LocalLeader>c  \cite{}<LEFT>
+inoremap <LocalLeader>rf ~\ref{fig:}<LEFT>
+inoremap <LocalLeader>rs ~\ref{sec:}<LEFT>
+inoremap <LocalLeader>ra ~\ref{app:}<LEFT>
+inoremap <LocalLeader>rt ~\ref{tab:}<LEFT>
+inoremap <LocalLeader>c  ~\cite{}<LEFT>
 "}}}
+
+nnoremap <LocalLeader>L :call LatexMakeLabel()<CR>
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                Miscellaneous

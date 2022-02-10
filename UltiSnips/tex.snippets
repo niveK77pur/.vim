@@ -60,12 +60,12 @@ snippet url "\url{___}" i
 \url{${1:${VISUAL}}}
 endsnippet
 
-snippet '(?<![:tslf]):(\w+)' ":x -> \gls*{x}" ir
-\gls*{`!p snip.rv = match.group(1)`}
+snippet '(?<![:tslf]):(\w+)' ":x -> \gls{x}" ir
+\gls{`!p snip.rv = match.group(1)`}
 endsnippet
 
-snippet '::(\w+)' "::x -> \glspl*{x}" ir
-\glspl*{`!p snip.rv = match.group(1)`}
+snippet '::(\w+)' "::x -> \glspl{x}" ir
+\glspl{`!p snip.rv = match.group(1)`}
 endsnippet
 
 snippet '([tslf]):(\w+)' "t:x -> \glsentrytext{x}" ir
@@ -137,9 +137,9 @@ snippet log "\log{___}" i
 \log{${VISUAL}$1}$0
 endsnippet
 
-snippet sq "\sqrt{___}" i
-\sqrt{${VISUAL}$1}$0
-endsnippet
+# snippet sq "\sqrt{___}" i
+# \sqrt{${VISUAL}$1}$0
+# endsnippet
 
 snippet '<(.)' "\vec{...}" ir
 \vec{`!p snip.rv = match.group(1)`}
@@ -147,6 +147,22 @@ endsnippet
 
 snippet '<(.*?)>' "\overrightarrow{...}" ir
 \overrightarrow{`!p snip.rv = match.group(1)`}
+endsnippet
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#                                    siunitx
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+snippet sn "\num{}"
+\num{$1}
+endsnippet
+
+snippet sq "\qty{}{}"
+\qty{$1}{$2}
+endsnippet
+
+snippet sa "\ang{}"
+\ang{$1}
 endsnippet
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -260,4 +276,11 @@ endsnippet
 
 snippet 'newac ([^ ]+) (.*)' "\newacronym{...}{...}{...}" br
 \newacronym{`!p snip.rv = match.group(1).lower()`}{`!p snip.rv = match.group(1)`}{`!p snip.rv = match.group(2)`}
+endsnippet
+
+snippet 'newgl ([^ ]+) (.*)' "\newglossaryentry{...}{name={...},description={...}}" br
+\newglossaryentry{`!p snip.rv = match.group(1).lower()`}{
+	name = {`!p snip.rv = match.group(1)`},
+	description = {`!p snip.rv =  match.group(2)`},
+}
 endsnippet
