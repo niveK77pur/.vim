@@ -58,6 +58,12 @@ let g:coc_global_extensions = [
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
+highlight link CocErrorVirtualText Exception
+highlight link CocWarningVirtualText Type
+" highlight link CocInfoVirtualText Special
+highlight link CocHintVirtualText Macro
+
+
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                   vimtex
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
