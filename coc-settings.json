@@ -1,5 +1,21 @@
 {
   "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.virtualTextPrefix": "    ┃ ",
+  // "diagnostic.virtualTextPrefix": "    ■ ",
+  // "diagnostic.virtualTextPrefix": "    ▶ ",
+  // "diagnostic.virtualTextPrefix": "    ツ ",
+  // "diagnostic.virtualTextPrefix": "    〃 ",
+  // "diagnostic.virtualTextPrefix": "    ◎ ",
+  // "diagnostic.virtualTextPrefix": "    ░ ",
+  // "diagnostic.virtualTextPrefix": "    █ ",
+  // "diagnostic.virtualTextPrefix": "    ‖ ",
+  // "diagnostic.virtualTextPrefix": "    ♯ ",
+  // "diagnostic.virtualTextPrefix": "    ※ ",
+  // "diagnostic.virtualTextPrefix": "    ∴ ",
+  // "diagnostic.virtualTextPrefix": "    ∵ ",
+  // "diagnostic.virtualTextPrefix": "    ∷ ",
 
   "python.jediEnabled" : true,
 

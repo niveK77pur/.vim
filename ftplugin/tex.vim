@@ -5,7 +5,7 @@
 
 setlocal tabstop=2
 setlocal textwidth=70
-setlocal noexpandtab
+" setlocal noexpandtab
 setlocal keywordprg=texdoc
 setlocal spell
 "allow concealing with vimtex
