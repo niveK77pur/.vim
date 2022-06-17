@@ -43,7 +43,7 @@ fi
 # put all the files in place
 mkdir "$PROJECT"
 cd "$PROJECT"
-cp "/home/kevin/.vim/skeletons/Lilypond/newfile"/* .
+cp "$HOME/.vim/skeletons/Lilypond/newfile"/* .
 
 # Put lilypond's version in every file
 sed -i "s/\(.version \).*/\1\"$VERSION\"/" *.ly
