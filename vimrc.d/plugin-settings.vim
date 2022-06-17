@@ -43,7 +43,7 @@ let CoVim_default_port = "8080"
 "                                     COC
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-let g:coc_node_path = '/usr/bin/node'
+"let g:coc_node_path = '/usr/bin/node'
 let g:coc_global_extensions = [
     \ 'coc-json',
     \ 'coc-ultisnips',
