@@ -181,3 +181,9 @@ inoremap <a-k> <up>
 inoremap <a-l> <right>
 "}}}
 
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"                             Floating terminals
+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+" uses 'vim-floaterm' plugin
+
+nnoremap <Leader><m-l> :FloatermNew --width=0.8 --height=0.8 --title=lazygit lazygit<CR>
