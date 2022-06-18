@@ -75,4 +75,5 @@ call plug#begin('~/.vim/plugged/')
         " Plug 'subnut/nvim-ghost.nvim', {'do': ':call nvim_ghost#installer#install()'}
         Plug 'raghur/vim-ghost', { 'do': ':GhostInstall'}
     endif
+    Plug 'voldikss/vim-floaterm'
 call plug#end()
