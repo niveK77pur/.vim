@@ -76,4 +76,5 @@ call plug#begin('~/.vim/plugged/')
         Plug 'raghur/vim-ghost', { 'do': ':GhostInstall'}
     endif
     Plug 'voldikss/vim-floaterm'
+
 call plug#end()
