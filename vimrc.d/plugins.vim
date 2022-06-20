@@ -45,6 +45,7 @@ call plug#begin('~/.vim/plugged/')
     " Plug 'metakirby5/codi.vim'
     " Plug 'dyng/ctrlsf.vim'
     " Plug 'tpope/vim-fugitive'
+    Plug 'junegunn/vim-easy-align'
 
 " Music ----------------------------------------------------------------------
     " Plug $HOME . '/.vim/tests/vim-midi'
