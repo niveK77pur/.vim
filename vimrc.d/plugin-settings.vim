@@ -14,10 +14,10 @@ let g:NERDCustomDelimiters = {
 "                                  NERDTree
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-"Toggle NERDTree
-nnoremap <Leader>nn :NERDTreeToggle<CR>
-nnoremap <Leader>nb :NERDTreeFocus<CR>:BookmarkToRoot 
-nnoremap <Leader>N  :NERDTreeFocus<CR>
+" "Toggle NERDTree
+" nnoremap <Leader>nn :NERDTreeToggle<CR>
+" nnoremap <Leader>nb :NERDTreeFocus<CR>:BookmarkToRoot 
+" nnoremap <Leader>N  :NERDTreeFocus<CR>
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                  AutoPairs

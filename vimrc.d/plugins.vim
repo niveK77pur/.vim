@@ -9,7 +9,7 @@ call plug#begin('~/.vim/plugged/')
     " Plug 'junegunn/vim-plug'
     
 " Handy tools ----------------------------------------------------------------
-    Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
+    " Plug 'scrooloose/nerdtree', { 'on' : ['NERDTree', 'NERDTreeToggle', 'NERDTreeFocus'] }
     Plug 'thinca/vim-localrc'
     Plug 'terryma/vim-multiple-cursors'
     Plug 'junegunn/fzf', { 'do': './install --xdg --all --no-fish' }
