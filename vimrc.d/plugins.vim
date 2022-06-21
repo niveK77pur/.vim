@@ -25,7 +25,7 @@ call plug#begin('~/.vim/plugged/')
 
 " Writing --------------------------------------------------------------------
     " https://tomfern.com/posts/vim-for-writers
-    Plug 'reedes/vim-pencil', { 'for' : ['tex', 'latex', 'text', 'clipboard'] }
+    Plug 'preservim/vim-pencil', { 'for' : ['tex', 'latex', 'text', 'clipboard'] }
     Plug 'dbmrq/vim-ditto', { 'for' : ['tex', 'latex', 'text', 'markdown'] }
     " Plug 'reedes/vim-lexical', { 'for' : ['tex', 'latex', 'text', 'clipboard'] }
     " Plug 'reedes/vim-litecorrect', { 'for' : ['tex', 'latex', 'text'] }
