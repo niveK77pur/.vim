@@ -58,7 +58,7 @@ call plug#begin('~/.vim/plugged/')
     Plug 'lervag/vimtex', { 'for' : ['latex', 'tex', 'plaintex', 'context', 'bib'] }
     " Plug 'sheerun/vim-polyglot'
     " Plug 'sukima/xmledit', { 'for' : ['html', 'xhtml', 'xml', 'php'] }
-    Plug 'mfukar/robotframework-vim', { 'for': ['robot'] }
+    " Plug 'mfukar/robotframework-vim', { 'for': ['robot'] }
     
 " Collaboration --------------------------------------------------------------
     " if has('python')
