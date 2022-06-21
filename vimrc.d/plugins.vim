@@ -76,7 +76,7 @@ call plug#begin('~/.vim/plugged/')
     if has('nvim')
         " Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
         " Plug 'subnut/nvim-ghost.nvim', {'do': ':call nvim_ghost#installer#install()'}
-        Plug 'raghur/vim-ghost', { 'do': ':GhostInstall'}
+        Plug 'raghur/vim-ghost', { 'do': ':GhostInstall', 'on': 'GhostStart' }
     endif
     Plug 'voldikss/vim-floaterm'
 
