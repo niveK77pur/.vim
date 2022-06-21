@@ -283,11 +283,8 @@ augroup END
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 " https://github.com/junegunn/vim-easy-align#1-plug-mappings-interactive-mode
-nmap ga <Plug>(EasyAlign)
-xmap ga <Plug>(EasyAlign)
-
-" use original 'ga' command
-nnoremap <Leader>ga ga
+nmap <Leader>a <Plug>(EasyAlign)
+xmap <Leader>a <Plug>(EasyAlign)
 
 " https://github.com/junegunn/vim-easy-align#disabling-foldmethod-during-alignment
 let g:easy_align_bypass_fold = 1
