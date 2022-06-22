@@ -210,27 +210,27 @@ endsnippet
 
 # Frames -----------------------------------------------------------------------
 snippet frame "create a frame" b
-\begin{frame}{${1:Frame title}}
+\begin{frame}{${1:Frame title}} %{{{
 	$0
-\end{frame}
+\end{frame} %}}}
 endsnippet
 
 snippet framel "create a frame with label"
-\begin{frame}[label=$2]{${1:Frame title}}
+\begin{frame}[label=$2]{${1:Frame title}} %{{{
 	$0
-\end{frame}
+\end{frame} %}}}
 endsnippet
 
 snippet frames "create a single slide frame" b
-\begin{frame}[environment=singleslide]{${1:Frame title}}
+\begin{frame}[environment=singleslide]{${1:Frame title}} %{{{
 	$0
-\end{frame}
+\end{frame} %}}}
 endsnippet
 
 snippet framels "create a Labeled Single slide frame" b
-\begin{frame}[environment=singleslide, label=$2]{${1:Frame title}}
+\begin{frame}[environment=singleslide, label=$2]{${1:Frame title}} %{{{
 	$0
-\end{frame}
+\end{frame} %}}}
 endsnippet
 
 # Columns ----------------------------------------------------------------------
@@ -254,6 +254,12 @@ snippet minicolumns "create 2 columns with minipages" b
 			$2
 		\end{minipage}
 \end{columns}
+endsnippet
+
+# Speaker notes ----------------------------------------------------------------
+
+snippet 'n([0-9-]*)' "add speaker note" br
+\note`!p snip.rv = '<{}>'.format(match.group(1)) if match.group(1) else ''`[item]{$1}
 endsnippet
 
 # beamerarticle ----------------------------------------------------------------
