@@ -69,7 +69,7 @@ call plug#begin('~/.vim/plugged/')
     
 " Language Server ------------------------------------------------------------
     if v:version >= 800 || has('nvim')  " requires vim 8.0+ or neovim
-        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocUpdate' }
     endif
 
 " Candy ----------------------------------------------------------------------
