@@ -33,11 +33,10 @@ augroup AutoPairsVim
 augroup END
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-"                                    CoVim
+"                                instant.nvim
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-let CoVim_default_name = "Mace Vimdu"
-let CoVim_default_port = "8080"
+let g:instant_username = "Mace Vimdu"
 
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                     COC

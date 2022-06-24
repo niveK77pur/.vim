@@ -63,10 +63,8 @@ call plug#begin('~/.vim/plugged/')
     " Plug 'mfukar/robotframework-vim', { 'for': ['robot'] }
     
 " Collaboration --------------------------------------------------------------
-    " if has('python')
-    "     Plug 'FredKSchott/CoVim', { 'on' : 'CoVim' }
-    " endif
-    
+    Plug 'jbyuki/instant.nvim'
+
 " Language Server ------------------------------------------------------------
     if v:version >= 800 || has('nvim')  " requires vim 8.0+ or neovim
         Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': ':CocUpdate' }
