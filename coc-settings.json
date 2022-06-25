@@ -17,14 +17,18 @@
   // "diagnostic.virtualTextPrefix": "    ∵ ",
   // "diagnostic.virtualTextPrefix": "    ∷ ",
 
+  // Python settings
   "python.jediEnabled" : true,
 
+  // Vimtex settings
   "coc.source.vimtex.enable": true
   
+  // Java settings
   // "java.jdt.ls.vmargs": "-Dfile.encoding=UTF-8 -noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication",
   // "java.home": "/usr/lib/jvm/default-runtime/",
   // "java.import.gradle.enabled": true,
 
+  // Swift settings
   // "languageserver": {
   //   "swift": {
   //     "trace.server": "verbose",
