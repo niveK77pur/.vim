@@ -4,7 +4,11 @@
   "python.jediEnabled" : true,
 
   // Vimtex settings
-  "coc.source.vimtex.enable": true
+  "coc.source.vimtex.enable": true,
+
+  // coc-sh settings
+  "sh.enable": true,
+  "sh.highlightParsingErrors": true,
   
   // Java settings
   // "java.jdt.ls.vmargs": "-Dfile.encoding=UTF-8 -noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication",
