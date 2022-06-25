@@ -1,21 +1,4 @@
 {
-  "diagnostic.checkCurrentLine": true,
-  "diagnostic.virtualText": true,
-  "diagnostic.virtualTextCurrentLineOnly": false,
-  "diagnostic.virtualTextPrefix": "    ┃ ",
-  // "diagnostic.virtualTextPrefix": "    ■ ",
-  // "diagnostic.virtualTextPrefix": "    ▶ ",
-  // "diagnostic.virtualTextPrefix": "    ツ ",
-  // "diagnostic.virtualTextPrefix": "    〃 ",
-  // "diagnostic.virtualTextPrefix": "    ◎ ",
-  // "diagnostic.virtualTextPrefix": "    ░ ",
-  // "diagnostic.virtualTextPrefix": "    █ ",
-  // "diagnostic.virtualTextPrefix": "    ‖ ",
-  // "diagnostic.virtualTextPrefix": "    ♯ ",
-  // "diagnostic.virtualTextPrefix": "    ※ ",
-  // "diagnostic.virtualTextPrefix": "    ∴ ",
-  // "diagnostic.virtualTextPrefix": "    ∵ ",
-  // "diagnostic.virtualTextPrefix": "    ∷ ",
 
   // Python settings
   "python.jediEnabled" : true,
@@ -42,4 +25,23 @@
   //   }
   // }
   
+  // CoC Settings
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.virtualText": true,
+  "diagnostic.virtualTextCurrentLineOnly": false,
+  "diagnostic.virtualTextPrefix": "    ┃ "
+  // "diagnostic.virtualTextPrefix": "    ■ ",
+  // "diagnostic.virtualTextPrefix": "    ▶ ",
+  // "diagnostic.virtualTextPrefix": "    ツ ",
+  // "diagnostic.virtualTextPrefix": "    〃 ",
+  // "diagnostic.virtualTextPrefix": "    ◎ ",
+  // "diagnostic.virtualTextPrefix": "    ░ ",
+  // "diagnostic.virtualTextPrefix": "    █ ",
+  // "diagnostic.virtualTextPrefix": "    ‖ ",
+  // "diagnostic.virtualTextPrefix": "    ♯ ",
+  // "diagnostic.virtualTextPrefix": "    ※ ",
+  // "diagnostic.virtualTextPrefix": "    ∴ ",
+  // "diagnostic.virtualTextPrefix": "    ∵ ",
+  // "diagnostic.virtualTextPrefix": "    ∷ ",
+
 }
