@@ -3,7 +3,6 @@
 date = #(strftime "%B %d %Y" (localtime (current-time)))
 \header {
   title = "TITLE"
-  subtitle = "TODO: Page numbering on same side/place"
   %instrument = "Piano"
   composer = "VinLudens"
   %arranger = "Arr. by VinLudens"
@@ -17,8 +16,11 @@ date = #(strftime "%B %d %Y" (localtime (current-time)))
 %#(set-global-staff-size 20)
 %showLastLength = R1 * 10
 
+pagenumheader = \markup { \fill-line { \null \fromproperty #'page:page-number-string } }
 \paper {
   #(set-paper-size "a4")
+  evenHeaderMarkup = \markup { \on-the-fly \print-page-number-check-first \pagenumheader }
+  oddHeaderMarkup = \evenHeaderMarkup
 }
 
 \include "global.ly"
