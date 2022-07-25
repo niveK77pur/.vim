@@ -48,9 +48,12 @@ let g:coc_global_extensions = [
     \ 'coc-lua',
     \ 'coc-python',
     \ 'coc-sh',
-    \ 'coc-ultisnips',
     \ 'coc-vimlsp', 
     \ 'coc-vimtex',
+    \ 'coc-ultisnips',
+    \ 'coc-syntax',
+    \ 'coc-emoji',
+    \ 'coc-dictionary',
 \ ]
 
 " nnoremap <expr><C-f> coc#util#has_float() ? coc#util#float_scroll(1) : "\<C-f>"
