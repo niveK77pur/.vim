@@ -62,6 +62,24 @@ let g:coc_global_extensions = [
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+"
+" Symbol renaming.
+nmap <silent> <leader>Cr <Plug>(coc-rename)
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> <Leader>Cgd <Plug>(coc-definition)
+nmap <silent> <Leader>Cgy <Plug>(coc-type-definition)
+nmap <silent> <Leader>Cgi <Plug>(coc-implementation)
+nmap <silent> <Leader>Cgr <Plug>(coc-references)
+
+" Formatting selected code.
+xmap <Leader>Cf  <Plug>(coc-format-selected)
+nmap <Leader>Cf  <Plug>(coc-format-selected)
 
 highlight link CocErrorVirtualText Exception
 highlight link CocWarningVirtualText Type
