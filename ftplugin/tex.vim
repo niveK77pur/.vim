@@ -116,6 +116,16 @@ inoremap <LocalLeader>c  ~\cite{}<LEFT>
 
 nnoremap <LocalLeader>L :call LatexMakeLabel()<CR>
 
+" transform to siunitx (i.e. xx m -> \qty{xx}{m}) {{{
+" put curser at beginning of number
+
+" \qty{}{}
+nnoremap <LocalLeader>sqq i\qty{<ESC>Elcw}{<ESC>Ea}<ESC>
+" \qtyrange{}{}{}
+nnoremap <LocalLeader>sqr i\qtyrange{<ESC>Elcw}{<ESC>Elcw}{<ESC>Ea}<ESC>
+
+"}}}
+
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "                                Miscellaneous
 "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
