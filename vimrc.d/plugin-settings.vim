@@ -46,7 +46,8 @@ let g:instant_username = "MaceVimdu"
 let g:coc_global_extensions = [
     \ 'coc-json',
     \ 'coc-lua',
-    \ 'coc-python',
+    \ 'coc-jedi',
+    \ 'coc-clangd',
     \ 'coc-sh',
     \ 'coc-vimlsp', 
     \ 'coc-vimtex',
