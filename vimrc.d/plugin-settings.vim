@@ -291,6 +291,10 @@ function! s:SetupGhostBuffer()
     elseif l:fname =~# '/ghost-localhost.*jupyter-'
         set ft=python
         set tw=0
+    elseif l:fname =~# '/ghost-www.overleaf'
+        set ft=tex
+        set tw=0
+        set ts=4 sw=0
     endif
 endfunction
 
