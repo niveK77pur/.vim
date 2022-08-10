@@ -67,24 +67,41 @@ endfunction
 "}}}
 
 function! MakeSection(...) "{{{
+        let l:indent = substitute(getline('.'), '^\s*\zs\S.*', '', '')
         let l:text = " " . join(a:000, " ") . " "
         let l:comment_character = GetCommentCharacter()
         let l:width = &textwidth > 0 ? &textwidth : 80
-        let l:banner = repeat('-', l:width - len(l:comment_character) - len(l:text))
+        let l:banner = repeat('-',
+                    \ l:width
+                    \ - len(l:comment_character) - len(l:text)
+                    \ - len(l:indent)
+                    \ )
         set paste
-        execute "normal o\r" . l:comment_character . l:text . l:banner
+        execute "normal o\r" . l:indent . l:comment_character . l:text . l:banner
         set nopaste
 endfunction
 "}}}
 
 function! MakeHeader(...) "{{{
+        let l:indent = substitute(getline('.'), '^\s*\zs\S.*', '', '')
         let l:text = join(a:000, ' ')
         let l:comment_character = GetCommentCharacter()
         let l:width = &textwidth ? &textwidth : 80
-        let l:space = l:comment_character . repeat(' ', l:width/2 - len(l:text)/2 - len(l:comment_character))
-        let l:banner = l:comment_character . repeat('~', l:width - len(l:comment_character))
+        let l:space = l:comment_character . repeat(' ',
+                    \ (l:width - len(l:indent))/2
+                    \ - len(l:text)/2
+                    \ - len(l:comment_character)
+                    \)
+        let l:banner = l:comment_character . repeat('~',
+                    \ l:width
+                    \ - len(l:comment_character)
+                    \ - len(l:indent)
+                    \ )
         set paste
-        execute "normal o\r" . l:banner . "\r" . l:space . l:text . "\r" . l:banner . "\r\e"
+        execute "normal o\r" .
+                    \ l:indent . l:banner . "\r" .
+                    \ l:indent . l:space . l:text . "\r" .
+                    \ l:indent . l:banner . "\r\e"
         set nopaste
 endfunction
 "}}}
