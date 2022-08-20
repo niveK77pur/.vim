@@ -129,7 +129,7 @@ endfunction
 " make octaves (relative pitch mode) {{{
 function! MakeOctave(pitch)
     " if g:pitch_mode == 'sign'
-        let match_pattern = '\(\s\+\)\([abcdefg]\%([ie]\?s\)*\)\(['',]*\)\|\ze<.\{-}>\zs'
+        let match_pattern = '\(\s\+\)\([abcdefg]\%([ie]\?s\)*\)\(['',]*=\?['',]*\)\|\ze<.\{-}>\zs'
         execute 's#' . match_pattern . '#\1<\2\3 \2' . a:pitch . '>#g' | s#<\s*[',]>##ge
     " else
     "     let match_pattern = '\(\s\+\)\([abcdefg]\%([ie]\?s\)*\)\%(\({\)\(-\?\d\+\)\(}\)\)\?\|\ze<.\{-}>\zs'
