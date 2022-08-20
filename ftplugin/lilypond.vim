@@ -7,6 +7,7 @@ setlocal number
 setlocal nowrap
 " setlocal scrollbind
 setlocal tw=0
+setlocal ts=2
 setlocal autoread
 setlocal cursorline
 set comments-=://
