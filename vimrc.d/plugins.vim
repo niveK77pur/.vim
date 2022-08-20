@@ -56,7 +56,8 @@ call plug#begin('~/.vim/plugged/')
     " Plug '/usr/share/lilypond/2.22.1/vim/', { 'for' : 'lilypond' }
     " Plug '/usr/local/bin', { 'for' : 'lilypond' }
     " Plug 'sersorrel/vim-lilypond', { 'for' : 'lilypond' }
-    " Plug 'martineausimon/vim-lilypond-suite', { 'for' : 'lilypond' }
+    Plug 'martineausimon/nvim-lilypond-suite', { 'for' : 'lilypond' }
+    Plug 'MunifTanjim/nui.nvim' " required for nvim-lilypond-suite
     " Plug 'keith/swift.vim', { 'for' : 'swift' }
     Plug 'lervag/vimtex', { 'for' : ['latex', 'tex', 'plaintex', 'context', 'bib'] }
     " Plug 'sheerun/vim-polyglot'
