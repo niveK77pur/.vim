@@ -126,7 +126,7 @@ function! ShowArticulations()
 endfunction
 "}}}
 
-" make octaves {{{
+" make octaves (relative pitch mode) {{{
 function! MakeOctave(pitch)
     " if g:pitch_mode == 'sign'
         let match_pattern = '\(\s\+\)\([abcdefg]\%([ie]\?s\)*\)\(['',]*\)\|\ze<.\{-}>\zs'
