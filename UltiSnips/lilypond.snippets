@@ -135,12 +135,8 @@ endsnippet
 #                                     Score
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-snippet ct "\clef 'treble'"
-\clef "treble" $0
-endsnippet
-
-snippet cb "\clef 'bass'"
-\clef "bass" $0
+snippet 'c([tb])([_^]\d+)?' "\clef 'treble'" r
+\clef "`!p snip.rv = { 't':'treble', 'b':'bass' }[match.group(1)] + (match.group(2) or '')`" $0
 endsnippet
 
 snippet te "\tempo d = v"
