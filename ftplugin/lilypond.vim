@@ -127,6 +127,7 @@ endfunction
 "}}}
 
 " make octaves (relative pitch mode) {{{
+" TODO: take over cautionary pitches (? and !) -> put on both notes of octave
 function! MakeOctave(pitch)
     " if g:pitch_mode == 'sign'
         let match_pattern = '\(\s\+\)\([abcdefg]\%([ie]\?s\)*\)\(['',]*=\?['',]*\)\|\ze<.\{-}>\zs'
